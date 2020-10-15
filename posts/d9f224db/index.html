@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Scapy是一个可以让用户发送、侦听和解析并伪装网络报文的Python程序。这些功能可以用于制作侦测、扫描和攻击网络的工具。 换言之，Scapy 是一个强大的操纵报文的交互程序。它可以伪造或者解析多种协议的报文，还具有发送、捕获、匹配请求和响应这些报文以及更多的功能。Scapy 可以轻松地做到像扫描(scanning)、路由跟踪(tracerouting)、探测(probing)、单元测试(uni">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Scapy小工具">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/d9f224db/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="Scapy是一个可以让用户发送、侦听和解析并伪装网络报文的Python程序。这些功能可以用于制作侦测、扫描和攻击网络的工具。 换言之，Scapy 是一个强大的操纵报文的交互程序。它可以伪造或者解析多种协议的报文，还具有发送、捕获、匹配请求和响应这些报文以及更多的功能。Scapy 可以轻松地做到像扫描(scanning)、路由跟踪(tracerouting)、探测(probing)、单元测试(uni">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-21T02:11:45.000Z">
+<meta property="article:modified_time" content="2020-09-22T09:54:03.127Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="tools">
+<meta property="article:tag" content="scapy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/d9f224db/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Python Scapy小工具 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/d9f224db/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python Scapy小工具
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-21 10:11:45" itemprop="dateCreated datePublished" datetime="2020-09-21T10:11:45+08:00">2020-09-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-22 17:54:03" itemprop="dateModified" datetime="2020-09-22T17:54:03+08:00">2020-09-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><code>Scapy</code>是一个可以让用户发送、侦听和解析并伪装网络报文的Python程序。这些功能可以用于制作侦测、扫描和攻击网络的工具。</p>
+<p>换言之，<code>Scapy</code> 是一个强大的操纵报文的交互程序。它可以伪造或者解析多种协议的报文，还具有发送、捕获、匹配请求和响应这些报文以及更多的功能。<code>Scapy</code> 可以轻松地做到像扫描(scanning)、路由跟踪(tracerouting)、探测(probing)、单元测试(unit tests)、攻击(attacks)和发现网络(network discorvery)这样的传统任务。它可以代替<code>hping</code>,<code>arpspoof</code>,<code>arp-sk</code>,<code>arping</code>,<code>p0f</code> 甚至是部分的<code>Namp</code>,<code>tcpdump</code>和<code>tshark</code> 的功能。</p>
+<a id="more"></a>
+
+<h1 id="Scapy"><a href="#Scapy" class="headerlink" title="Scapy"></a>Scapy</h1><p>参考：</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9zY2FweS5yZWFkdGhlZG9jcy5pby9lbi9sYXRlc3QvdXNhZ2UuaHRtbCNpY21wLXBpbmc=">https://scapy.readthedocs.io/en/latest/usage.html#icmp-ping<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vYmFpaHVhbGluL3AvMTA3MzA1MTMuaHRtbA==">https://www.cnblogs.com/baihualin/p/10730513.html<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<p><code>Scapy</code>  主要做两件事：发送报文和接收回应。您定义一系列的报文，它发送这些报文，收到回应，将收到的回应和请求匹配，返回一个存放着(request,  answer)即(请求, 回应)的报文对(packet couples)的列表(list)和一个没有匹配的报文的列表(list)。这样对于像<code>Nmap</code>和<code>hping</code> 这样的工具有一个巨大的优势：回应没有被减少 (open/closed/filtered)而是完整的报文。</p>
+<p><strong>导入scapy方式：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用包解析"><a href="#常用包解析" class="headerlink" title="常用包解析"></a>常用包解析</h2><h3 id="SR包解析"><a href="#SR包解析" class="headerlink" title="SR包解析"></a>SR包解析</h3><p><code>sr(IP(dst=&#39;192.168.1.0/24&#39;)/TCP(dport=(1,65535)), timeout=2)</code></p>
+<p>发送三层数据包，等待接收一个或多个数据包的响应(注意：当依次向每个IP的65535个端口发送完才算执行完这个函数，而不是调用一次只发一个包，以下所有发包方式都与之一样)</p>
+<ul>
+<li>发送ICMP数据包，查看接受到的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>reply_packet = sr(IP(dst=<span class="string">&#x27;114.114.114.114&#x27;</span>)/ICMP(), timeout=<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(type(reply_packet))</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">tuple</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">print</span>(<span class="params">reply_packet</span>)</span></span><br><span class="line"><span class="class">(<span class="params">&lt;Results: TCP:<span class="number">0</span> UDP:<span class="number">0</span> ICMP:<span class="number">1</span> Other:<span class="number">0</span>&gt;, &lt;Unanswered: TCP:<span class="number">0</span> UDP:<span class="number">0</span> ICMP:<span class="number">0</span> Other:<span class="number">0</span>&gt;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>解析：返回的数据包为<code>tuple</code>格式，也即是元组。元组内第一个元素为接受到的响应包，第二个元素为没有接受到的响应包。</p>
+<ul>
+<li>查看响应包的内容</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(reply_packet[<span class="number">0</span>].res)</span><br><span class="line">[(&lt;IP  frag=<span class="number">0</span> proto=icmp dst=<span class="number">114.114</span><span class="number">.114</span><span class="number">.114</span> |&lt;ICMP  |&gt;&gt;, &lt;IP  version=<span class="number">4</span> ihl=<span class="number">5</span> tos=<span class="number">0x0</span> len=<span class="number">28</span> id=<span class="number">57023</span> flags= frag=<span class="number">0</span> ttl=<span class="number">76</span> proto=icmp chksum=<span class="number">0x9083</span> src=<span class="number">114.114</span><span class="number">.114</span><span class="number">.114</span> dst=<span class="number">192.168</span><span class="number">.90</span><span class="number">.17</span> |&lt;ICMP  type=echo-reply code=<span class="number">0</span> chksum=<span class="number">0x1600</span> id=<span class="number">0x0</span> seq=<span class="number">0x0</span> |&lt;Padding  load=<span class="string">&#x27;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&#x27;</span> |&gt;&gt;&gt;)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(reply_packet[<span class="number">0</span>].res[<span class="number">0</span>][<span class="number">1</span>].fields)</span><br><span class="line">&#123;<span class="string">&#x27;options&#x27;</span>: [], <span class="string">&#x27;version&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;ihl&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;tos&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;len&#x27;</span>: <span class="number">28</span>, <span class="string">&#x27;id&#x27;</span>: <span class="number">57023</span>, <span class="string">&#x27;flags&#x27;</span>: &lt;Flag <span class="number">0</span> ()&gt;, <span class="string">&#x27;frag&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;ttl&#x27;</span>: <span class="number">76</span>, <span class="string">&#x27;proto&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;chksum&#x27;</span>: <span class="number">36995</span>, <span class="string">&#x27;src&#x27;</span>: <span class="string">&#x27;114.114.114.114&#x27;</span>, <span class="string">&#x27;dst&#x27;</span>: <span class="string">&#x27;192.168.90.17&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解析：得到的响应包是个列表，第一个元素为发送的数据包，第二个元素为返回的数据包。使用<code>xx.res[0][1].fields</code>(返回字典)查看返回包的具体内容;同时也可以直接用show(返回字符串)方法查看包体内容。其实<code>reply_packet[0].res[0][1].fields</code> == <code>reply_packet[0].res[0][1][0].fields</code>,res的第三位[0]表示精确到第几层,这里[0]代表IP层,[1]进一层到传输层,[2]进一步到应用层。</p>
+<h3 id="SR1包解析"><a href="#SR1包解析" class="headerlink" title="SR1包解析"></a>SR1包解析</h3><p><code>reply_packet = sr1(IP(dst=&#39;114.114.114.114&#39;)/ICMP(), timeout=2)</code></p>
+<p>发送三层数据包，并仅仅只等待接收一个数据包的响应</p>
+<ul>
+<li>发送ICMP数据包，查看接受到的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>reply_packet = sr1(IP(dst=<span class="string">&#x27;114.114.114.114&#x27;</span>)/ICMP(), timeout=<span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(reply_packet)</span><br><span class="line"><span class="string">b&#x27;E\x00\x00\x1cu\xb7\x00\x00K\x01\xfa\x8brrrr\xc0\xa8Z\x11\x00\x00\x16\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(reply_packet.fields)</span><br><span class="line">&#123;<span class="string">&#x27;options&#x27;</span>: [], <span class="string">&#x27;version&#x27;</span>: <span class="number">4</span>, <span class="string">&#x27;ihl&#x27;</span>: <span class="number">5</span>, <span class="string">&#x27;tos&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;len&#x27;</span>: <span class="number">28</span>, <span class="string">&#x27;id&#x27;</span>: <span class="number">30135</span>, <span class="string">&#x27;flags&#x27;</span>: &lt;Flag <span class="number">0</span> ()&gt;, <span class="string">&#x27;frag&#x27;</span>: <span class="number">0</span>, <span class="string">&#x27;ttl&#x27;</span>: <span class="number">75</span>, <span class="string">&#x27;proto&#x27;</span>: <span class="number">1</span>, <span class="string">&#x27;chksum&#x27;</span>: <span class="number">64139</span>, <span class="string">&#x27;src&#x27;</span>: <span class="string">&#x27;114.114.114.114&#x27;</span>, <span class="string">&#x27;dst&#x27;</span>: <span class="string">&#x27;192.168.90.17&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解析：sr1返回的对象没有太多复杂东西,直接相当于sr返回对象的<code>reply_packet[0].res[0][1]</code>,可以理解为sr1返回的对象是sr返回对象的一个子集。所以可以和sr一样直接用fields来读取其内容。</p>
+<h3 id="SRP包解析"><a href="#SRP包解析" class="headerlink" title="SRP包解析"></a>SRP包解析</h3><p><code>reply_packet = srp(Ether(dst=&#39;00ff:ff:ff:ff:ff:ff&#39;)/IP(dst=&#39;114.114.114.114&#39;)/ICMP())</code></p>
+<p>发送二层数据包，并且等待回应(这个函数可以编辑二层头部，sr()不能编辑二层头部)</p>
+<ul>
+<li>发送ICMP数据包，查看接受到的数据</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>reply_packet = srp(Ether(dst=<span class="string">&#x27;00ff:ff:ff:ff:ff:ff&#x27;</span>)/IP(dst=<span class="string">&#x27;114.114.114.114&#x27;</span>)/ICMP())</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(reply_packet[<span class="number">0</span>].res[<span class="number">0</span>][<span class="number">1</span>].fields)</span><br><span class="line">&#123;<span class="string">&#x27;dst&#x27;</span>: <span class="string">&#x27;38:f9:d3:bd:38:f6&#x27;</span>, <span class="string">&#x27;src&#x27;</span>: <span class="string">&#x27;e8:68:19:42:1a:7d&#x27;</span>, <span class="string">&#x27;type&#x27;</span>: <span class="number">2048</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解析：这里默认只给出了二层头部,可以通过调节res后第三位的值来选择性查看每层信息,res的第三位[0]表示精确到第几层,[0]代表二层,[1]进一层到IP层,[2]进一步到传输层,[3]进一步到应用层</p>
+<h2 id="存活主机及端口扫描"><a href="#存活主机及端口扫描" class="headerlink" title="存活主机及端口扫描"></a>存活主机及端口扫描</h2><p>主要是为了探测内网存活主机以及端口扫描。使用了线程池，就是觉得简单，没考虑其他情况。。。</p>
+<ul>
+<li><p>-i 指定目标地址，192.168.90.2或者192.168.90.0/24</p>
+</li>
+<li><p>-t 同时指定线程池大小， –ta 指定存活主机扫描线程池，–tp指定端口扫描线程池</p>
+</li>
+<li><p>-p 80,81,88-90,90 指定扫描的端口，不指定则使用默认。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># FileName  :  surhpscan.py</span></span><br><span class="line"><span class="comment"># Time      :  2020/04/15 15:13:28</span></span><br><span class="line"><span class="comment"># Author    :  OuDeNiu</span></span><br><span class="line"><span class="comment"># Email     :  havebutno@gmail.com</span></span><br><span class="line"><span class="comment"># Version   :  1.0</span></span><br><span class="line"><span class="comment"># Descript  :  主要用于内网主机探测(首先探测存活主机，然后对存活主机端口扫描)</span></span><br><span class="line"><span class="comment">#                   冗余部分为测试代码，，，</span></span><br><span class="line">    <span class="comment"># 以下修改为了美化</span></span><br><span class="line">    <span class="comment"># scapy模块sendrecv.py 的 SndRcvHandler类   verbose参数(文件的88行)，修改为0</span></span><br><span class="line">        <span class="comment"># if verbose is None:</span></span><br><span class="line">        <span class="comment">#     verbose = 0</span></span><br><span class="line">        <span class="comment">#     # verbose = conf.verb</span></span><br><span class="line">    <span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> IPy</span><br><span class="line"><span class="keyword">from</span> colorama <span class="keyword">import</span> Fore, init</span><br><span class="line"><span class="keyword">from</span> concurrent.futures <span class="keyword">import</span> ThreadPoolExecutor</span><br><span class="line"><span class="keyword">from</span> optparse <span class="keyword">import</span> OptionParser</span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自动重置颜色</span></span><br><span class="line">init(autoreset=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Nscan</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, hosts, threads=None, ta=None, tp=None, inp_port=None</span>):</span></span><br><span class="line">        <span class="comment"># 默认扫描的端口好</span></span><br><span class="line">        self.default_port = [<span class="number">20</span>,<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">25</span>,<span class="number">80</span>,<span class="number">81</span>,<span class="number">82</span>,<span class="number">83</span>,<span class="number">84</span>,<span class="number">85</span>,<span class="number">86</span>,<span class="number">87</span>,<span class="number">88</span>,<span class="number">89</span>,<span class="number">90</span>,<span class="number">95</span>,<span class="number">107</span>,<span class="number">115</span>,<span class="number">135</span>,<span class="number">139</span>,<span class="number">161</span>,<span class="number">174</span>,<span class="number">389</span>,<span class="number">443</span>,<span class="number">445</span>,<span class="number">444</span>,<span class="number">465</span>,<span class="number">631</span>,<span class="number">636</span>,<span class="number">512</span>,<span class="number">513</span>,<span class="number">751</span>,<span class="number">1080</span>,<span class="number">1081</span>,<span class="number">1082</span>,<span class="number">1083</span>,<span class="number">1084</span>,<span class="number">1085</span>,<span class="number">1086</span>,<span class="number">1087</span>,<span class="number">1088</span>,<span class="number">1089</span>,<span class="number">1090</span>,<span class="number">1433</span>,<span class="number">1434</span>,<span class="number">1521</span>,<span class="number">1527</span>,<span class="number">1534</span>,<span class="number">1649</span>,<span class="number">1985</span>,<span class="number">1997</span>,<span class="number">1999</span>,<span class="number">3306</span>,<span class="number">3389</span>,<span class="number">5000</span>,<span class="number">5357</span>,<span class="number">5432</span>,<span class="number">5698</span>,<span class="number">6379</span>,<span class="number">7001</span>,<span class="number">7002</span>,<span class="number">8000</span>,<span class="number">8001</span>,<span class="number">8002</span>,<span class="number">8003</span>,<span class="number">8004</span>,<span class="number">8005</span>,<span class="number">8006</span>,<span class="number">8007</span>,<span class="number">8008</span>,<span class="number">8009</span>,<span class="number">8010</span>,<span class="number">8011</span>,<span class="number">8012</span>,<span class="number">8013</span>,<span class="number">8080</span>,<span class="number">8081</span>,<span class="number">8082</span>,<span class="number">8083</span>,<span class="number">8084</span>,<span class="number">8090</span>,<span class="number">8091</span>,<span class="number">8092</span>,<span class="number">8093</span>,<span class="number">9092</span>,<span class="number">27017</span>,<span class="number">11211</span>]</span><br><span class="line">        <span class="comment"># 存放最终需要扫描的IP</span></span><br><span class="line">        self.ips = []</span><br><span class="line">        <span class="comment"># 如果输入端口，则存放最终扫描的端口，如果不存放则使用默认的端口号</span></span><br><span class="line">        self.port_scan = []</span><br><span class="line">        <span class="comment"># 接收参数</span></span><br><span class="line">        self.hosts = hosts</span><br><span class="line">        self.inp_port = inp_port</span><br><span class="line">        self.threads = threads</span><br><span class="line">        self.ta = ta</span><br><span class="line">        self.tp = tp</span><br><span class="line">        <span class="comment"># 解析IP、线程、端口</span></span><br><span class="line">        self.recv_ip()</span><br><span class="line">        self.recv_thread()</span><br><span class="line">        self.recv_port()</span><br><span class="line">        <span class="comment"># 最终存活主机的IP地址</span></span><br><span class="line">        self.alive_ip = []</span><br><span class="line">        <span class="comment"># 端口扫描的结果 存放格式为：    [ [&#x27;IP&#x27;,[port,port,port] , [&#x27;IP&#x27;,[port,port,port]  ]</span></span><br><span class="line">        self.result_port_scan = []</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">recv_thread</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 处理传入的线程池大小  最后形成self.ta(存活主机探测线程池)   self.tp(端口扫描线程池)</span></span><br><span class="line">        <span class="keyword">if</span> self.threads <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">if</span> self.ta <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                self.ta = <span class="number">10</span></span><br><span class="line">                <span class="keyword">if</span> self.tp <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    self.tp = <span class="number">5</span></span><br><span class="line">                <span class="keyword">else</span>: </span><br><span class="line">                    self.tp = self.tp</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.ta = int(self.ta)</span><br><span class="line">                <span class="keyword">if</span> self.tp <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    self.tp = <span class="number">5</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.tp = int(self.tp)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.ta = self.tp = int(self.threads)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 解析IP并加入到需要探测的主机列表中</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">recv_ip</span>(<span class="params">self</span>):</span></span><br><span class="line">        inp_ips = self.hosts.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        <span class="comment"># 设置make_net 为1 时，可以自定义</span></span><br><span class="line">        <span class="keyword">for</span> ips <span class="keyword">in</span> inp_ips:</span><br><span class="line">            ips = IPy.IP(ips, make_net=<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">for</span> ip <span class="keyword">in</span> ips:</span><br><span class="line">                self.ips.append(str(ip))</span><br><span class="line">        print(Fore.YELLOW + <span class="string">&#x27;[*]:已将您输入的IP解析完毕。正在启动主机存活探测，请稍后。。。&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 解析端口</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">recv_port</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 如果不指定端口则默认端口，否则对输入的参数进行转化</span></span><br><span class="line">        <span class="keyword">if</span> inp_port <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.port_scan = self.default_port</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 以逗号分割输入的端口字符串</span></span><br><span class="line">            f_port = self.inp_port.split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">            <span class="comment"># 循环分割后的字符串，判断是否存在  &#x27;-&#x27; 号(为了可以实现  -p 81,82,8080-8090的方式)</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> f_port:</span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;-&#x27;</span> <span class="keyword">in</span> i:</span><br><span class="line">                    s_port = i.split(<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">                    <span class="keyword">for</span> port <span class="keyword">in</span> range(int(s_port[<span class="number">0</span>]),int(s_port[:<span class="number">-1</span>])+<span class="number">1</span>):</span><br><span class="line">                        self.port_scan.append(port)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    self.port_scan.append(int(i))</span><br><span class="line">            print(Fore.YELLOW + <span class="string">&#x27;端口处理完毕，已指派您指定的端口。&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 判断主机是否存活</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">check_host</span>(<span class="params">self, cip</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># # 利用ARP进行扫描，默认将扫描结果加入到存活主机列表中  self.alive_ip</span></span><br><span class="line">            <span class="comment"># a,b = arping(cip)</span></span><br><span class="line">            <span class="comment"># if a.res:</span></span><br><span class="line">            <span class="comment">#     print(&#x27;++++++++YES++++++++&#x27;)</span></span><br><span class="line">            <span class="comment">#     self.alive_ip.append(cip)</span></span><br><span class="line">            <span class="comment"># else:</span></span><br><span class="line">            <span class="comment">#     print(&#x27;主机不存活&#x27;)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 利用ICMP发包进行存活主机探测，默认只发一个包(可设置retry参数指定次数，但是受timeout参数影响，在不超时时间内重试),  timeout影响准确性，建议为大于1</span></span><br><span class="line">            a = sr1(IP(dst=cip)/ICMP()/<span class="string">&quot;ceshi&quot;</span>,timeout=<span class="number">1</span>)</span><br><span class="line">            <span class="comment"># 修改了sendrecv.py 的 SndRcvHandler类   verbose参数(文件的88行)，修改为0(非0时输出发包过程。这里为了自定义输出过程，美化程序。。。。。)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 判断响应包中ICMP是否为空，为空不存活，不为空输出 该IP存活，并将该IP加入到存活主机列表</span></span><br><span class="line">            <span class="keyword">if</span> a.getlayer(ICMP):</span><br><span class="line">                <span class="comment"># 输出存活信息 参考官网文档</span></span><br><span class="line">                print(Fore.GREEN + a.sprintf(<span class="string">&quot;[*] %IP.src% is alive&quot;</span>))</span><br><span class="line">                self.alive_ip.append(cip)</span><br><span class="line">                <span class="keyword">return</span> a.sprintf(<span class="string">&quot;[*] %IP.src% is alive&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="comment"># 设置屏蔽错误信息</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">            <span class="comment"># print(e)</span></span><br><span class="line">            <span class="comment"># print(&#x27;主机不存活&#x27;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># # 判断主机存活的线程池</span></span><br><span class="line">    <span class="comment"># def thread_check_alive(self):</span></span><br><span class="line">    <span class="comment">#     pool = ThreadPoolExecutor(self.ta)</span></span><br><span class="line">    <span class="comment">#     for ip in self.ips:</span></span><br><span class="line">    <span class="comment">#         pool.submit(self.check_host, ip)</span></span><br><span class="line">    <span class="comment">#     pool.shutdown()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># # scapy模块 sr()函数 TCP端口扫描(经过测试，在不开启多线程情况下，扫描准确性与timeout 有关，一般设置2s; 如果开启多线程，则扫描结果非常不精确。[未加锁情况下])</span></span><br><span class="line">    <span class="comment"># def check_port(self,cip):</span></span><br><span class="line">    <span class="comment">#     try:</span></span><br><span class="line">    <span class="comment">#         res,unans = sr(IP(dst=cip)/TCP(flags=&quot;S&quot;, dport=(self.default_port)),timeout=2)</span></span><br><span class="line">    <span class="comment">#         # 修改了sendrecv.py 的 SndRcvHandler类   verbose参数(文件的88行)，修改为0(非0时输出发包过程。这里为了自定义输出过程，美化程序。。。。。)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#         if res.res:</span></span><br><span class="line">    <span class="comment">#             port_reslut = []</span></span><br><span class="line">    <span class="comment">#             # 循环接受的数据包，读取其中头部flags信息，如果为SA则端口存活。</span></span><br><span class="line">    <span class="comment">#             for i in range(len(res.res)):</span></span><br><span class="line">    <span class="comment">#                 flags = res.res[i][1].getlayer(TCP).fields</span></span><br><span class="line">    <span class="comment">#                 if flags[&#x27;flags&#x27;] == &#x27;SA&#x27;:</span></span><br><span class="line">    <span class="comment">#                     port_reslut.append(flags[&#x27;sport&#x27;])</span></span><br><span class="line">    <span class="comment">#                     # RA 代表不存活 SA   存活</span></span><br><span class="line">    <span class="comment">#             # 经过上述循环判断，得到的存活端口号列表 与主机IP形成新的列表，存放在最终的扫描结果中。 如果端口扫描结果为空，则不计入最终结果</span></span><br><span class="line">    <span class="comment">#             if port_reslut:</span></span><br><span class="line">    <span class="comment">#                 cip_result = [cip,port_reslut]</span></span><br><span class="line">    <span class="comment">#                 self.result_port_scan.append(cip_result)</span></span><br><span class="line">    <span class="comment">#             else:pass</span></span><br><span class="line">    <span class="comment">#     except Exception as e:</span></span><br><span class="line">    <span class="comment">#         print(e)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># socket连接，不返回banner信息</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">socket_port_scan</span>(<span class="params">self,cip</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            port_reslut = []</span><br><span class="line">            <span class="comment"># 循环端口进行扫描</span></span><br><span class="line">            <span class="keyword">for</span> port <span class="keyword">in</span> self.port_scan:</span><br><span class="line">                s = socket.socket()</span><br><span class="line">                s.settimeout(<span class="number">0.5</span>)</span><br><span class="line">                <span class="comment"># print(&#x27;[*]:&#x27;+cip+ &#x27;:&#x27; +str(port))</span></span><br><span class="line">                <span class="keyword">if</span> s.connect_ex((cip, port)) == <span class="number">0</span>:</span><br><span class="line">                    <span class="comment"># print(&#x27;[+] : &#x27; + str(port))</span></span><br><span class="line">                    port_reslut.append(port) </span><br><span class="line">                    s.close()  </span><br><span class="line">            <span class="comment"># 经过上述循环判断，得到的存活端口号列表 与主机IP形成新的列表，存放在最终的扫描结果中。 如果端口扫描结果为空，则不计入最终结果</span></span><br><span class="line">            <span class="keyword">if</span> port_reslut:</span><br><span class="line">                cip_result = [cip,port_reslut]</span><br><span class="line">                self.result_port_scan.append(cip_result)</span><br><span class="line">                print(Fore.GREEN + <span class="string">&#x27;[*]:&#123;0&#125; 开放端口扫描完毕&#x27;</span>.format(cip))</span><br><span class="line">                <span class="keyword">return</span> &#123;cip:port_reslut&#125;</span><br><span class="line">            <span class="keyword">else</span>:<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="comment"># 屏蔽错误信息</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">            <span class="comment"># print(e)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># #socket端口扫描，返回banner信息， </span></span><br><span class="line">    <span class="comment"># # 但是由于测试中收到的信息无法解码，因此不调用该模块，先放在这里，不作处理(以前时可以的。。。。。。不知道为什么这里不行)</span></span><br><span class="line">    <span class="comment"># def socket_port_banner(self,cip):</span></span><br><span class="line">    <span class="comment">#     try:</span></span><br><span class="line">    <span class="comment">#         for port in self.default_port:</span></span><br><span class="line">    <span class="comment">#             s = socket.socket()</span></span><br><span class="line">    <span class="comment">#             s.settimeout(0.1)</span></span><br><span class="line">    <span class="comment">#             s.connect((host, port))</span></span><br><span class="line">    <span class="comment">#             s.sendall(bytes(r&#x27;aaa\r\n\r\n&#x27;, encoding=&#x27;utf-8&#x27;))</span></span><br><span class="line">    <span class="comment">#             banner = s.recv(1024)</span></span><br><span class="line">    <span class="comment">#             if banner:</span></span><br><span class="line">    <span class="comment">#                 print(Fore.GREEN + &#x27;[+] : &#x27; + str(port) + &#x27;\t&#x27; + banner.decode(&#x27;utf-8&#x27;))</span></span><br><span class="line">    <span class="comment">#             else:</span></span><br><span class="line">    <span class="comment">#                 print(Fore.GREEN + &#x27;[+] : &#x27; + str(port) + &#x27;\t&#x27; + &#x27;Unknow&#x27;)</span></span><br><span class="line">    <span class="comment">#             s.close()</span></span><br><span class="line">    <span class="comment">#     except:</span></span><br><span class="line">    <span class="comment">#         pass</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment"># # 对于存活的主机进行端口扫描的线程池</span></span><br><span class="line">    <span class="comment"># def thread_port_scan(self):</span></span><br><span class="line">    <span class="comment">#     p = ThreadPoolExecutor(self.tp)</span></span><br><span class="line">    <span class="comment">#     for ip in self.alive_ip:</span></span><br><span class="line">    <span class="comment">#         p.submit(self.socket_port_scan,ip)</span></span><br><span class="line">    <span class="comment">#     p.shutdown()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写入日志文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span>(<span class="params">l</span>):</span></span><br><span class="line">    <span class="keyword">if</span> l.result():</span><br><span class="line">        <span class="keyword">with</span> open(os.path.split(os.path.abspath(sys.argv[<span class="number">0</span>]))[<span class="number">0</span>]+<span class="string">&#x27;/surhpscan.txt&#x27;</span>,<span class="string">&#x27;a&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            f.write(str(l.result()) + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 线程池，接受函数，函数参数，线程池大小</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">thread_pool</span>(<span class="params">fn,pool,ips</span>):</span></span><br><span class="line">    p = ThreadPoolExecutor(pool)</span><br><span class="line">    <span class="keyword">for</span> ip <span class="keyword">in</span> ips:</span><br><span class="line">        p.submit(fn,ip).add_done_callback(log)</span><br><span class="line">    p.shutdown()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    usage = Fore.CYAN + <span class="string">&quot;%prog -i 192.168.10.0/24&quot;</span></span><br><span class="line">    parser = OptionParser(usage)</span><br><span class="line">    parser.add_option(<span class="string">&#x27;-i&#x27;</span>, <span class="string">&#x27;--ip&#x27;</span>, dest=<span class="string">&#x27;ip&#x27;</span>, help=<span class="string">&quot;设置扫描的IP地址&quot;</span>)</span><br><span class="line">    parser.add_option(<span class="string">&#x27;-t&#x27;</span>, <span class="string">&#x27;--threads&#x27;</span>, dest=<span class="string">&#x27;threads&#x27;</span>,</span><br><span class="line">                      help=<span class="string">&quot;同时指定,默认为None.Mac建议设置20左右,Win都可以。&quot;</span>, default=<span class="literal">None</span>)</span><br><span class="line">    parser.add_option(<span class="string">&#x27;-p&#x27;</span>, <span class="string">&#x27;--port&#x27;</span>, dest=<span class="string">&#x27;port&#x27;</span>,</span><br><span class="line">                      help=<span class="string">&#x27;自定义端口号：80,81,88-90,90&#x27;</span>, default=<span class="literal">None</span>)</span><br><span class="line">    parser.add_option(<span class="string">&#x27;--ta&#x27;</span>,dest=<span class="string">&#x27;thread_alive&#x27;</span>,help=<span class="string">&#x27;探测存活主机时的线程池(默认10)&#x27;</span>,default=<span class="number">10</span>)</span><br><span class="line">    parser.add_option(<span class="string">&#x27;--tp&#x27;</span>, dest=<span class="string">&#x27;thread_port_scan&#x27;</span>, help=<span class="string">&#x27;端口探测时线程池(默认5)&#x27;</span>,default=<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># parser.add_option()</span></span><br><span class="line">    (options, args) = parser.parse_args()</span><br><span class="line">    <span class="keyword">if</span> options.ip:</span><br><span class="line">        <span class="keyword">return</span> options.ip, options.threads, options.port, options.thread_alive, options.thread_port_scan</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        exit(parser.error(Fore.RED + <span class="string">&#x27;参数输入有误，请重试。&#x27;</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    banner = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                    .__                                       </span></span><br><span class="line"><span class="string">  ________ _________|  |__ ______  ______ ____ _____    ____  </span></span><br><span class="line"><span class="string"> /  ___/  |  \_  __ \  |  \\\\____ \/  ___// ___\\\__  \  /    \ </span></span><br><span class="line"><span class="string"> \___ \|  |  /|  | \/   Y  \  |_&gt; &gt;___ \\\\  \___ / __ \|   |  \\</span></span><br><span class="line"><span class="string">/____  &gt;____/ |__|  |___|  /   __/____  &gt;\___  &gt;____  /___|  /</span></span><br><span class="line"><span class="string">     \/                  \/|__|       \/     \/     \/     \/ </span></span><br><span class="line"><span class="string">                                               by zhangsan V1.0</span></span><br><span class="line"><span class="string">                                                 2019-12-30</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    start_time = datetime.datetime.now()</span><br><span class="line">    print(Fore.YELLOW + banner)</span><br><span class="line">    <span class="comment"># 获取参数</span></span><br><span class="line">    inp_ip, inp_threads, inp_port, inp_thread_alive, inp_thread_port_scan = main()</span><br><span class="line">    <span class="comment"># 如果同时指定线程池，初始化时候直接传入</span></span><br><span class="line">    <span class="comment"># hosts, threads=None, ta=None, tp=None, inp_port=None</span></span><br><span class="line">    nscan = Nscan(inp_ip,inp_threads,inp_thread_alive,inp_thread_port_scan,inp_port)</span><br><span class="line">    <span class="comment"># nscan.thread_check_alive()</span></span><br><span class="line">    <span class="comment"># nscan.thread_port_scan()</span></span><br><span class="line">    <span class="comment"># print(nscan.alive_ip)</span></span><br><span class="line">    <span class="comment"># print(len(nscan.alive_ip))</span></span><br><span class="line">    <span class="comment"># print(&#x27;+++++++++++++++++++++++&#x27;)</span></span><br><span class="line">    <span class="comment"># print(len(nscan.result_port_scan))</span></span><br><span class="line">    thread_pool(nscan.check_host,nscan.ta,nscan.ips)</span><br><span class="line">    print(Fore.YELLOW + <span class="string">&#x27;[+]:存活主机扫描完毕。共发现存活主机&#123;0&#125;台&#x27;</span>.format(len(nscan.alive_ip)))</span><br><span class="line">    print(Fore.CYAN + <span class="string">&#x27;[*]---------Port Scaning--------[*]&#x27;</span>)</span><br><span class="line">    thread_pool(nscan.socket_port_scan,nscan.tp,nscan.alive_ip)</span><br><span class="line">    <span class="comment"># 输出存活主机端口结果</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nscan.result_port_scan:</span><br><span class="line">        print(i)</span><br><span class="line">    print(Fore.YELLOW + <span class="string">&#x27;[+]:存活主机的端口已扫描完毕。有结果的共&#123;0&#125;条。&#x27;</span>.format(len(nscan.result_port_scan)))</span><br><span class="line">    end_time = datetime.datetime.now()</span><br><span class="line">    print(Fore.CYAN + <span class="string">&#x27;[Time] : 程序执行时间 &#123;0&#125; 秒&#x27;</span>.format((end_time - start_time).seconds))</span><br></pre></td></tr></table></figure>
+
+<h2 id="ARP扫描"><a href="#ARP扫描" class="headerlink" title="ARP扫描"></a>ARP扫描</h2><p>简单使用了ARP模块，没办法，毕竟是最快的。</p>
+<ul>
+<li>python3 cscan.py 192.168.90.1</li>
+<li>python3 cscan.py 192.168.90.0.24</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># FileName  :  cscan.py</span></span><br><span class="line"><span class="comment"># Time      :  2020/04/10 15:43:08</span></span><br><span class="line"><span class="comment"># Author    :  OuDeNiu</span></span><br><span class="line"><span class="comment"># Email     :  havebutno@gmail.com</span></span><br><span class="line"><span class="comment"># Version   :  1.0</span></span><br><span class="line"><span class="comment"># Descript  :  测试ARP</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> colorama <span class="keyword">import</span> Fore, init</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level = logging.NOTSET,format = <span class="string">&#x27;%(message)s&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自动重置颜色</span></span><br><span class="line">init(autoreset=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_host_arp</span>(<span class="params">cip</span>):</span></span><br><span class="line">    a,b = srp(Ether(dst=<span class="string">&quot;ff:ff:ff:ff:ff:ff&quot;</span>)/ARP(pdst=cip),timeout=<span class="number">5</span>)</span><br><span class="line">    <span class="comment"># print(a.res)</span></span><br><span class="line">    <span class="comment"># print(a.res)</span></span><br><span class="line">    <span class="comment"># print(a.res[0][1].getlayer(ARP).fields)</span></span><br><span class="line">    <span class="keyword">for</span> ip <span class="keyword">in</span> a.res:</span><br><span class="line">        <span class="comment"># print(ip[1].getlayer(ARP).fields)</span></span><br><span class="line">        <span class="comment"># mac = ip[1].getlayer(ARP).fields[&#x27;hwsrc&#x27;]</span></span><br><span class="line">        <span class="comment"># result_ip = ip[1].getlayer(ARP).fields[&#x27;psrc&#x27;]</span></span><br><span class="line">        result_ip = ip[<span class="number">1</span>].getlayer(ARP).fields[<span class="string">&#x27;psrc&#x27;</span>]</span><br><span class="line">        logging.debug(Fore.GREEN + str(result_ip) + <span class="string">&quot; is alive.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    start_time = datetime.datetime.now()</span><br><span class="line">    hosts = sys.argv[<span class="number">1</span>]</span><br><span class="line">    logging.debug(Fore.CYAN + <span class="string">&quot;开始扫描 &quot;</span> + hosts)</span><br><span class="line">    check_host_arp(hosts)</span><br><span class="line">    end_time = datetime.datetime.now()</span><br><span class="line">    print(Fore.CYAN + <span class="string">&#x27;[Time] : 程序执行时间 &#123;0&#125; 秒&#x27;</span>.format((end_time - start_time).seconds))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原本是想加上弱口令扫描的，因为python2 的socket返回的是字符串，python3的socket是字节，部分字节无法解码就出了问题。。。没有解决所以。。。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/d9f224db/" title="Python Scapy小工具">https://butnomingzi.github.io/posts/d9f224db/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/tools/" rel="tag"><i class="fa fa-tag"></i> tools</a>
+              <a href="/tags/scapy/" rel="tag"><i class="fa fa-tag"></i> scapy</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/c118d50/" rel="prev" title="MySQL小结">
+      <i class="fa fa-chevron-left"></i> MySQL小结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/546e1e49/" rel="next" title="MSSQL小结">
+      MSSQL小结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scapy"><span class="nav-number">1.</span> <span class="nav-text">Scapy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8C%85%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">常用包解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SR%E5%8C%85%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.1.</span> <span class="nav-text">SR包解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SR1%E5%8C%85%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">SR1包解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SRP%E5%8C%85%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">SRP包解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA%E5%8F%8A%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="nav-number">1.2.</span> <span class="nav-text">存活主机及端口扫描</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARP%E6%89%AB%E6%8F%8F"><span class="nav-number">1.3.</span> <span class="nav-text">ARP扫描</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">202k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:04</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>
