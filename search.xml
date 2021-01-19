@@ -3338,4 +3338,24 @@
         <tag>FoFa</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Lanproxy任意文件读取(CVE-2021-3019)</title>
+    <url>/posts/e603ef6a/</url>
+    <content><![CDATA[<p>Lanproxy是ffay个人开发者的一个可将局域网内服务代理到公网的内网穿透工具。被爆出任意文件读取。。</p>
+<a id="more"></a>
+
+<h1 id="CVE-2021-3019：Lanproxy任意文件读取"><a href="#CVE-2021-3019：Lanproxy任意文件读取" class="headerlink" title="CVE-2021-3019：Lanproxy任意文件读取"></a>CVE-2021-3019：Lanproxy任意文件读取</h1><h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><p>Lanproxy 0.1 存在路径遍历漏洞，该漏洞允许目录遍历读取/../conf/config.properties来获取到内部网连接的凭据。</p>
+<p><img src="/posts/e603ef6a/image-20210119092212627.png" alt="image-20210119092212627"></p>
+<h2 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">访问服务页面管理地址，抓包</span><br><span class="line">利用 ../进行路径遍历读取文件</span><br><span class="line">例如 ../conf/config.properties</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/posts/e603ef6a/image-20210119092022356.png" alt="image-20210119092022356"></p>
+<h2 id="修复方式"><a href="#修复方式" class="headerlink" title="修复方式"></a>修复方式</h2><p>目前厂商已发布升级补丁以修复漏洞，补丁获取链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">https://github.com/ffay/lanproxy/commits/master</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>漏洞复现</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
 </search>
