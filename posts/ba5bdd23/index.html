@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Sans SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"butnomingzi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":true,"sidebar":{"position":"right","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="记录非常用协议的基本用法（转载）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非常用协议记录">
+<meta property="og:url" content="https://butnomingzi.github.io/posts/ba5bdd23/index.html">
+<meta property="og:site_name" content="Tpp_Tgg">
+<meta property="og:description" content="记录非常用协议的基本用法（转载）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bw5hH9E5Ohaf0ibfjbYa6MickDgKBKHQ6nsoLZJ8zHESOzibW3Ce4Z6C7Zg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEMpEnSdn2YkvFTU6MafDiblOvLy4bHG3c2Hat4GqeJAvL1iaMfjrWVVwQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bwMkmxegMW1ib4wticu1CP7nNL38teoypk4aVk68YYMomdbo14TRhQIptA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://butnomingzi.github.io/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEqM0yURhvgxSOiczib7JIURTOEO0LegajkrA4G4TS5cekzspHbiat2SChw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEVfX5pmlQZYJAhk0geicephib4Tt76xFKdUT6DibbL0ZWl0A2LKbiabcFAQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEE6pmSpfY8CODkj6RSAY5CMYrUpaEpMlMdqS9vQt3mwCdm8px4ln6Pg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEBaicrWVkBriav3aJFIVYbFPsaASpKnPrz88D4tERiaDaTia3nI6729uMKQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bwAY5reCwsr8ibaUfUXicKSJcOBo2kRSa1aiaTy1Ieibf15HRwZBUkN7NibGg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4TE7fwwzHYW0XstQ6FbOb7uB8XMPib1MNPaFA6ibicxG2we0mjZkHPDNjvDiashScfvqRvf5icd0vU2djQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4TE7fwwzHYW0XstQ6FbOb7uWPflmwKia0P7aZKMpwfOALwSeVAGLr3thHxLA5fzV3MVyRc9LVLYKhg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2021-05-17T13:20:46.000Z">
+<meta property="article:modified_time" content="2021-05-17T13:24:42.161Z">
+<meta property="article:author" content="oudeniu">
+<meta property="article:tag" content="总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bw5hH9E5Ohaf0ibfjbYa6MickDgKBKHQ6nsoLZJ8zHESOzibW3Ce4Z6C7Zg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+<link rel="canonical" href="https://butnomingzi.github.io/posts/ba5bdd23/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>非常用协议记录 | Tpp_Tgg</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+    <!-- 鼠标樱花特效 -->
+  
+      <script async src="/js/src/fairyDustCursor.js"></script>
+  
+  <!-- 页面樱花特效 -->
+  
+    <script async src="/js/src/sakura.js"></script>
+  
+
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tpp_Tgg</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://butnomingzi.github.io/posts/ba5bdd23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="oudeniu">
+      <meta itemprop="description" content="一点都对，半点都没错。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tpp_Tgg">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          非常用协议记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-17 21:20:46 / 修改时间：21:24:42" itemprop="dateCreated datePublished" datetime="2021-05-17T21:20:46+08:00">2021-05-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">知识整理</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>记录非常用协议的基本用法（转载）。</p>
+<a id="more"></a>
+
+<h1 id="SecMap-非常用协议大礼包"><a href="#SecMap-非常用协议大礼包" class="headerlink" title="SecMap - 非常用协议大礼包"></a>SecMap - 非常用协议大礼包</h1><ul>
+<li>原文链接：<span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MvSExmQWNfYmlfcWhtaG5iZVN0aHZkZw==">https://mp.weixin.qq.com/s/HLfAc_bi_qhmhnbeSthvdg<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<h2 id="☁️-知识点介绍"><a href="#☁️-知识点介绍" class="headerlink" title="☁️ 知识点介绍"></a>☁️ 知识点介绍</h2><p>这里说的 “非常用” 是相对于 HTTP 这种非常知名的协议来说的。对于同是搞安全的橘友来说，像 gopher 这种协议其实也挺常用的，各位无需纠结这个，意思传达到了就好 <img src="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bw5hH9E5Ohaf0ibfjbYa6MickDgKBKHQ6nsoLZJ8zHESOzibW3Ce4Z6C7Zg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<h2 id="☁️-协议"><a href="#☁️-协议" class="headerlink" title="☁️ 协议"></a>☁️ 协议</h2><h3 id="🌧-gopher"><a href="#🌧-gopher" class="headerlink" title="🌧 gopher://"></a>🌧 gopher://</h3><p>协议详情：<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvR29waGVyXyglRTclQkQlOTElRTclQkIlOUMlRTUlOEQlOEYlRTglQUUlQUUp">https://zh.wikipedia.org/wiki/Gopher_(网络协议)<i class="fa fa-external-link-alt"></i></span></p>
+<p>gopher 协议，人送外号“万金油”，因为利用此协议可以攻击内网的 Web 应用、Redis、MySQL、FTP、Memcache 等等。本质上是因为 gopher 携带的数据可以插入 <code>\r\n</code>（<code>%0d%0a</code>），而很多组件就是利用 <code>\r\n</code> 来分隔连续的两条命令，所以它可以与很多组件进行连续交互，那么也就可以很方便地进行攻击了。</p>
+<p>gopher 协议的格式：<code>gopher://</code>+<code>ip:端口</code>+<code>/</code>+<code>_</code> + <code>TCP/IP 数据</code></p>
+<p>需要注意的是：</p>
+<ol>
+<li>gopher 协议的默认端口为 <code>70</code></li>
+<li>这里面的 <code>_</code>，这是分隔符，其实可以用任意 ASCII 字符</li>
+<li>分隔符后面的 TCP/IP 数据就是发出去的数据，数据部分如果有特殊字符必须要进行 url 编码，这样 gopher 协议才能正确解析</li>
+<li>大部分 PHP 并不会开启 fopen 的 gopher wrapper</li>
+<li>PHP file_get_contents 的 gopher 协议不能 URLencode</li>
+<li>PHP file_get_contents 的 gopher 协议的 302 跳转有 bug，导致利用失败</li>
+<li>PHP 的 curl 默认不跟随 302 跳转</li>
+<li>curl/libcurl v7.43 上 gopher 协议存在 <code>%00</code> 截断，v7.49 可用</li>
+</ol>
+<p>下面举几个比较典型的例子，其实原理都是一样的，很容易拓展到攻击其他组件。</p>
+<h4 id="❄️-发出-HTTP-请求"><a href="#❄️-发出-HTTP-请求" class="headerlink" title="❄️ 发出 HTTP 请求"></a>❄️ 发出 HTTP 请求</h4><p>例如，我们打算通过 gopher 协议，来完成一次 http 请求，那么我们最少需要发出这些数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: baidu.com</span><br></pre></td></tr></table></figure>
+
+<p>那么首先，把这些数据进行 url 编码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [1]: from urllib import parse</span><br><span class="line"></span><br><span class="line">In [2]: parse.quote(&#39;GET &#x2F; HTTP&#x2F;1.1\r\nHost: baidu.com\r\n\r\n&#39;)</span><br><span class="line">Out[2]: &#39;GET%20&#x2F;%20HTTP&#x2F;1.1%0D%0AHost%3A%20baidu.com%0D%0A%0D%0A&#39;</span><br></pre></td></tr></table></figure>
+
+<p>然后用 curl 即可通过 gopher 协议完成一次 http 请求：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>当然 POST 也是可以的。</p>
+<h4 id="❄️-攻击-MySQL"><a href="#❄️-攻击-MySQL" class="headerlink" title="❄️ 攻击 MySQL"></a>❄️ 攻击 MySQL</h4><p>同理，也可以访问其他服务，这里演示一下 MySQL 的。</p>
+<p>注意，mysql 的实验，需要配置 <code>skip_ssl</code> 来禁用 ssl，因为 gopher 无法处理 ssl 握手。</p>
+<p>按照我们实际想要达成的目的去使用 mysql，我称之为“录像”，期间用 wireshark 抓包，点击跟踪 TCP 流：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>简单起见，我这里仅仅是连上去之后执行了 <code>select &#39;tr0y&#123;Th1s_is_fl4g&#125;&#39;;</code> 就退出了（注意，这里一定要退出，原因见下面）。那么可以得到下面的数据：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>注意我们只需要发出数据，所以选择客户端发送到 MySQL 服务器的数据包，然后导出原始数据：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>wireshark 所谓的“原始数据”其实就是十六进制的数据，而我们小学二年级就知道，url 编码就是字符的十六进制数据表示，前面加个 %，故可得：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ba00000185a6ff0900000001ff00000000000000000000000000000000000000000000005472307900010063616368696e675f736861325f70617373776f7264007c035f6f73086f737831302e3136095f706c6174666f726d067838365f36340f5f636c69656e745f76657273696f6e06382e302e32330c5f636c69656e745f6e616d65086c69626d7973716c045f706964053238303337076f735f757365720a6d6163723070686167330c70726f6772616d5f6e616d65056d7973716c2300000003000173656c65637420404076657273696f6e5f636f6d6d656e74206c696d697420311e00000003000173656c6563742027747230797b546831735f69735f666c34677d270100000001</span><br></pre></td></tr></table></figure>
+
+<p>（这里的操作实际上会产生 4 个请求数据包，直接拼接在一起即可）</p>
+<p>发出：<img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEMpEnSdn2YkvFTU6MafDiblOvLy4bHG3c2Hat4GqeJAvL1iaMfjrWVVwQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>整个过程可以看做是先录制与 MySQL 交互的过程，然后利用 gopher 回放，所以录像中不能有随机因素，比如 ssl 握手，否则就无法回放。</p>
+<p>最后总结一下需要注意的事情：</p>
+<ol>
+<li>目标 MySQL 必须关闭 ssl（配置 <code>skip_ssl</code>）</li>
+<li>录制的时候，需要用 <code>-h</code> 指定 host，否则如果是搭建在本地的 mysql，会直接通过 sock 文件（默认是 <code>/tmp/mysql.sock</code>）进行进程通信，不走网卡所以抓不到包。</li>
+<li>目标 MySQL 必须配置无需认证。如果是用 <code>caching_sha2_password</code> 进行认证（版本 <code>&gt;8.0</code> 默认就是这个认证模式）的用户，那么 mysql 服务端会要求客户端必须启用 ssl；如果是用 <code>mysql_native_password</code> 进行认证的用户，那么在认证过程中会有随机的字符出现（应该是用于 challenge）。以上两种认证模式均无法通过 gopher 利用。</li>
+<li>录制完毕之后，没有手动退出 mysql cli，那么就需要在最后加上 <code>%01%00%00%00%01</code>，否则 curl 会一直卡着（虽然这时候抓包已经可以看到回显了），原因是 curl 没收到服务端发来的结束符，认为还有剩余的数据在管道中，于是继续等待，表现出来就是 curl 一直卡着。</li>
+</ol>
+<h4 id="❄️-攻击-Redis"><a href="#❄️-攻击-Redis" class="headerlink" title="❄️ 攻击 Redis"></a>❄️ 攻击 Redis</h4><p>没啥特别的，简直就是一个 redis-cli <img src="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bwMkmxegMW1ib4wticu1CP7nNL38teoypk4aVk68YYMomdbo14TRhQIptA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片">，Redis 有密码无密码都可，可以利用 <code>\r\n</code> 拼接来一次性执行多条命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 即 auth 123456\r\nPING\r\nquit</span><br><span class="line">curl gopher:&#x2F;&#x2F;127.1:6001&#x2F;&#x2F;auth%20123456%0d%0aPING%0d%0aquit</span><br></pre></td></tr></table></figure>
+
+<p>当然，也可以用来爆破密码。</p>
+<h3 id="🌧-dict"><a href="#🌧-dict" class="headerlink" title="🌧 dict://"></a>🌧 dict://</h3><p>协议详情：<span class="exturl" data-url="aHR0cDovL2RpY3Qub3JnL3JmYzIyMjkudHh0">http://dict.org/rfc2229.txt<i class="fa fa-external-link-alt"></i></span></p>
+<p>dict 协议是一个字典服务器协议，就是用来查单词的那种字典。字典服务器本来是为了让客户端使用过程中能够访问更多的字典源。</p>
+<p>dict 协议的格式：<code>dict://</code>+<code>ip:端口</code>+<code>/</code> + <code>TCP/IP 数据</code></p>
+<p>与 gopher 相比，dict 携带的数据无法插入 <code>\r\n</code>（只能插入 <code>\\r\\n</code>），所以对于大部分组件来说，只能执行一条命令，所以如果一个组件可以一步一步操作（比如 redis），那么才可以利用，那么很明显，需要认证的 redis 是无法通过 dict 攻击的（即使你知道密码也没用），但是可以用来爆破密码。</p>
+<p>这里举个 Redis 的例子，由于 dict:// 相对比较鸡肋一些，所以算是一个低配的 redis-cli <img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>首先演示一下 set/get：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>再来个写 webshell 的：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p>
+<p>需要注意的点：</p>
+<ol>
+<li>若最后的 payload 需要用空格，那么在 dict 里需要用 <code>:</code> 表示，即 <code>dict://127.0.0.1:80/set:key:1</code> 等于 <code>set key 1</code>。</li>
+<li>curl 在通过 dict 执行的时候，会在前后自动加上客户端版本和 QUIT：<img src="/posts/ba5bdd23/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片">这也是为什么上面那个 redis 的例子中，第一行永远是错误，最后一行永远是 <code>+OK</code> 的原因</li>
+<li>由于 dict:// 协议在出现 <code>?</code> 的时候会截断后面的数据：<img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEqM0yURhvgxSOiczib7JIURTOEO0LegajkrA4G4TS5cekzspHbiat2SChw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片">这里的思路就是先把数据传给组件，然后让组件去完成转义，比如 <code>set key &quot;1\x3f1&quot;</code> 对于 redis 来说等于 <code>set key &quot;1?1&quot;</code>，所以 dict:// 就可以这样：<code>curl &#39;dict://127.1:6379/set:key:&quot;1\x3f1&quot;&#39;</code>。上面那个写 webshell 的例子就是因为这个原因所以进行了转义。</li>
+</ol>
+<h3 id="🌧-file"><a href="#🌧-file" class="headerlink" title="🌧 file://"></a>🌧 file://</h3><p>协议详情：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvcHJldmlvdXMtdmVyc2lvbnMvL2FhNzY3NzMxKHY9dnMuODUp">https://docs.microsoft.com/en-us/previous-versions//aa767731(v=vs.85)<i class="fa fa-external-link-alt"></i></span></p>
+<p>读取本地文件，这个没啥好说的：<code>curl file:///etc/passwd</code></p>
+<p>比如浏览器读取本地文件的时候，用的也是这个协议：<img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEVfX5pmlQZYJAhk0geicephib4Tt76xFKdUT6DibbL0ZWl0A2LKbiabcFAQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>对于 PHP 的文件包含有个骚操作就是，可以创建一个名为 <code>&lt;?php phpinfo(); ?&gt;.txt</code> 的文件，然后压缩上传，接下来直接包含即可（需要绝对路径）：<code>include(&quot;file://wwwhtml/upload/test.zip&quot;);</code>，当然，<code>.tar</code>、<code>.zip</code> 都可以。至于原理，贴个图大家就都懂啦：<img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEE6pmSpfY8CODkj6RSAY5CMYrUpaEpMlMdqS9vQt3mwCdm8px4ln6Pg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<h3 id="🌧-data"><a href="#🌧-data" class="headerlink" title="🌧 data://"></a>🌧 data://</h3><ul>
+<li><p>作用：Data URI scheme 是在 RFC2397 中定义的，目的是将一些小的数据，直接嵌入到网页中，从而不用再从外部文件载入</p>
+</li>
+<li><p>条件：</p>
+</li>
+<li><ul>
+<li><code>allow_url_include</code>: <code>On</code></li>
+<li>PHP &gt;= 5.2.0</li>
+</ul>
+</li>
+</ul>
+<p>格式为 <code>data:(//)[class](/)[type](;base64),payload</code>：</p>
+<ol>
+<li><code>//</code> 可以省略</li>
+<li><code>/</code> 可以省略，特殊情况在下面</li>
+<li><code>[class]</code>、<code>[type]</code>: 可以省略，任意字符；如果要写其中一个，那么 <code>/</code> 不可省略，另一个为可空。</li>
+<li><code>;base64</code> 可以省略；如果要加的话，payload 必须经过 base64 编码</li>
+</ol>
+<p>这些在 PHP 里都是可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data:&#x2F;&#x2F;tr0y&#x2F;tr0y;base64,PD9waHAgcGhwaW5mbygpOz8+</span><br><span class="line">data:tr0y&#x2F;tr0y;base64,PD9waHAgcGhwaW5mbygpOz8+</span><br><span class="line">data:tr0y&#x2F;;base64,PD9waHAgcGhwaW5mbygpOz8+</span><br><span class="line">data:&#x2F;;base64,PD9waHAgcGhwaW5mbygpOz8+</span><br><span class="line">data:;base64,PD9waHAgcGhwaW5mbygpOz8+</span><br><span class="line">data:,&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>该协议类似于 php://input，区别在于 data:// 是直接获取后面跟着的内容。浏览器一般都支持这个协议，最常用的莫过于展示小图片了；在 CTF 中常用于执行任意 PHP 代码。</p>
+<p>每个组件支持的会稍微有点区别，例如 <code>data:;,&lt;?php phpinfo();?&gt;</code> 在 Chrome 可以，但是在 PHP 不行。</p>
+<h3 id="🌧-php"><a href="#🌧-php" class="headerlink" title="🌧 php://"></a>🌧 php://</h3><p><code>php://</code>：访问各个输入/输出流（I/O streams）。PHP 提供了一些杂项输入/输出（IO）流，允许访问 PHP 的输入输出流、标准输入输出和错误描述符；内存中、磁盘备份的临时文件流以及可以操作其他读取写入文件资源的过滤器。</p>
+<p>可以看官方文档的介绍：<span class="exturl" data-url="aHR0cHM6Ly93d3cucGhwLm5ldC9tYW51YWwvemgvd3JhcHBlcnMucGhwLnBocA==">https://www.php.net/manual/zh/wrappers.php.php<i class="fa fa-external-link-alt"></i></span></p>
+<p>属于 PHP 中的伪协议，一般受限于 php.ini 中的配置，所以下文会一并列出使用条件。</p>
+<h4 id="❄️-php-input"><a href="#❄️-php-input" class="headerlink" title="❄️ php://input"></a>❄️ php://input</h4><ul>
+<li><p>作用：访问请求的原始数据的只读流</p>
+</li>
+<li><p>条件：</p>
+</li>
+<li><ul>
+<li><code>allow_url_include</code>: <code>On</code></li>
+<li>form 表单里的 enctype 不为 <code>multipart/form-data</code>（默认为 <code>application/x-www-form-urlencoded</code>）。体现在请求头里就是 Content-Type 不能为 <code>multipart/form-data</code></li>
+</ul>
+</li>
+</ul>
+<p>作用有点拗口，其实 <code>php://input</code> 可以理解为“文件路径”，但是 PHP 在遇到这个伪协议的时候，不会真去本地文件找这个路径然后读取文件内容，而是直接将 POST 的数据当做文件内容。</p>
+<p>比如 readfile、file_get_contents、include，都支持此伪协议。</p>
+<p>在 CTF 中常用于执行任意 PHP 代码。</p>
+<h4 id="❄️-php-filter"><a href="#❄️-php-filter" class="headerlink" title="❄️ php://filter"></a>❄️ php://filter</h4><ul>
+<li>作用：用于数据流打开时，对数据进行筛选、过滤。</li>
+<li>条件：无</li>
+</ul>
+<p>格式：<code>php://filter/[0]=[1]/resource=[2]</code></p>
+<p>其中：</p>
+<ul>
+<li><code>[0]</code>: 可选 read/write</li>
+<li><code>[1]</code>: 就是过滤器，可以设定一个或多个过滤器名称，以管道符（<code>|</code>）分隔即可。比如：<code>convert</code>、<code>string</code>，更多可参考官方文档：<span class="exturl" data-url="aHR0cHM6Ly93d3cucGhwLm5ldC9tYW51YWwvemgvZmlsdGVycy5waHA=">https://www.php.net/manual/zh/filters.php<i class="fa fa-external-link-alt"></i></span></li>
+<li><code>[2]</code>: 必选的值，为要筛选过滤的数据流，通常是本地文件的路径，绝对路径和相对路径均可以使用。</li>
+</ul>
+<p>示例：<code>php://filter/read=convert.base64-encode/resource=flag.php</code></p>
+<p>表示读取本地文件 flag.php，并进行 base64 编码。</p>
+<p>在 CTF 中常用于读取 PHP 的源码。</p>
+<h3 id="🌧-phar"><a href="#🌧-phar" class="headerlink" title="🌧 phar://"></a>🌧 phar://</h3><ul>
+<li><p>作用：属于 PHP 伪协议，phar（PHP Archive) 是 PHP 里类似于 JAR 的一种打包文件。</p>
+</li>
+<li><p>条件：</p>
+</li>
+<li><ul>
+<li>PHP &gt;= 5.3.0</li>
+</ul>
+</li>
+</ul>
+<p>phar:// 的利用场景示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">  $files &#x3D; $_GET[&#39;file&#39;];</span><br><span class="line">  include($files);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对于这样的例子，先上传一个 zip 压缩包，里面是一个 txt 文件，内容是：<code>&lt;?php phpinfo(); ?&gt;</code>，在知道绝对路径（/www/upload/test.zip）之后，可以利用 phar:// 来执行这段代码，payload: <code>phar:///www/upload/test.zip/test.txt</code></p>
+<p>phar:// 还有反序列化的利用方式，等到总结反序列化的时候一起说。</p>
+<h3 id="🌧-zip"><a href="#🌧-zip" class="headerlink" title="🌧 zip://"></a>🌧 zip://</h3><ul>
+<li>作用：属于 PHP 伪协议，用于访问 zip 压缩流</li>
+</ul>
+<p>格式：<code>zip://[压缩文件绝对路径]#[压缩文件内的路径以及文件名]</code></p>
+<h3 id="🌧-compress"><a href="#🌧-compress" class="headerlink" title="🌧 compress.*://"></a>🌧 compress.*://</h3><ul>
+<li>作用：属于 PHP 伪协议，用于访问压缩流</li>
+</ul>
+<h4 id="❄️-compress-zlib"><a href="#❄️-compress-zlib" class="headerlink" title="❄️ compress.zlib://"></a>❄️ compress.zlib://</h4><ul>
+<li>作用：访问 <code>.gz</code> 压缩流</li>
+</ul>
+<p>示例：</p>
+<ol>
+<li>创建 .gz: <code>tar -zcvf test.gz ./test.txt</code></li>
+<li>payload: <code>compress.zlib://test.gz</code></li>
+</ol>
+<h4 id="❄️-compress-bzip2"><a href="#❄️-compress-bzip2" class="headerlink" title="❄️ compress.bzip2://"></a>❄️ compress.bzip2://</h4><ul>
+<li>作用：访问 <code>.bz2</code> 压缩流</li>
+</ul>
+<p>示例：</p>
+<ol>
+<li>创建 .bz2: <code>tar -jcvf test.bz2 ./test.txt</code></li>
+<li>payload: <code>compress.bzip2://test.bz2</code></li>
+</ol>
+<h2 id="☁️-总结"><a href="#☁️-总结" class="headerlink" title="☁️ 总结"></a>☁️ 总结</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4QjwHRcmh2VEMH7eHcmWdHEBaicrWVkBriav3aJFIVYbFPsaASpKnPrz88D4tERiaDaTia3nI6729uMKQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>最近本来在写 SSRF 的，快写完了，发现先写一下这些协议作为前置知识比较合适 <img src="https://mmbiz.qpic.cn/mmbiz/yZPTcMGWibvvLx6F9VHHuduYRiaYhaE4bwAY5reCwsr8ibaUfUXicKSJcOBo2kRSa1aiaTy1Ieibf15HRwZBUkN7NibGg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片">，当然它们可以造成的安全问题不仅仅有 SSRF，还有文件包含等。从个人经验来看，这些协议还是在 CTF 中用的多一些，各大 CTF 中出现过非常多精彩的题目 <img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4TE7fwwzHYW0XstQ6FbOb7uB8XMPib1MNPaFA6ibicxG2we0mjZkHPDNjvDiashScfvqRvf5icd0vU2djQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片">，比如 hxpCTF 的一道通过 file_put_contents 来完成 SSRF：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ybWIxMjIuY29tLzIwMjAvMTIvMzAvaHhwLUNURi1yZXNvbmF0b3ItV3JpdGV1cC1TU1JGLXZpYS1maWxlLXB1dC1jb250ZW50cy8=">https://rmb122.com/2020/12/30/hxp-CTF-resonator-Writeup-SSRF-via-file-put-contents/<i class="fa fa-external-link-alt"></i></span></p>
+<p>最后多说一句，我感觉很多 CTF 题目可以用来做后门，应该很难检测出来吧…<img src="https://mmbiz.qpic.cn/mmbiz_png/9X75Rafjb4TE7fwwzHYW0XstQ6FbOb7uWPflmwKia0P7aZKMpwfOALwSeVAGLr3thHxLA5fzV3MVyRc9LVLYKhg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>oudeniu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://butnomingzi.github.io/posts/ba5bdd23/" title="非常用协议记录">https://butnomingzi.github.io/posts/ba5bdd23/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%80%BB%E7%BB%93/" rel="tag"><i class="fa fa-tag"></i> 总结</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/680dc578/" rel="prev" title="Chrome-0Day">
+      <i class="fa fa-chevron-left"></i> Chrome-0Day
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SecMap-%E9%9D%9E%E5%B8%B8%E7%94%A8%E5%8D%8F%E8%AE%AE%E5%A4%A7%E7%A4%BC%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">SecMap - 非常用协议大礼包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%98%81%EF%B8%8F-%E7%9F%A5%E8%AF%86%E7%82%B9%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">☁️ 知识点介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%98%81%EF%B8%8F-%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.2.</span> <span class="nav-text">☁️ 协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-gopher"><span class="nav-number">1.2.1.</span> <span class="nav-text">🌧 gopher:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-dict"><span class="nav-number">1.2.2.</span> <span class="nav-text">🌧 dict:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-file"><span class="nav-number">1.2.3.</span> <span class="nav-text">🌧 file:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-data"><span class="nav-number">1.2.4.</span> <span class="nav-text">🌧 data:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-php"><span class="nav-number">1.2.5.</span> <span class="nav-text">🌧 php:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-phar"><span class="nav-number">1.2.6.</span> <span class="nav-text">🌧 phar:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-zip"><span class="nav-number">1.2.7.</span> <span class="nav-text">🌧 zip:&#x2F;&#x2F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%F0%9F%8C%A7-compress"><span class="nav-number">1.2.8.</span> <span class="nav-text">🌧 compress.*:&#x2F;&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%98%81%EF%B8%8F-%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">☁️ 总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">oudeniu</p>
+  <div class="site-description" itemprop="description">一点都对，半点都没错。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vcG90YXRzb1NlYy8=" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;potatsoSec&#x2F;">宽字节安全</span>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <div id="music163player">
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=420 src="//music.163.com/outchain/player?type=0&id=5008808022&auto=1&height=430"></iframe>
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">oudeniu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">273k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:08</span>
+</div>
+    <!-- 网站运行时间的设置 -->
+    <span id="timeDate">载入天数...</span>
+    <span id="times">载入时分秒...</span>  
+    <script>
+        var now = new Date();
+        function createtime() {
+            var grt= new Date("03/03/2020 13:14:21");//此处修改你的建站时间或者网站上线时间
+            now.setTime(now.getTime()+250);
+            days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+            hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+            if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+            mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+            seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+            snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+            document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 ";
+            document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+        }
+    setInterval("createtime()",250);
+    </script>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : '',
+      projectId: ''
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script data-pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+<!-- gitalk.swig -->
+<link href="https://cdn.bootcss.com/gitalk/1.4.0/gitalk.min.css" rel="stylesheet" />
+<script src="https://cdn.bootcss.com/gitalk/1.4.0/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: 'talk.github.io',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),   // ISSUE：location.href 限制50个字符 (应该是Issue 内容存数据库的标识， 具体在页面上无感)
+    labels: ''.split(',').filter(l => l),  // 需要的 labels需要一个数组，否则会报错
+    perPage: ,
+    pagerDirection: '',
+    createIssueManually: ,
+    distractionFreeMode: 
+  })
+  gitalk.render('gitalk-container')
+</script>
+
+  
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"}});</script></body>
+</html>
